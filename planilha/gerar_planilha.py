@@ -21,6 +21,8 @@ import os
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.datavalidation import DataValidation
+from openpyxl.formatting.rule import CellIsRule
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 JSON_PATH = os.path.join(HERE, "dados_alimentos.json")
@@ -61,6 +63,26 @@ CATEGORY_ORDER = [
     "Gorduras e Temperos",
     "Vegetais e Verduras",
 ]
+
+# Refeições usadas na aba "Montar Refeição" — precisam bater exatamente com
+# os valores usados no campo "refeicoes" de dados_alimentos.json.
+MEALS = ["Café da manhã", "Almoço", "Lanche", "Jantar"]
+
+# Para cada categoria, qual categoria costuma combinar bem com ela — usado
+# só para calcular a coluna "Sugestão" da aba "Montar Refeição" (uma dica,
+# não uma regra rígida). Uma categoria nova criada pela skill
+# adicionar-alimento não entra aqui automaticamente — a sugestão para ela
+# fica em branco até alguém adicionar uma linha neste dicionário.
+CATEGORIA_COMBINA = {
+    "Laticínios": "Grãos e Cereais",
+    "Grãos e Cereais": "Laticínios",
+    "Proteínas": "Vegetais e Verduras",
+    "Vegetais e Verduras": "Proteínas",
+    "Bebidas": "Proteínas",
+    "Frutas": "Laticínios",
+    "Doces e Sobremesas": "Frutas",
+    "Gorduras e Temperos": "Vegetais e Verduras",
+}
 
 
 def style_title(ws, text, span, row=1, height=26):
@@ -229,21 +251,23 @@ def build_aba2(wb):
         r += 1
 
 
-def load_alimentos():
-    with open(JSON_PATH, encoding="utf-8") as f:
-        alimentos = json.load(f)
-
-    # ordena por categoria (seguindo CATEGORY_ORDER, categorias novas vão ao
-    # final na ordem de primeira aparição) e mantém a ordem original dentro
-    # de cada categoria.
+def category_order(alimentos):
+    """Ordem das categorias: CATEGORY_ORDER primeiro, categorias novas (que
+    não estejam na lista) entram no final, na ordem em que aparecerem."""
     seen_order = list(CATEGORY_ORDER)
     for item in alimentos:
         if item["categoria"] not in seen_order:
             seen_order.append(item["categoria"])
+    return seen_order
 
-    alimentos_ordenados = sorted(
-        alimentos, key=lambda item: seen_order.index(item["categoria"])
-    )
+
+def load_alimentos():
+    with open(JSON_PATH, encoding="utf-8") as f:
+        alimentos = json.load(f)
+
+    # ordena por categoria e mantém a ordem original dentro de cada categoria.
+    order = category_order(alimentos)
+    alimentos_ordenados = sorted(alimentos, key=lambda item: order.index(item["categoria"]))
     return alimentos_ordenados
 
 
@@ -317,11 +341,267 @@ def build_aba3(wb):
     ws3.row_dimensions[r].height = 30
 
 
+def build_ref_alimentos(wb):
+    """Aba auxiliar (oculta) que alimenta as fórmulas da aba 'Montar Refeição':
+    a tabela completa de alimentos, listas por refeição já filtradas/ordenadas
+    (Liberado > Moderar > Evitar) para os menus suspensos, uma tabela de
+    "alimento em destaque" por categoria+refeição e a tabela de categorias
+    que combinam bem entre si. Tudo com valores fixos (sem fórmula) — é
+    recalculada do zero a cada vez que este script roda."""
+    ws = wb.create_sheet("Ref_Alimentos")
+    ws.sheet_state = "hidden"
+
+    alimentos = load_alimentos()
+    categorias = category_order(alimentos)
+
+    headers = ["Alimento", "Categoria", "Classificação", "Porção", "Frequência",
+               "Observação"] + MEALS
+    for i, h in enumerate(headers, start=1):
+        ws.cell(row=1, column=i, value=h)
+
+    for idx, item in enumerate(alimentos, start=2):
+        ws.cell(row=idx, column=1, value=item["alimento"])
+        ws.cell(row=idx, column=2, value=item["categoria"])
+        ws.cell(row=idx, column=3, value=item["classificacao"])
+        ws.cell(row=idx, column=4, value=item["porcao"])
+        ws.cell(row=idx, column=5, value=item["frequencia"])
+        ws.cell(row=idx, column=6, value=item["observacao"])
+        refeicoes = set(item.get("refeicoes", []))
+        for j, meal in enumerate(MEALS, start=7):
+            ws.cell(row=idx, column=j, value="X" if meal in refeicoes else "")
+
+    # Listas por refeição (colunas L, M, N, O = 12-15), para os menus
+    # suspensos: só os alimentos elegíveis para aquela refeição, com
+    # Liberado primeiro, depois Moderar, depois Evitar.
+    tier = {"Liberado": 0, "Moderar": 1, "Evitar": 2}
+    list_col = {"Café da manhã": 12, "Almoço": 13, "Lanche": 14, "Jantar": 15}
+    for meal, col in list_col.items():
+        ws.cell(row=1, column=col, value=f"Lista — {meal}")
+        elegiveis = [it for it in alimentos if meal in set(it.get("refeicoes", []))]
+        elegiveis.sort(key=lambda it: tier.get(it["classificacao"], 9))
+        for i, it in enumerate(elegiveis, start=2):
+            ws.cell(row=i, column=col, value=it["alimento"])
+
+    # Tabela "alimento em destaque" por categoria+refeição (colunas Q, R =
+    # 17, 18): usada pela coluna "Sugestão". Preferência por um item
+    # Liberado; se não houver nenhum, usa o primeiro elegível da categoria.
+    ws.cell(row=1, column=17, value="Chave (Categoria|Refeição)")
+    ws.cell(row=1, column=18, value="Alimento em destaque")
+    row = 2
+    for meal in MEALS:
+        for categoria in categorias:
+            candidatos = [it for it in alimentos
+                          if it["categoria"] == categoria and meal in set(it.get("refeicoes", []))]
+            if not candidatos:
+                continue
+            liberados = [it for it in candidatos if it["classificacao"] == "Liberado"]
+            destaque = liberados[0] if liberados else candidatos[0]
+            ws.cell(row=row, column=17, value=f"{categoria}|{meal}")
+            ws.cell(row=row, column=18, value=destaque["alimento"])
+            row += 1
+
+    # Tabela de categorias que combinam bem (colunas T, U = 20, 21).
+    ws.cell(row=1, column=20, value="Categoria escolhida")
+    ws.cell(row=1, column=21, value="Categoria sugerida")
+    for i, (origem, sugerida) in enumerate(CATEGORIA_COMBINA.items(), start=2):
+        ws.cell(row=i, column=20, value=origem)
+        ws.cell(row=i, column=21, value=sugerida)
+
+    return ws
+
+
+def _build_meal_block(ws, start_row, meal_name, list_col_letter, n_items=5):
+    """Escreve um bloco de refeição (título + cabeçalho + N linhas de item)
+    a partir de start_row e devolve a próxima linha livre depois do bloco."""
+    ws.merge_cells(start_row=start_row, start_column=1, end_row=start_row, end_column=8)
+    title_cell = ws.cell(row=start_row, column=1, value=meal_name.upper())
+    title_cell.font = Font(name=FONT_NAME, size=11, bold=True, color=COLOR_CATEGORY_FG)
+    title_cell.fill = PatternFill("solid", fgColor=COLOR_CATEGORY_BG)
+    title_cell.alignment = Alignment(horizontal="left", vertical="center", indent=1)
+    for col in range(1, 9):
+        ws.cell(row=start_row, column=col).border = BORDER_ALL
+    ws.row_dimensions[start_row].height = 20
+
+    header_r = start_row + 1
+    headers = ["Nº", "Alimento", "Categoria", "Porção sugerida", "Quantidade a comer",
+               "Classificação", "Sugestão (com base no item anterior)", "Conflito"]
+    for i, h in enumerate(headers, start=1):
+        cell = ws.cell(row=header_r, column=i, value=h)
+        cell.font = Font(name=FONT_NAME, size=9.5, bold=True, color=COLOR_TITLE_FG)
+        cell.fill = PatternFill("solid", fgColor=COLOR_TITLE_BG)
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        cell.border = BORDER_ALL
+    ws.row_dimensions[header_r].height = 30
+
+    first_row = header_r + 1
+    last_row = first_row + n_items - 1
+
+    for offset in range(n_items):
+        r = first_row + offset
+
+        n_cell = ws.cell(row=r, column=1, value=offset + 1)
+        n_cell.font = Font(name=FONT_NAME, size=10.5)
+        n_cell.alignment = Alignment(horizontal="center", vertical="center")
+
+        b_cell = ws.cell(row=r, column=2)
+        b_cell.font = Font(name=FONT_NAME, size=10.5)
+        b_cell.alignment = Alignment(horizontal="left", vertical="center", indent=1)
+
+        c_cell = ws.cell(
+            row=r, column=3,
+            value=f'=IFERROR(INDEX(Ref_Alimentos!$B$2:$B$101,MATCH($B{r},Ref_Alimentos!$A$2:$A$101,0)),"")'
+        )
+        c_cell.font = Font(name=FONT_NAME, size=10, italic=True, color="666666")
+        c_cell.alignment = Alignment(horizontal="left", vertical="center", indent=1)
+
+        d_cell = ws.cell(
+            row=r, column=4,
+            value=f'=IFERROR(INDEX(Ref_Alimentos!$D$2:$D$101,MATCH($B{r},Ref_Alimentos!$A$2:$A$101,0)),"")'
+        )
+        d_cell.font = Font(name=FONT_NAME, size=10, italic=True, color="666666")
+        d_cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+
+        e_cell = ws.cell(row=r, column=5)
+        e_cell.font = Font(name=FONT_NAME, size=10.5)
+        e_cell.alignment = Alignment(horizontal="center", vertical="center")
+
+        f_cell = ws.cell(
+            row=r, column=6,
+            value=f'=IFERROR(INDEX(Ref_Alimentos!$C$2:$C$101,MATCH($B{r},Ref_Alimentos!$A$2:$A$101,0)),"")'
+        )
+        f_cell.font = Font(name=FONT_NAME, size=10.5, bold=True)
+        f_cell.alignment = Alignment(horizontal="center", vertical="center")
+
+        if offset == 0:
+            g_cell = ws.cell(row=r, column=7, value="")
+        else:
+            prev_cat = f"$C{r - 1}"
+            formula = (
+                f'=IF($B{r - 1}="","",'
+                f'IFERROR(INDEX(Ref_Alimentos!$R$2:$R$60,MATCH('
+                f'IFERROR(INDEX(Ref_Alimentos!$U$2:$U$9,MATCH({prev_cat},Ref_Alimentos!$T$2:$T$9,0)),"")'
+                f'&"|"&"{meal_name}",Ref_Alimentos!$Q$2:$Q$60,0)),""))'
+            )
+            g_cell = ws.cell(row=r, column=7, value=formula)
+        g_cell.font = Font(name=FONT_NAME, size=10, italic=True, color=COLOR_TITLE_BG)
+        g_cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True, indent=1)
+
+        b_rng = f"$B${first_row}:$B${last_row}"
+        f_rng = f"$F${first_row}:$F${last_row}"
+        conflito_formula = (
+            f'=IF($B{r}="","",IF($F{r}="Evitar","⚠ Conflito",'
+            f'IF(AND($F{r}="Moderar",SUMPRODUCT(({b_rng}<>"")*(ROW({b_rng})<>ROW($B{r}))*'
+            f'(({f_rng}="Moderar")+({f_rng}="Evitar")))>0),"⚠ Conflito","")))'
+        )
+        h_cell = ws.cell(row=r, column=8, value=conflito_formula)
+        h_cell.font = Font(name=FONT_NAME, size=10.5, bold=True)
+        h_cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+
+        for col in range(1, 9):
+            ws.cell(row=r, column=col).border = BORDER_ALL
+        ws.row_dimensions[r].height = 26
+
+    dv = DataValidation(
+        type="list",
+        formula1=f"=Ref_Alimentos!${list_col_letter}$2:${list_col_letter}$101",
+        allow_blank=True,
+        showDropDown=False,
+    )
+    dv.error = "Escolha um alimento da lista da coluna (ou deixe em branco)."
+    dv.errorTitle = "Alimento fora da lista"
+    dv.errorStyle = "warning"
+    dv.promptTitle = f"Alimentos para {meal_name}"
+    dv.prompt = "Lista filtrada para esta refeição, com os alimentos Liberados primeiro."
+    ws.add_data_validation(dv)
+    dv.add(f"B{first_row}:B{last_row}")
+
+    class_range = f"F{first_row}:F{last_row}"
+    ws.conditional_formatting.add(
+        class_range, CellIsRule(operator="equal", formula=['"Liberado"'],
+                                 fill=PatternFill("solid", fgColor=COLOR_LIBERADO)))
+    ws.conditional_formatting.add(
+        class_range, CellIsRule(operator="equal", formula=['"Moderar"'],
+                                 fill=PatternFill("solid", fgColor=COLOR_MODERAR)))
+    ws.conditional_formatting.add(
+        class_range, CellIsRule(operator="equal", formula=['"Evitar"'],
+                                 fill=PatternFill("solid", fgColor=COLOR_EVITAR)))
+
+    conflito_range = f"H{first_row}:H{last_row}"
+    ws.conditional_formatting.add(
+        conflito_range, CellIsRule(operator="equal", formula=['"⚠ Conflito"'],
+                                    fill=PatternFill("solid", fgColor=COLOR_WARN_BG),
+                                    font=Font(name=FONT_NAME, size=10.5, bold=True, color="C0392B")))
+
+    return last_row + 2  # próxima linha livre, com 1 linha de espaço
+
+
+def build_aba4(wb):
+    ws4 = wb.create_sheet("Montar Refeição")
+    ws4.sheet_view.showGridLines = False
+
+    widths = [5, 30, 16, 16, 20, 14, 34, 14]
+    for i, w in enumerate(widths, start=1):
+        ws4.column_dimensions[get_column_letter(i)].width = w
+
+    style_title(ws4, "Montar uma Refeição — escolha os alimentos de cada refeição", span=8, row=1)
+
+    ws4.merge_cells(start_row=2, start_column=1, end_row=2, end_column=8)
+    instr = ws4.cell(
+        row=2, column=1,
+        value="Escolha o alimento no menu suspenso da coluna 'Alimento' — a lista já vem filtrada "
+              "por refeição (por isso não aparece arroz/feijão no café da manhã, por exemplo) e com "
+              "os alimentos Liberados primeiro. Categoria, Porção sugerida e Classificação preenchem "
+              "sozinhas. 'Sugestão' mostra um alimento que costuma combinar bem com o item escolhido "
+              "logo acima (é uma dica, não é obrigatório escolher). Se 'Conflito' mostrar "
+              "'⚠ Conflito', evite reunir esses itens na mesma refeição."
+    )
+    instr.font = Font(name=FONT_NAME, size=9.5, italic=True)
+    instr.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+    ws4.row_dimensions[2].height = 48
+
+    ws4.row_dimensions[3].height = 20
+    legend = [
+        (1, "Legenda:", None),
+        (2, "Liberado", COLOR_LIBERADO),
+        (3, "Moderar", COLOR_MODERAR),
+        (4, "Evitar", COLOR_EVITAR),
+        (6, "⚠ Conflito", COLOR_WARN_BG),
+    ]
+    for col, text, color in legend:
+        cell = ws4.cell(row=3, column=col, value=text)
+        cell.font = Font(name=FONT_NAME, size=9, bold=True,
+                          color="C0392B" if text == "⚠ Conflito" else "000000")
+        if color:
+            cell.fill = PatternFill("solid", fgColor=color)
+            cell.border = BORDER_ALL
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+
+    row = 5
+    for meal, list_col_letter in [("Café da manhã", "L"), ("Almoço", "M"),
+                                   ("Lanche", "N"), ("Jantar", "O")]:
+        row = _build_meal_block(ws4, row, meal, list_col_letter)
+
+    ws4.merge_cells(start_row=row, start_column=1, end_row=row, end_column=8)
+    note = ws4.cell(
+        row=row, column=1,
+        value="Limitações conhecidas: a ordem do menu suspenso é fixa (Liberado > Moderar > Evitar), "
+              "ela não se reordena sozinha conforme o item anterior — quem indica o que combina "
+              "melhor é a coluna 'Sugestão'. A coluna 'Conflito' é uma aproximação (marca um item "
+              "'Evitar' sozinho, ou dois itens 'Moderar'/'Evitar' juntos na mesma refeição) — não é "
+              "uma checagem real de interação entre os dois alimentos específicos."
+    )
+    note.font = Font(name=FONT_NAME, size=9, italic=True)
+    note.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+    ws4.row_dimensions[row].height = 44
+
+
 def main():
     wb = openpyxl.Workbook()
     build_aba1(wb)
     build_aba2(wb)
     build_aba3(wb)
+    build_aba4(wb)
+    build_ref_alimentos(wb)
     wb.save(OUT_PATH)
     print("Salvo em", OUT_PATH)
 

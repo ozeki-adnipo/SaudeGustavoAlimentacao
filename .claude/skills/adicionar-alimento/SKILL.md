@@ -7,8 +7,10 @@ description: Acrescenta um novo alimento à planilha de alimentação pós-infar
 
 Esta skill existe para que o usuário só precise digitar algo como **"adicione
 sucrilhos"** e a planilha `planilha/plano-alimentar-pos-infarto.xlsx` seja
-atualizada sozinha, na aba **"Alimentos e Quantidades"**, mantendo a mesma
-formatação de sempre.
+atualizada sozinha, na aba **"Alimentos e Quantidades"** — e passe a
+aparecer também nos menus suspensos da aba **"Montar Refeição"** (nas
+refeições marcadas no campo `refeicoes`) — mantendo a mesma formatação de
+sempre.
 
 ## Contexto do paciente (usar para decidir a classificação)
 
@@ -61,6 +63,16 @@ raciocínio nutricional geral do passo 3 abaixo.
    o alimento se encaixar em uma delas (senão, crie uma nova categoria):
    `Frutas`, `Grãos e Cereais`, `Proteínas`, `Laticínios`, `Bebidas`,
    `Doces e Sobremesas`, `Gorduras e Temperos`, `Vegetais e Verduras`.
+   Se criar uma categoria nova, edite também `CATEGORY_ORDER` e, se fizer
+   sentido, `CATEGORIA_COMBINA` no topo de `planilha/gerar_planilha.py`
+   (senão a coluna "Sugestão" da aba "Montar Refeição" fica em branco para
+   ela).
+
+2a. **Defina em quais refeições o alimento se encaixa** (campo `refeicoes`,
+    obrigatório — sem ele o alimento não aparece em nenhum menu suspenso da
+    aba "Montar Refeição"): uma lista com um ou mais de `"Café da manhã"`,
+    `"Almoço"`, `"Lanche"`, `"Jantar"` (grafia exata). Ex.: arroz/feijão só
+    Almoço+Jantar; aveia só Café da manhã; água em todas.
 
 3. **Defina porção, frequência e classificação** (`Liberado` / `Moderar` /
    `Evitar`) com base em conhecimento nutricional geral e no contexto do
@@ -83,9 +95,10 @@ raciocínio nutricional geral do passo 3 abaixo.
 5. **Atualize `planilha/dados_alimentos.json`**:
    - Se o alimento já existir na lista (mesmo nome, ignorando maiúsculas
      /minúsculas), **edite o item existente** em vez de duplicar.
-   - Senão, **acrescente um novo objeto** à lista, no formato:
+   - Senão, **acrescente um novo objeto** à lista, no formato (o campo
+     `refeicoes` é obrigatório, ver passo 2a):
      ```json
-     {"categoria": "...", "alimento": "...", "porcao": "...", "frequencia": "...", "classificacao": "Liberado|Moderar|Evitar", "observacao": "..."}
+     {"categoria": "...", "alimento": "...", "porcao": "...", "frequencia": "...", "classificacao": "Liberado|Moderar|Evitar", "observacao": "...", "refeicoes": ["Café da manhã", "Lanche"]}
      ```
 
 6. **Regenere a planilha** rodando, a partir da raiz do repositório:
@@ -93,8 +106,21 @@ raciocínio nutricional geral do passo 3 abaixo.
    python3 planilha/gerar_planilha.py
    ```
    Isso reconstrói o arquivo `.xlsx` inteiro (abas 1 e 2 continuam iguais; a
-   aba 3 é remontada a partir do JSON), preservando toda a formatação/cores.
-   Se `openpyxl` não estiver instalado, rode `pip install openpyxl` antes.
+   aba 3 e a aba oculta `Ref_Alimentos` são remontadas a partir do JSON, e a
+   aba 4 "Montar Refeição" passa a enxergar o alimento novo nos menus
+   suspensos da(s) refeição(ões) marcada(s)), preservando toda a
+   formatação/cores. Se `openpyxl` não estiver instalado, rode
+   `pip install openpyxl` antes.
+
+   **Tente recalcular com LibreOffice** (`scripts/recalc.py` da skill xlsx)
+   depois de gerar o arquivo, para confirmar que as fórmulas da aba "Montar
+   Refeição" não geram erro. Se o recálculo travar/der timeout no ambiente
+   (aconteceu na criação desta aba — parece ser uma limitação do sandbox, não
+   do arquivo), não insista mais que uma tentativa extra: avise o usuário que
+   não foi possível confirmar automaticamente, mas que a lógica das fórmulas
+   foi validada por simulação em Python e que elas calculam normalmente ao
+   abrir o arquivo num programa de verdade (Excel, Google Sheets, LibreOffice
+   Desktop).
 
 7. **Confirme para o usuário** o que foi feito: alimento, categoria, porção,
    frequência, classificação e o motivo da classificação — e pergunte se ele
