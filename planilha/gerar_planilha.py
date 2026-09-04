@@ -163,13 +163,21 @@ def build_aba1(wb):
          "<50 mg/dL (diretriz brasileira SBC 2017, usada pelo laboratório), <40 mg/dL "
          "(categoria 'risco extremo' da diretriz SBC 2025, se preencher critérios adicionais) "
          "ou <55 mg/dL (diretrizes ESC/EAS e ACC/AHA para risco muito alto) — pergunte ao "
-         "médico qual meta ele está usando (fontes na aba 'Fontes e Referências')."),
+         "médico qual meta ele está usando. A combinação estatina (Rosucor) + Ezetimiba já "
+         "prescrita é sustentada pelo estudo IMPROVE-IT (LDL médio de 53,7 mg/dL com a "
+         "combinação, vs. 69,5 mg/dL só com estatina, e menos eventos cardiovasculares). "
+         "Fontes na aba 'Fontes e Referências'."),
         ("Aviso pendente — função renal",
-         "Há suspeita ainda não confirmada de proteinúria e duas elevações de creatinina/TFG "
-         "durante a internação (TFG caiu para 57 na véspera da alta). Enquanto não houver "
-         "confirmação médica, o plano NÃO aplica restrição renal (sódio/potássio/proteína) — "
-         "apenas o cuidado cardiovascular abaixo. Revisar esta aba assim que o médico confirmar "
-         "ou descartar o problema renal."),
+         "Há suspeita ainda não confirmada de proteinúria (o exame certo a pedir é a relação "
+         "albumina/creatinina urinária, ACR/RAC, padrão KDIGO) e duas elevações de "
+         "creatinina/TFG durante a internação (TFG caiu para 57 na véspera da alta) — a "
+         "última, aplicando o critério objetivo da KDIGO, já preenche Lesão Renal Aguda "
+         "estágio 1 (não é diagnóstico médico, só a fórmula aplicada aos números). O padrão "
+         "temporal é compatível com nefropatia por contraste dos 3 cateterismos (ESUR: pico "
+         "em 3-5 dias, resolução em 7-14 dias). Enquanto não houver confirmação médica de que "
+         "isso se resolveu, o plano NÃO aplica restrição renal (sódio/potássio/proteína) — "
+         "apenas o cuidado cardiovascular abaixo. Revisar esta aba assim que o médico "
+         "confirmar ou descartar o problema renal."),
         ("Medicações em uso (receita 03/09/2026)",
          "Aspirina Prevent 100mg (1x/dia, almoço) e Ticagrelor 90mg (12/12h, por 1 ano) — "
          "antiagregantes plaquetários; Rosucor (rosuvastatina) 20mg, 2 comprimidos 1x/dia, "
@@ -188,9 +196,12 @@ def build_aba1(wb):
         ("Interação medicamentosa — Enalapril",
          "Enalapril pode elevar o potássio do sangue (reduz a aldosterona). Evitar sal "
          "light/substitutos de sal (ricos em cloreto de potássio) e suplementos de potássio "
-         "sem orientação médica — risco bem documentado de hipercalemia, com atenção redobrada "
-         "enquanto a função renal ainda está em investigação. Fonte: aba 'Fontes e "
-         "Referências', linha 3."),
+         "sem orientação médica — risco bem documentado de hipercalemia. O potássio (4,9) e a "
+         "creatinina (1,50) da alta ficam dentro da faixa considerada tolerável por uma "
+         "diretriz de insuficiência cardíaca (ESC 2021) para manter o Enalapril — informação "
+         "tranquilizadora, mas essa mesma diretriz recomenda reexame de potássio/creatinina em "
+         "1-2 semanas, e reforça evitar sal light por precaução até lá. Fontes: aba 'Fontes e "
+         "Referências', linha 3 (Enalapril) e 15 (limiares ESC)."),
         ("Interação medicamentosa — Aspirina + Ticagrelor",
          "A dupla antiagregação (esquema padrão por 1 ano pós-stent, conforme diretriz "
          "ACC/AHA) já aumenta o risco de sangramento; estudos mostram que álcool combinado "
@@ -204,6 +215,13 @@ def build_aba1(wb):
          "interação relevante conhecida com a Rosucor especificamente (ela usa outra via "
          "metabólica, CYP2C9) — o motivo de evitar toranja neste plano é o Ticagrelor, não a "
          "Rosucor. Fontes: aba 'Fontes e Referências', linhas 5-6."),
+        ("Reabilitação cardíaca",
+         "A diretriz mais recente de síndrome coronariana aguda (ACC/AHA/ACEP/NAEMSP/SCAI "
+         "2025) recomenda encaminhamento para reabilitação cardíaca com o grau mais forte de "
+         "recomendação (Classe 1), idealmente ainda na alta — reduz mortalidade, reinfarto e "
+         "reinternações. Não é sobre alimentação diretamente, mas costuma incluir "
+         "acompanhamento nutricional; vale perguntar ao médico se já foi encaminhado. Fonte: "
+         "aba 'Fontes e Referências', linha 17."),
         ("Leitura de rótulos",
          "Ao comprar um produto industrializado, olhar sempre: sódio por porção, açúcares "
          "totais/adicionados, e a lista de ingredientes procurando 'gordura hidrogenada' ou "
@@ -369,60 +387,128 @@ def build_aba3(wb):
     ws3.row_dimensions[r].height = 30
 
 
-# Cada linha: (afirmação que essa fonte sustenta, nome da fonte, URL, tipo de fonte).
-# Pesquisado em 04/09/2026. Nenhuma destas fontes substitui a avaliação do médico —
-# são a base do que está escrito nas abas "Cuidados na Alimentação" e no arquivo
-# referencia/dados-consulta-e-alimentacao.md (seção 1b), para conferência do paciente.
+# Cada linha: (afirmação que essa fonte sustenta, nome da fonte, URL, tipo de fonte, área).
+# Área = "Alimentação" (interação medicamento x alimento ou diretriz de dieta) ou "Clínico
+# geral" (contexto clínico mais amplo, sem relação direta com o que comer). Pesquisado em
+# 04/09/2026 (itens 1-10) e reaproveitado de uma reavaliação clínica mais ampla feita numa
+# sessão separada (itens 11-22). Nenhuma destas fontes substitui a avaliação do médico — são
+# a base do que está escrito na aba "Cuidados na Alimentação" e em
+# referencia/historico-tratamento.md, para conferência do paciente.
+#
+# IMPORTANTE: os textos das abas 1/4 citam estas fontes por número de linha (ex.: "linha 15").
+# Ao editar, prefira ACRESCENTAR no final em vez de reordenar — reordenar quebra essas
+# referências cruzadas (procure por "Fontes e Referências', linha" nas outras funções deste
+# arquivo antes de mudar a posição de um item existente).
 FONTES = [
     ("Suco de toranja em quantidade alta quase dobra o nível de Ticagrelor no sangue e "
      "aumenta seu efeito antiagregante",
      "Holmberg et al., 2013, Br J Clin Pharmacol (PubMed)",
      "https://pubmed.ncbi.nlm.nih.gov/23126367/",
-     "Estudo clínico revisado por pares"),
+     "Estudo clínico revisado por pares", "Alimentação"),
     ("Bula brasileira do Brilinta (Ticagrelor) cita esse estudo e orienta evitar suco de "
      "toranja em grande quantidade",
      "Bula profissional Brilinta, AstraZeneca do Brasil (aprovada pela Anvisa)",
      "https://www.azmed.com.br/content/dam/multibrand/br/pt/azmed-2022/home/bulas-profissionais/bulas/Brilinta_Bula_Profissional.pdf",
-     "Bula oficial (Anvisa)"),
+     "Bula oficial (Anvisa)", "Alimentação"),
     ("Enalapril (IECA) + sal light/suplemento de potássio aumenta risco de hipercalemia",
      "StatPearls (NCBI Bookshelf), \"Enalapril\"",
      "https://www.ncbi.nlm.nih.gov/books/NBK557708/",
-     "Referência clínica revisada por pares"),
+     "Referência clínica revisada por pares", "Alimentação"),
     ("Álcool combinado com Aspirina aumenta o risco de sangramento gastrointestinal alto",
      "Kaufman et al., 1999, Ann Epidemiol (PubMed)",
      "https://pubmed.ncbi.nlm.nih.gov/10566713/",
-     "Estudo epidemiológico revisado por pares"),
+     "Estudo epidemiológico revisado por pares", "Alimentação"),
     ("Arroz de levedura vermelha (red yeast rice) pode causar os mesmos efeitos colaterais e "
      "interações de uma estatina",
      "NIH — National Center for Complementary and Integrative Health",
      "https://www.nccih.nih.gov/health/red-yeast-rice",
-     "Órgão oficial do governo dos EUA (NIH)"),
+     "Órgão oficial do governo dos EUA (NIH)", "Alimentação"),
     ("Rosuvastatina não tem interação relevante com toranja (via CYP2C9, diferente da via "
      "CYP3A4 usada pelo Ticagrelor)",
      "Bailey DG et al., 2013, CMAJ, \"Grapefruit-medication interactions\"",
      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3589309/",
-     "Revisão científica revisada por pares"),
+     "Revisão científica revisada por pares", "Alimentação"),
     ("Duração de 12 meses de dupla antiagregação (Aspirina + Ticagrelor) após stent em "
      "síndrome coronariana aguda",
      "2016 ACC/AHA Guideline Focused Update on DAPT; reafirmado na diretriz ACS 2025 (JACC)",
      "https://www.acc.org/latest-in-cardiology/ten-points-to-remember/2016/03/25/14/56/2016-acc-aha-guideline-focused-update-on-dapt",
-     "Diretriz de sociedades médicas (ACC/AHA)"),
+     "Diretriz de sociedades médicas (ACC/AHA)", "Alimentação"),
     ("Metas de LDL pós-infarto: <50 mg/dL (SBC 2017); <40 mg/dL na categoria \"risco extremo\" "
      "(SBC 2025, com critérios adicionais); <55 mg/dL (ESC/EAS 2019 e ACC/AHA, risco muito alto)",
      "Diretriz Brasileira de Dislipidemias e Prevenção da Aterosclerose 2025 (SBC), Arq Bras Cardiol",
      "https://www.scielo.br/j/abc/a/tRJrwGzKX6C4GvMqdJpZcGk/?lang=pt",
-     "Diretriz de sociedade médica (SBC)"),
+     "Diretriz de sociedade médica (SBC)", "Alimentação"),
     ("Diretriz alimentar cardioprotetora: sódio controlado, gordura saturada <6% das "
      "calorias, padrão Mediterrâneo/DASH",
      "American Heart Association — AHA Diet and Lifestyle Recommendations / 2026 Dietary "
      "Guidance to Improve Cardiovascular Health (Circulation)",
      "https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/nutrition-basics/aha-diet-and-lifestyle-recommendations",
-     "Diretriz de sociedade médica (AHA)"),
+     "Diretriz de sociedade médica (AHA)", "Alimentação"),
     ("No Brasil, a Dieta Cardioprotetora Brasileira (DICA Br) aplica essas mesmas "
      "recomendações a alimentos típicos brasileiros",
      "I Diretriz Brasileira de Prevenção Cardiovascular (SBC), Arq Bras Cardiol",
      "https://www.scielo.br/j/abc/a/X94tMKwdnBjkCzVKpXwBqmD/?lang=pt",
-     "Diretriz de sociedade médica (SBC)"),
+     "Diretriz de sociedade médica (SBC)", "Alimentação"),
+    ("Critério objetivo de Lesão Renal Aguda (LRA) estágio 1: creatinina sobe ≥0,3 mg/dL em 48h",
+     "KDIGO — Clinical Practice Guideline for Acute Kidney Injury, 2012",
+     "https://kdigo.org/wp-content/uploads/2016/10/KDIGO-2012-AKI-Guideline-English.pdf",
+     "Diretriz de sociedade médica (KDIGO)", "Clínico geral"),
+    ("Exame padrão para proteinúria é a relação albumina/creatinina urinária (ACR/RAC), "
+     "categorias A1/A2/A3",
+     "KDIGO — Clinical Practice Guideline for CKD, 2012 (categorias mantidas na atualização 2024)",
+     "https://kdigo.org/wp-content/uploads/2017/02/KDIGO_2012_CKD_GL.pdf",
+     "Diretriz de sociedade médica (KDIGO)", "Clínico geral"),
+    ("Múltiplas exposições a contraste em dias próximos são fator de risco para lesão renal "
+     "por contraste, com pico em 3-5 dias e resolução em 7-14 dias",
+     "ESUR — Post-contrast acute kidney injury, Guidelines v10.0, 2018",
+     "https://www.esur.org/wp-content/uploads/2022/03/ESUR-Guidelines-10_0-Final-Version.pdf",
+     "Diretriz de sociedade médica (ESUR)", "Clínico geral"),
+    ("Definição de infarto periprocedimento (tipo 4a): troponina >5x o limite superior + "
+     "evidência de nova isquemia",
+     "Thygesen K, Alpert JS et al. — Fourth Universal Definition of Myocardial Infarction, 2018",
+     "https://www.ahajournals.org/doi/10.1161/CIR.0000000000000617",
+     "Documento conjunto de sociedades médicas (ESC/ACC/AHA/WHF)", "Clínico geral"),
+    ("Limiares de segurança para manter um IECA (Enalapril): potássio até 5,5 mmol/L e "
+     "creatinina com alta até 50% (abaixo de 3 mg/dL) são toleráveis; reexame em 1-2 semanas",
+     "ESC — Guidelines for the diagnosis and treatment of acute and chronic heart failure, 2021",
+     "https://academic.oup.com/eurheartj/article/42/36/3599/6358045",
+     "Diretriz de sociedade médica (ESC)", "Clínico geral"),
+    ("Reforço da duração de 12 meses de dupla antiagregação após síndrome coronariana aguda",
+     "ESC — Guidelines for the management of acute coronary syndromes, 2023",
+     "https://academic.oup.com/eurheartj/article/45/14/1193/7516285",
+     "Diretriz de sociedade médica (ESC)", "Clínico geral"),
+    ("Encaminhamento para reabilitação cardíaca antes da alta é recomendação Classe 1 (a "
+     "mais forte) após síndrome coronariana aguda",
+     "ACC/AHA/ACEP/NAEMSP/SCAI — Guideline for the Management of Patients With Acute "
+     "Coronary Syndromes, 2025",
+     "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001309",
+     "Diretriz de sociedades médicas (ACC/AHA e outras)", "Clínico geral"),
+    ("Estudo que sustenta a combinação estatina + ezetimiba para reduzir LDL após síndrome "
+     "coronariana aguda (IMPROVE-IT)",
+     "Cannon CP et al. — Ezetimibe Added to Statin Therapy after Acute Coronary Syndromes, "
+     "N Engl J Med 2015",
+     "https://www.nejm.org/doi/full/10.1056/NEJMoa1410489",
+     "Estudo clínico revisado por pares", "Alimentação"),
+    ("HbA1c ≥6,5% sugere diabetes prévio; abaixo de 5,7% (caso do paciente) é consistente com "
+     "hiperglicemia de estresse, não diabetes",
+     "American Diabetes Association — Standards of Care in Diabetes, edições 2024-2026",
+     "https://diabetesjournals.org/care/article/49/Supplement_1/S339/163925/16-Diabetes-Care-in-the-Hospital-Standards-of-Care",
+     "Diretriz de sociedade médica (ADA)", "Clínico geral"),
+    ("Até 60% dos pacientes com hiperglicemia de estresse na internação desenvolvem diabetes "
+     "em 6-12 meses",
+     "Sociedade Brasileira de Diabetes — Hiperglicemia Hospitalar no Paciente Não-Crítico",
+     "https://diretriz.diabetes.org.br/hiperglicemia-hospitalar-em-paciente-nao-critico/",
+     "Diretriz de sociedade médica (SBD)", "Clínico geral"),
+    ("Placa carotídea com estenose abaixo de 50% é tratada de forma conservadora "
+     "(antiagregante, estatina, controle de pressão), sem indicação de cirurgia",
+     "ESC/ESVS — Guidelines on Peripheral Arterial Diseases (2017/2018) e atualização sobre "
+     "doença carotídea/vertebral (2023)",
+     "https://academic.oup.com/eurheartj/article/39/9/763/4095038",
+     "Diretriz de sociedade médica (ESC/ESVS)", "Clínico geral"),
+    ("Mesma conduta conservadora para placa carotídea leve, do lado da prevenção de AVC",
+     "AHA/ASA — Guideline for the Prevention of Stroke in Patients With Stroke and TIA, 2021",
+     "https://www.ahajournals.org/doi/10.1161/STR.0000000000000375",
+     "Diretriz de sociedade médica (AHA/ASA)", "Clínico geral"),
 ]
 
 
@@ -430,23 +516,25 @@ def build_aba_fontes(wb):
     ws = wb.create_sheet("Fontes e Referências")
     ws.sheet_view.showGridLines = False
 
-    style_title(ws, "Fontes e Referências — de onde vieram as informações médicas", span=5)
+    style_title(ws, "Fontes e Referências — de onde vieram as informações médicas", span=6)
 
-    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=5)
+    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=6)
     instr = ws.cell(
         row=2, column=1,
         value="Pesquisa feita em 04/09/2026, priorizando bulas oficiais (Anvisa), estudos "
               "revisados por pares (PubMed/PMC), órgãos de saúde do governo (NIH) e diretrizes "
-              "de sociedades médicas (SBC, AHA, ACC/ESC). Nenhuma destas fontes substitui a "
-              "avaliação do seu médico — use como ponto de partida para perguntar e confirmar "
-              "na consulta. Clique no link da coluna 'Fonte' para abrir a página original."
+              "de sociedades médicas (SBC, AHA, ACC/ESC, KDIGO, ESUR, ESVS, ADA/SBD). A coluna "
+              "'Área' diz se a fonte é sobre alimentação/interação com alimento ou sobre o "
+              "quadro clínico em geral. Nenhuma destas fontes substitui a avaliação do seu "
+              "médico — use como ponto de partida para perguntar e confirmar na consulta. "
+              "Clique no link da coluna 'Fonte' para abrir a página original."
     )
     instr.font = Font(name=FONT_NAME, size=9.5, italic=True)
     instr.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
-    ws.row_dimensions[2].height = 46
+    ws.row_dimensions[2].height = 56
 
-    headers = ["Nº", "Afirmação que a fonte sustenta", "Fonte", "Tipo de fonte", "URL completa"]
-    widths = [5, 46, 40, 26, 50]
+    headers = ["Nº", "Afirmação que a fonte sustenta", "Fonte", "Tipo de fonte", "Área", "URL completa"]
+    widths = [5, 44, 38, 24, 13, 50]
     header_row(ws, 3, headers, widths=widths)
     ws.freeze_panes = "A4"
 
@@ -455,30 +543,31 @@ def build_aba_fontes(wb):
     font_url = Font(name=FONT_NAME, size=9, color="666666")
 
     r = 4
-    for i, (afirmacao, fonte, url, tipo) in enumerate(FONTES, start=1):
+    for i, (afirmacao, fonte, url, tipo, area) in enumerate(FONTES, start=1):
         ws.cell(row=r, column=1, value=i)
         ws.cell(row=r, column=2, value=afirmacao)
         c3 = ws.cell(row=r, column=3, value=fonte)
         c3.hyperlink = url
         ws.cell(row=r, column=4, value=tipo)
-        ws.cell(row=r, column=5, value=url)
-        for col in range(1, 6):
+        ws.cell(row=r, column=5, value=area)
+        ws.cell(row=r, column=6, value=url)
+        for col in range(1, 7):
             cell = ws.cell(row=r, column=col)
-            cell.font = {3: font_link, 5: font_url}.get(col, font_normal)
+            cell.font = {3: font_link, 6: font_url}.get(col, font_normal)
             cell.alignment = Alignment(
-                horizontal="center" if col in (1,) else "left",
-                vertical="center", wrap_text=True, indent=(1 if col in (2, 3, 4, 5) else 0)
+                horizontal="center" if col in (1, 5) else "left",
+                vertical="center", wrap_text=True, indent=(1 if col in (2, 3, 4, 6) else 0)
             )
             cell.border = BORDER_ALL
         ws.row_dimensions[r].height = 44
         r += 1
 
     r += 1
-    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=5)
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=6)
     note = ws.cell(
         row=r, column=1,
         value="Lista completa com os mesmos links (mais fácil de clicar em Markdown) também em "
-              "referencia/dados-consulta-e-alimentacao.md, seção 1b."
+              "referencia/historico-tratamento.md, seção 'Referências médicas'."
     )
     note.font = Font(name=FONT_NAME, size=9.5, italic=True)
     note.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
