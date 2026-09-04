@@ -18,7 +18,8 @@
 
   {"categoria": "Laticínios", "alimento": "Leite desnatado", "porcao": "200 ml", "frequencia": "1x/dia", "classificacao": "Liberado", "observacao": ""},
   {"categoria": "Laticínios", "alimento": "Queijo branco", "porcao": "30 g", "frequencia": "3x/semana", "classificacao": "Moderar", "observacao": "Atenção ao sódio"},
-  {"categoria": "Laticínios", "alimento": "Iogurte natural desnatado", "porcao": "1 unidade", "frequencia": "1x/dia", "classificacao": "Liberado", "observacao": "Sem açúcar adicionado"},
+  {"categoria": "Laticínios", "alimento": "Iogurte natural (desnatado, sem açúcar)", "porcao": "1 unidade", "frequencia": "1x/dia", "classificacao": "Liberado", "observacao": "Prefira sempre a versão sem açúcar adicionado"},
+  {"categoria": "Laticínios", "alimento": "Requeijão", "porcao": "1 colher de sopa (≈15 g)", "frequencia": "2x/semana", "classificacao": "Moderar", "observacao": "Rico em gordura saturada e sódio; prefira a versão light. Sugestão gerada por IA — confirmar com nutricionista/cardiologista."},
 
   {"categoria": "Bebidas", "alimento": "Água", "porcao": "à vontade", "frequencia": "todos os dias", "classificacao": "Liberado", "observacao": ""},
   {"categoria": "Bebidas", "alimento": "Refrigerante zero", "porcao": "200 ml", "frequencia": "1x/dia", "classificacao": "Moderar", "observacao": "Sugestão gerada por IA — confirmar com nutricionista/cardiologista"},
