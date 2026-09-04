@@ -133,11 +133,27 @@ def build_aba1(wb):
          "confirmação médica, o plano NÃO aplica restrição renal (sódio/potássio/proteína) — "
          "apenas o cuidado cardiovascular abaixo. Revisar esta aba assim que o médico confirmar "
          "ou descartar o problema renal."),
-        ("Aviso pendente — medicação",
-         "Lista de medicações da alta ainda não preenchida. Existem interações conhecidas "
-         "entre alimentos e medicações comuns pós-IAM (ex.: anticoagulantes como varfarina "
-         "e vegetais verde-escuros ricos em vitamina K). Revisar esta planilha assim que a "
-         "lista de medicações estiver disponível."),
+        ("Medicações em uso (receita 03/09/2026)",
+         "Aspirina Prevent 100mg (1x/dia, almoço) e Ticagrelor 90mg (12/12h, por 1 ano) — "
+         "antiagregantes plaquetários; Rosucor (rosuvastatina) 20mg, 2 comprimidos 1x/dia, "
+         "e Ezetimiba 10mg 1x/dia — colesterol; Maleato de Enalapril 5mg 12/12h — coração/"
+         "pressão (médico alertou para cuidado com pressão baixa). Todas de uso contínuo — "
+         "não interromper sem falar com o cardiologista, em especial a dupla Aspirina + "
+         "Ticagrelor (risco de trombose no stent)."),
+        ("Interação medicamentosa — Ticagrelor",
+         "Toranja/grapefruit (fruta ou suco) aumenta o nível de Ticagrelor no sangue e o "
+         "risco de sangramento — evitar completamente enquanto estiver em uso do medicamento."),
+        ("Interação medicamentosa — Enalapril",
+         "Enalapril pode elevar o potássio do sangue. Evitar sal light/substitutos de sal "
+         "(ricos em cloreto de potássio) e suplementos de potássio sem orientação médica — "
+         "atenção redobrada enquanto a função renal ainda está em investigação."),
+        ("Interação medicamentosa — Aspirina + Ticagrelor",
+         "A dupla antiagregação (esquema padrão por 1 ano pós-stent) já aumenta o risco de "
+         "sangramento; álcool amplifica esse risco — reforça a orientação de evitar bebida "
+         "alcoólica."),
+        ("Interação medicamentosa — Rosucor (estatina)",
+         "Evitar suplementos de 'arroz de levedura vermelha' (red yeast rice), que agem como "
+         "uma estatina natural e podem somar toxicidade com a Rosucor."),
         ("Leitura de rótulos",
          "Ao comprar um produto industrializado, olhar sempre: sódio por porção, açúcares "
          "totais/adicionados, e a lista de ingredientes procurando 'gordura hidrogenada' ou "
@@ -146,7 +162,7 @@ def build_aba1(wb):
 
     r = 3
     for secao, texto in rows_aba1:
-        is_warning = secao.startswith("Aviso pendente")
+        is_warning = secao.startswith(("Aviso pendente", "Interação medicamentosa", "Medicações em uso"))
         c1 = ws1.cell(row=r, column=1, value=secao)
         c2 = ws1.cell(row=r, column=2, value=texto)
         fill = PatternFill("solid", fgColor=COLOR_WARN_BG if is_warning else COLOR_SECTION_BG)

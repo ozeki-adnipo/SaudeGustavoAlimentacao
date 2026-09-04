@@ -4,6 +4,7 @@
   {"categoria": "Frutas", "alimento": "Uva", "porcao": "200 g", "frequencia": "1x/semana", "classificacao": "Moderar", "observacao": "Mais açúcar que outras frutas"},
   {"categoria": "Frutas", "alimento": "Manga", "porcao": "200 g", "frequencia": "1x/semana", "classificacao": "Moderar", "observacao": "Mais açúcar que outras frutas"},
   {"categoria": "Frutas", "alimento": "Abacate", "porcao": "2 colheres de sopa", "frequencia": "1x/dia", "classificacao": "Liberado", "observacao": "Gordura boa, mas calórico"},
+  {"categoria": "Frutas", "alimento": "Toranja / grapefruit", "porcao": "-", "frequencia": "evitar", "classificacao": "Evitar", "observacao": "Interage com o Ticagrelor (aumenta o nível do remédio no sangue e o risco de sangramento) — evitar completamente."},
 
   {"categoria": "Grãos e Cereais", "alimento": "Arroz integral", "porcao": "200 g (cozido)", "frequencia": "quase todo dia", "classificacao": "Liberado", "observacao": ""},
   {"categoria": "Grãos e Cereais", "alimento": "Arroz branco", "porcao": "200 g (cozido)", "frequencia": "2x/semana", "classificacao": "Moderar", "observacao": "Preferir integral no restante da semana"},
@@ -25,7 +26,8 @@
   {"categoria": "Bebidas", "alimento": "Refrigerante zero", "porcao": "200 ml", "frequencia": "1x/dia", "classificacao": "Moderar", "observacao": "Sugestão gerada por IA — confirmar com nutricionista/cardiologista"},
   {"categoria": "Bebidas", "alimento": "Café sem açúcar", "porcao": "1 xícara", "frequencia": "2x/dia", "classificacao": "Liberado", "observacao": ""},
   {"categoria": "Bebidas", "alimento": "Suco natural sem açúcar", "porcao": "200 ml", "frequencia": "3x/semana", "classificacao": "Moderar", "observacao": "Preferir a fruta inteira, que tem mais fibra"},
-  {"categoria": "Bebidas", "alimento": "Bebida alcoólica", "porcao": "-", "frequencia": "evitar", "classificacao": "Evitar", "observacao": "Piora diretamente os triglicerídeos"},
+  {"categoria": "Bebidas", "alimento": "Suco de toranja / grapefruit", "porcao": "-", "frequencia": "evitar", "classificacao": "Evitar", "observacao": "Interage com o Ticagrelor (aumenta o nível do remédio no sangue e o risco de sangramento) — evitar completamente."},
+  {"categoria": "Bebidas", "alimento": "Bebida alcoólica", "porcao": "-", "frequencia": "evitar", "classificacao": "Evitar", "observacao": "Piora diretamente os triglicerídeos; soma-se ao risco de sangramento da Aspirina + Ticagrelor."},
 
   {"categoria": "Doces e Sobremesas", "alimento": "Açúcar refinado", "porcao": "-", "frequencia": "evitar", "classificacao": "Evitar", "observacao": "Impacto direto nos triglicerídeos"},
   {"categoria": "Doces e Sobremesas", "alimento": "Doces industrializados", "porcao": "-", "frequencia": "evitar", "classificacao": "Evitar", "observacao": ""},
@@ -34,6 +36,7 @@
   {"categoria": "Gorduras e Temperos", "alimento": "Azeite de oliva extra virgem", "porcao": "1-2 colheres de sopa", "frequencia": "1x/dia", "classificacao": "Liberado", "observacao": ""},
   {"categoria": "Gorduras e Temperos", "alimento": "Manteiga", "porcao": "-", "frequencia": "evitar", "classificacao": "Evitar", "observacao": "Preferir azeite"},
   {"categoria": "Gorduras e Temperos", "alimento": "Sal", "porcao": "< 5 g no total", "frequencia": "todos os dias", "classificacao": "Moderar", "observacao": "Somar sal de cozinha + industrializados"},
+  {"categoria": "Gorduras e Temperos", "alimento": "Sal light / substituto de sal (cloreto de potássio)", "porcao": "-", "frequencia": "evitar", "classificacao": "Evitar", "observacao": "Enalapril já tende a elevar o potássio; combinado com esse produto o risco de hipercalemia aumenta, ainda mais com a função renal pendente."},
   {"categoria": "Gorduras e Temperos", "alimento": "Ervas e temperos naturais", "porcao": "à vontade", "frequencia": "todos os dias", "classificacao": "Liberado", "observacao": ""},
 
   {"categoria": "Vegetais e Verduras", "alimento": "Vegetais e verduras em geral", "porcao": "à vontade", "frequencia": "todos os dias", "classificacao": "Liberado", "observacao": "Se entrar anticoagulante na medicação, revisar consumo de verde-escuros ricos em vitamina K"}

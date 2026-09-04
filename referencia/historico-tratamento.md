@@ -35,6 +35,7 @@
 | **01/09/2026, 22h57** | Coleta — troponina não solicitada nesse dia, demais exames em melhora. |
 | **02/09/2026, 23h20** | Última coleta disponível nos laudos recebidos, véspera da alta — **nova piora de creatinina/TFG** (1,50 mg/dL / 57 mL/min/1,73m², abaixo de 60 pela primeira vez). |
 | **25/08 a 03/09/2026** | 10 dias de internação em UTI. |
+| **03/09/2026, 11h07** | **Receita de alta emitida** (Dr. Marcos Adolfo Pereira Esteves, CRM 147324 SP) com 5 medicações de uso contínuo: Aspirina Prevent 100mg, Ticagrelor 90mg, Rosucor 20mg, Ezetimiba 10mg e Maleato de Enalapril 5mg — lista completa com dose/horário em `dados-consulta-e-alimentacao.md`, seção 1a. |
 | **03/09/2026, 12h** | **Alta hospitalar.** |
 | **03/09/2026 (alta)** | Médico informa troponina em **≈ 200 ng/L** e um alerta sobre função renal (ver pendências abaixo). |
 
@@ -89,6 +90,15 @@
   em 02/09 (13,9 g/dL — ainda normal, mas o menor valor da série). O padrão de neutrófilos
   subindo / linfócitos caindo (típico de estresse pós-procedimentos) mostrou reversão sustentada
   entre 31/08 e a véspera da alta.
+
+## Medicações da alta (03/09/2026)
+
+Receita digital com assinatura ICP-Brasil, 5 medicações de uso contínuo: Aspirina Prevent
+100mg (antiagregante, 1x/dia), Ticagrelor 90mg (antiagregante, 12/12h, por 1 ano — dupla
+antiagregação pós-stent), Rosucor 20mg = 2 comprimidos/dia (estatina, colesterol), Ezetimiba
+10mg (colesterol) e Maleato de Enalapril 5mg (IECA, 12/12h — o médico anotou à mão "ajustar
+o coração, mas cuidado a pressão baixa"). Detalhes completos, com dose/horário e as
+interações com alimentos já mapeadas, estão em `dados-consulta-e-alimentacao.md`, seção 1a.
 
 ## Exames de imagem cardiovascular
 
@@ -147,3 +157,5 @@ Os dois pontos centrais são:
 - 3 laudos de imagem: ecodopplercardiograma transtorácico (26/08), doppler de carótidas e
   vertebrais (26/08) e doppler arterial/venoso de membro superior direito (29/08).
 - Relato verbal do paciente sobre horários dos procedimentos, troponina na alta e alerta renal.
+- Receita digital de alta (03/09/2026, 11h07), assinada digitalmente (ICP-Brasil) pelo
+  Dr. Marcos Adolfo Pereira Esteves, com as 5 medicações de uso contínuo.

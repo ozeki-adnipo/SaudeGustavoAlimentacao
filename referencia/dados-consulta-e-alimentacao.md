@@ -32,7 +32,7 @@ angioplastia 27/08, cateterismo 28/08) e alta hospitalar em 03/09/2026 após 10 
 | HbA1c | 5,5% (normal) — glicemias já normalizadas na maior parte das coletas desde 31/08 (92, 87, 95 mg/dL) |
 | Função renal (creatinina/TFG) | Duas elevações: 31/08 (creatinina 1,30, TFG 68, recuperado no mesmo dia) e **02/09, véspera da alta** (creatinina **1,50**, TFG **57** — abaixo de 60 pela primeira vez; ureia também acima da referência). **Pendência importante para a consulta.** |
 | Proteinúria | **Alerta verbal do médico** ("rim liberando 50% a mais de proteína") — **sem exame de urina localizado nos laudos recebidos; pendente de confirmação** |
-| Medicações em uso | *(a preencher — trazer a lista de alta hospitalar)* |
+| Medicações em uso | 5 medicações de uso contínuo, receita emitida em 03/09/2026 (alta) pelo Dr. Marcos Adolfo Pereira Esteves — ver lista completa com dose/horário na seção 1a |
 | Alergias / restrições alimentares conhecidas | *(a preencher)* |
 | Peso / altura / IMC | 72 kg / 174 cm / IMC ≈ 23,8 (peso normal) — medido no ecocardiograma de 26/08, pode ter mudado até a alta |
 | Atividade física antes do infarto | *(a preencher)* |
@@ -42,6 +42,41 @@ angioplastia 27/08, cateterismo 28/08) e alta hospitalar em 03/09/2026 após 10 
 [`../eventos/2026-08-infarto/evolucao-laboratorial.xlsx`](../eventos/2026-08-infarto/evolucao-laboratorial.xlsx)
 e no histórico narrativo em
 [`../eventos/2026-08-infarto/historico-tratamento.md`](../eventos/2026-08-infarto/historico-tratamento.md).)*
+
+---
+
+## 1a. Medicações em uso (receita de alta, 03/09/2026)
+
+Transcrito da receita digital (Rede D'Or, assinatura ICP-Brasil, Dr. Marcos Adolfo Pereira
+Esteves, CRM 147324 SP). Todas de **uso contínuo**.
+
+| Medicamento | Dose | Posologia | Indicação / anotação do médico |
+|---|---|---|---|
+| Aspirina Prevent | 100 mg, comprimido revestido | 1 comprimido no almoço | Antiagregante plaquetário |
+| Ticagrelor | 90 mg, comprimido revestido | 1 comprimido 12/12h | Antiagregante plaquetário — anotado **"1 ano"** de tratamento (esquema padrão de dupla antiagregação pós-stent/angioplastia) |
+| Rosucor (rosuvastatina) | 20 mg, comprimido revestido | 2 comprimidos 1x/dia (= 40 mg/dia) | Anotado **"Colesterol"** — estatina de alta intensidade |
+| Ezetimiba | 10 mg, comprimido | 1 comprimido 1x/dia | Anotado **"Colesterol"** — associada à estatina para reforçar a queda de LDL |
+| Maleato de Enalapril | 5 mg, comprimido | 1 comprimido 12/12h | Anotado **"Ajustar o coração, mas cuidado a pressão baixa"** — IECA |
+
+**Não interromper nenhuma sem falar com o cardiologista** — em especial a dupla Aspirina +
+Ticagrelor, cujo esquema de 1 ano existe justamente para reduzir o risco de trombose no
+stent; parar antes do tempo é uma das causas mais evitáveis de complicação grave pós-stent.
+
+**Interações com alimentos já identificadas** (aplicadas na planilha de alimentação,
+`../planilha/plano-alimentar-pos-infarto.xlsx`):
+- **Ticagrelor + toranja/grapefruit** (fruta e suco): a toranja inibe uma enzima do fígado
+  (CYP3A4) que metaboliza o Ticagrelor, elevando seu nível no sangue e o risco de
+  sangramento — **evitar completamente**.
+- **Enalapril + potássio em excesso** (sal light/substitutos de sal com cloreto de potássio,
+  suplementos de potássio): IECA já tende a elevar o potássio; combinado com esses produtos
+  o risco de hipercalemia aumenta — **evitar**, com atenção redobrada enquanto a função
+  renal ainda está em investigação (ver pendência na seção 1).
+- **Aspirina + Ticagrelor + álcool**: a dupla antiagregação já aumenta o risco de sangramento;
+  álcool amplifica esse risco (além de piorar os triglicerídeos) — reforça o "evitar álcool"
+  já recomendado.
+- **Rosucor (estatina) + suplementos de "arroz de levedura vermelha" (red yeast rice)**:
+  contêm uma substância semelhante a estatina e podem somar toxicidade — evitar esse tipo de
+  suplemento.
 
 ---
 
@@ -81,8 +116,14 @@ Marque com `[x]` as que já foram respondidas e anote a resposta logo abaixo da 
       (5,5%) — é hiperglicemia de estresse ou preciso investigar diabetes?
 
 ### Sobre medicação e rotina
-- [ ] Lista completa de medicações da alta, com dose e horário.
+- [x] Lista completa de medicações da alta, com dose e horário.
+      *(Resposta: ver seção 1a — Aspirina Prevent 100mg, Ticagrelor 90mg, Rosucor 20mg,
+      Ezetimiba 10mg e Enalapril 5mg, todas de uso contínuo, transcritas da receita de
+      03/09/2026.)*
 - [ ] Quais medicamentos não podem ser interrompidos e o que fazer se eu esquecer uma dose?
+      *(Todas estão marcadas "uso contínuo" na receita; a dupla Aspirina + Ticagrelor é
+      especialmente crítica por causa do stent — falta confirmar com o médico a conduta
+      exata em caso de esquecimento de dose de cada medicamento.)*
 - [ ] Quando posso retomar atividade física, dirigir, trabalhar e outras atividades do dia a dia?
 - [ ] Existe um programa de reabilitação cardíaca indicado?
 
@@ -118,11 +159,15 @@ essencial para não repetir a extração dos laudos:
   (72%) mas com hipocinesia segmentar e uma pequena placa de aterosclerose na carótida — ou
   seja, já existe doença aterosclerótica além do evento agudo, o que reforça a importância de
   uma dieta cardioprotetora consistente, não só para reduzir LDL/triglicerídeos no papel.
-- **O que falta preencher antes de montar o plano:** medicações em uso (algumas interagem com
-  alimentos, ex. anticoagulantes e vegetais verde-escuros), nível de atividade física liberado,
-  preferências e restrições alimentares pessoais, e as respostas às perguntas da seção 2
-  (especialmente sobre meta de LDL e eventuais restrições renais, já que a função renal mostrou
-  duas elevações durante a internação).
+- **Medicações em uso (já preenchido, seção 1a):** Aspirina Prevent 100mg, Ticagrelor 90mg
+  (dupla antiagregação por 1 ano), Rosucor 20mg + Ezetimiba 10mg (colesterol) e Enalapril
+  5mg (coração/pressão). As interações com alimentos já identificadas (toranja x Ticagrelor,
+  potássio em excesso x Enalapril, álcool x Aspirina/Ticagrelor) já estão aplicadas na
+  planilha de alimentação.
+- **O que ainda falta preencher antes de fechar o plano:** nível de atividade física liberado,
+  preferências e restrições alimentares pessoais, e as respostas às perguntas da seção 2 ainda
+  em aberto (especialmente sobre meta de LDL e eventuais restrições renais, já que a função
+  renal mostrou duas elevações durante a internação).
 
 ---
 

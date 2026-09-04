@@ -24,6 +24,34 @@ formatação de sempre.
 - Detalhes completos em `referencia/dados-consulta-e-alimentacao.md` e
   `referencia/historico-tratamento.md`, se precisar consultar algo específico.
 
+### Medicações em uso (receita de alta, 03/09/2026) — SEMPRE checar interação
+
+Todas de uso contínuo: **Aspirina Prevent 100mg** e **Ticagrelor 90mg** (dupla
+antiagregação, 1 ano), **Rosucor 20mg** (rosuvastatina, 40mg/dia) + **Ezetimiba
+10mg** (colesterol), **Maleato de Enalapril 5mg** (IECA — cuidado com pressão
+baixa). Antes de classificar QUALQUER alimento novo, verifique se ele se encaixa
+em algum destes pontos e, se sim, rebaixe a classificação e explique na
+observação:
+
+- **Toranja/grapefruit (fruta, suco ou qualquer preparo com toranja)** →
+  `Evitar` sempre. Interage com o Ticagrelor (aumenta o nível do remédio no
+  sangue e o risco de sangramento).
+- **Substitutos de sal / "sal light" (ricos em cloreto de potássio) e
+  suplementos de potássio** → `Evitar` ou `Moderar` com nota de alerta.
+  O Enalapril já tende a elevar o potássio; combinado com esses produtos o
+  risco de hipercalemia aumenta, ainda mais com a função renal pendente.
+  Alimentos naturalmente ricos em potássio (banana, batata, coco) continuam
+  liberados em porção normal — o alerta é para excesso/concentrado, não para
+  a fruta in natura.
+- **Álcool, em qualquer forma** → `Evitar`. Além de piorar os triglicerídeos,
+  soma-se ao risco de sangramento da dupla Aspirina + Ticagrelor.
+- **Suplementos como "arroz de levedura vermelha" (red yeast rice) ou outros
+  que se apresentem como "estatina natural"** → `Evitar`. Podem somar
+  toxicidade com o Rosucor.
+
+Se o alimento pedido não tiver relação com nenhum desses pontos, siga apenas o
+raciocínio nutricional geral do passo 3 abaixo.
+
 ## Passo a passo
 
 1. **Identifique o alimento** pedido pelo usuário (ex.: "sucrilhos",
