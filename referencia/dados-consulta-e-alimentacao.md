@@ -63,20 +63,71 @@ Ticagrelor, cujo esquema de 1 ano existe justamente para reduzir o risco de trom
 stent; parar antes do tempo é uma das causas mais evitáveis de complicação grave pós-stent.
 
 **Interações com alimentos já identificadas** (aplicadas na planilha de alimentação,
-`../planilha/plano-alimentar-pos-infarto.xlsx`):
+`../planilha/plano-alimentar-pos-infarto.xlsx`) — cada uma com a fonte consultada na
+tabela da seção 1b, mais abaixo:
+
 - **Ticagrelor + toranja/grapefruit** (fruta e suco): a toranja inibe uma enzima do fígado
-  (CYP3A4) que metaboliza o Ticagrelor, elevando seu nível no sangue e o risco de
-  sangramento — **evitar completamente**.
+  (CYP3A4) que ajuda a metabolizar o Ticagrelor. Um estudo publicado mostrou que suco de
+  toranja em quantidade alta (3 copos de 200 ml/dia) praticamente dobrou o nível do
+  medicamento no sangue e aumentou seu efeito antiagregante [[1]](#fontes-1a). A própria bula
+  brasileira do Brilinta (nome comercial do Ticagrelor) descreve esse mesmo estudo e diz que
+  esse aumento **"não é esperado ser clinicamente relevante para a maioria dos pacientes"**,
+  mas recomenda evitar o suco em grande quantidade [[2]](#fontes-1a). Como você já toma dois
+  antiagregantes juntos (Aspirina + Ticagrelor), a orientação mais conservadora — e a que a
+  planilha aplica — é **evitar toranja/grapefruit** (fruta e suco); vale perguntar ao
+  cardiologista se ele considera isso necessário no seu caso ou se um consumo ocasional seria
+  aceitável.
 - **Enalapril + potássio em excesso** (sal light/substitutos de sal com cloreto de potássio,
-  suplementos de potássio): IECA já tende a elevar o potássio; combinado com esses produtos
-  o risco de hipercalemia aumenta — **evitar**, com atenção redobrada enquanto a função
-  renal ainda está em investigação (ver pendência na seção 1).
+  suplementos de potássio): IECA (classe do Enalapril) reduz a aldosterona e por isso já tende
+  a reter potássio no sangue; somar sal light/suplementos de potássio aumenta o risco de
+  hipercalemia, que pode causar arritmia grave — recomendação de evitar é bem estabelecida na
+  literatura médica [[3]](#fontes-1a). Atenção redobrada enquanto a função renal ainda está em
+  investigação (ver pendência na seção 1) — insuficiência renal é justamente um dos fatores
+  que mais aumenta esse risco.
 - **Aspirina + Ticagrelor + álcool**: a dupla antiagregação já aumenta o risco de sangramento;
-  álcool amplifica esse risco (além de piorar os triglicerídeos) — reforça o "evitar álcool"
-  já recomendado.
-- **Rosucor (estatina) + suplementos de "arroz de levedura vermelha" (red yeast rice)**:
-  contêm uma substância semelhante a estatina e podem somar toxicidade — evitar esse tipo de
+  estudos mostram que álcool combinado com Aspirina aumenta especificamente o risco de
+  sangramento gastrointestinal alto [[4]](#fontes-1a) — reforça o "evitar álcool" já
+  recomendado (que também vale por causa dos triglicerídeos).
+- **Rosucor (rosuvastatina) + suplementos de "arroz de levedura vermelha" (red yeast rice)**:
+  o órgão do governo americano especializado em medicina complementar (NIH/NCCIH) alerta que
+  esses suplementos contêm uma substância quimicamente idêntica a uma estatina (monacolina K)
+  e podem ter os mesmos efeitos colaterais e interações de um remédio de estatina — inclusive
+  quando combinados com uma estatina de verdade [[5]](#fontes-1a). Evitar esse tipo de
   suplemento.
+- **Rosucor (rosuvastatina) + toranja/grapefruit**: ao contrário do Ticagrelor, a rosuvastatina
+  **não é metabolizada pela mesma enzima (CYP3A4)** que a toranja afeta — ela usa outra via
+  (CYP2C9) — por isso não há interação relevante conhecida entre rosuvastatina e toranja
+  [[6]](#fontes-1a). A orientação de evitar toranja neste plano é por causa do **Ticagrelor**,
+  não da Rosucor.
+
+## 1b. Fontes consultadas (pesquisa em 04/09/2026) {#fontes-1a}
+
+Nenhuma destas fontes substitui a avaliação do seu médico — são a base do que foi escrito
+acima, para você poder conferir e levar para a consulta.
+
+| # | Afirmação | Fonte | Tipo |
+|---|---|---|---|
+| 1 | Suco de toranja aumenta ~2x a exposição e o efeito antiagregante do Ticagrelor | Holmberg et al., 2013, *Br J Clin Pharmacol* — [pubmed.ncbi.nlm.nih.gov/23126367](https://pubmed.ncbi.nlm.nih.gov/23126367/) | Estudo clínico (revisado por pares) |
+| 2 | Bula brasileira do Brilinta (Ticagrelor) menciona o estudo acima e orienta evitar suco de toranja em grande quantidade | Bula profissional Brilinta, AstraZeneca do Brasil (aprovada pela Anvisa) — [azmed.com.br](https://www.azmed.com.br/content/dam/multibrand/br/pt/azmed-2022/home/bulas-profissionais/bulas/Brilinta_Bula_Profissional.pdf) | Bula oficial (Anvisa) |
+| 3 | Enalapril + sal light/suplemento de potássio → risco de hipercalemia | StatPearls (NCBI Bookshelf), "Enalapril" — [ncbi.nlm.nih.gov/books/NBK557708](https://www.ncbi.nlm.nih.gov/books/NBK557708/) | Referência clínica revisada por pares |
+| 4 | Álcool + Aspirina aumenta risco de sangramento gastrointestinal | Kaufman et al., *Ann Epidemiol* 1999 — [pubmed.ncbi.nlm.nih.gov/10566713](https://pubmed.ncbi.nlm.nih.gov/10566713/) | Estudo epidemiológico (revisado por pares) |
+| 5 | Arroz de levedura vermelha (red yeast rice) pode ter interação/efeitos colaterais de estatina | NIH — National Center for Complementary and Integrative Health — [nccih.nih.gov/health/red-yeast-rice](https://www.nccih.nih.gov/health/red-yeast-rice) | Órgão oficial do governo dos EUA (NIH) |
+| 6 | Rosuvastatina não interage com toranja (via CYP2C9, não CYP3A4) | Bailey DG et al., *CMAJ* 2013, "Grapefruit–medication interactions" — [pmc.ncbi.nlm.nih.gov/articles/PMC3589309](https://pmc.ncbi.nlm.nih.gov/articles/PMC3589309/) | Revisão científica (revisada por pares) |
+| 7 | Duração de 12 meses de dupla antiagregação (Aspirina + Ticagrelor) após stent em síndrome coronariana aguda | 2016 ACC/AHA Guideline Focused Update on DAPT — [acc.org](https://www.acc.org/latest-in-cardiology/ten-points-to-remember/2016/03/25/14/56/2016-acc-aha-guideline-focused-update-on-dapt), reafirmado na diretriz 2025 (JACC) — [jacc.org](https://www.jacc.org/doi/10.1016/j.jacc.2025.04.045) | Diretriz de sociedades médicas (ACC/AHA) |
+| 8 | Metas de LDL pós-infarto: <50 mg/dL (secundária, SBC 2017); nova categoria "risco extremo" <40 mg/dL (SBC 2025, se preencher critérios adicionais); <55 mg/dL (ESC/EAS 2019 e ACC/AHA, risco muito alto) | Diretriz Brasileira de Dislipidemias e Prevenção da Aterosclerose 2025 (SBC), *Arq Bras Cardiol* — [scielo.br](https://www.scielo.br/j/abc/a/tRJrwGzKX6C4GvMqdJpZcGk/?lang=pt); comparação de diretrizes — [pmc.ncbi.nlm.nih.gov/articles/PMC7368309](https://pmc.ncbi.nlm.nih.gov/articles/PMC7368309/) | Diretrizes de sociedades médicas (SBC/ESC/ACC-AHA) |
+| 9 | Diretriz alimentar cardioprotetora (sódio, gordura saturada <6% das calorias, padrão Mediterrâneo/DASH) | American Heart Association — [heart.org](https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/nutrition-basics/aha-diet-and-lifestyle-recommendations) e *2026 Dietary Guidance to Improve Cardiovascular Health*, AHA Scientific Statement, *Circulation* — [ahajournals.org](https://www.ahajournals.org/doi/10.1161/CIR.0000000000001435); no Brasil, Dieta Cardioprotetora Brasileira (DICA Br), baseada na I Diretriz Brasileira de Prevenção Cardiovascular (SBC) — [scielo.br](https://www.scielo.br/j/abc/a/X94tMKwdnBjkCzVKpXwBqmD/?lang=pt) | Diretrizes de sociedades médicas (AHA/SBC) |
+
+**Sobre a meta de LDL — importante esclarecer com o médico:** o laboratório do seu exame
+usou "<50 mg/dL" (padrão da diretriz brasileira de 2017 para prevenção secundária). A
+diretriz brasileira mais nova (2025) criou uma categoria de "risco extremo" com meta
+"<40 mg/dL", que se aplica a quem já teve um evento cardiovascular maior (como o seu infarto)
+**associado a duas ou mais condições de alto risco adicionais** (ex.: diabetes, doença renal
+crônica, HDL muito baixo) — não dá para saber sem o médico se você se enquadra nela. As
+diretrizes internacionais (europeia ESC/EAS 2019 e americana ACC/AHA) convergem para uma meta
+de "<55 mg/dL" para risco muito alto. Ou seja: seu LDL atual de 138 mg/dL está longe de
+qualquer uma dessas metas — a pergunta certa para o médico não é "qual número exato", mas sim
+"qual dessas metas o senhor está usando no meu caso" (a diferença entre 40, 50 e 55 mg/dL
+importa menos agora do que reduzir de 138 para a faixa de qualquer uma delas).
 
 ---
 
@@ -109,8 +160,12 @@ Marque com `[x]` as que já foram respondidas e anote a resposta logo abaixo da 
       esquerda — precisa de acompanhamento periódico? Com que frequência repetir o exame?
 
 ### Sobre colesterol, triglicerídeos e glicemia
-- [ ] Qual estatina (e dose) foi prescrita, e qual é a meta de LDL definida para o meu caso
-      (a referência do laboratório cita <50 mg/dL para quem já teve IAM)?
+- [x] Qual estatina (e dose) foi prescrita?
+      *(Resposta: Rosucor/rosuvastatina 20 mg, 2 comprimidos = 40 mg/dia — dose máxima do
+      medicamento — associada à Ezetimiba 10 mg. Ver seção 1a.)*
+- [ ] Qual é a meta de LDL definida para o meu caso? O laboratório usou <50 mg/dL, mas há
+      pelo menos 3 metas diferentes possíveis (<40, <50 ou <55 mg/dL) dependendo da diretriz —
+      ver a explicação e as fontes na seção 1b.
 - [ ] Os triglicerídeos de 343 mg/dL precisam de tratamento medicamentoso além da dieta?
 - [ ] As glicemias ficaram entre 119-149 mg/dL durante a internação, mas a HbA1c é normal
       (5,5%) — é hiperglicemia de estresse ou preciso investigar diabetes?

@@ -20,14 +20,14 @@ referencia/
 
 ## A planilha
 
-`planilha/plano-alimentar-pos-infarto.xlsx` tem 4 abas visíveis e 1 aba oculta
+`planilha/plano-alimentar-pos-infarto.xlsx` tem 5 abas visíveis e 1 aba oculta
 de apoio:
 
 1. **Cuidados na Alimentação** — o que priorizar e reduzir, atenção especial a
-   triglicerídeos/LDL, a lista de medicações da alta e os avisos de interação
-   medicamento x alimento (Ticagrelor x toranja, Enalapril x potássio/sal
-   light, etc.), e um aviso pendente sobre função renal (ainda a confirmar
-   com o médico).
+   triglicerídeos/LDL (com as diferentes metas possíveis, ver fontes abaixo),
+   a lista de medicações da alta e os avisos de interação medicamento x
+   alimento (Ticagrelor x toranja, Enalapril x potássio/sal light, etc.), e um
+   aviso pendente sobre função renal (ainda a confirmar com o médico).
 2. **Plano Geral - Restaurante** — modelo de prato, o que pedir/evitar fora de
    casa, perguntas úteis ao garçom e exemplos de pratos que funcionam.
 3. **Alimentos e Quantidades** — lista de alimentos comuns por categoria, com
@@ -39,9 +39,14 @@ de apoio:
    sugere um alimento que combina bem com o item anterior, e sinaliza
    "⚠ Conflito" quando dois itens problemáticos (ou um "Evitar") caem na
    mesma refeição. Ver limitações conhecidas no rodapé da própria aba.
-5. **Ref_Alimentos** (oculta) — tabelas auxiliares que alimentam as fórmulas
-   da aba 4 (listas por refeição, sugestões de combinação). Não precisa
-   mexer nela na mão.
+5. **Fontes e Referências** — de onde veio cada afirmação médica usada nas
+   abas acima (bulas oficiais/Anvisa, estudos revisados por pares, NIH,
+   diretrizes da SBC/AHA/ACC-ESC), com link clicável para cada fonte. A mesma
+   lista, em formato mais fácil de copiar, está em
+   `referencia/dados-consulta-e-alimentacao.md`, seção 1b.
+6. **Ref_Alimentos** (oculta) — tabelas auxiliares que alimentam as fórmulas
+   e os menus suspensos da aba 4 (listas por refeição, sugestões de
+   combinação). Não precisa mexer nela na mão.
 
 A lista de alimentos é gerada a partir de `planilha/dados_alimentos.json` pelo
 script `planilha/gerar_planilha.py` — isso garante que a formatação (cores,
@@ -57,6 +62,13 @@ simulação em Python antes de publicar. Ao abrir o arquivo pela primeira vez no
 Excel, Google Sheets ou LibreOffice Desktop, as fórmulas calculam normalmente
 (comportamento padrão desses programas) — se notar algo estranho na primeira
 abertura, avise para eu corrigir.
+
+**Sobre os menus suspensos da coluna "Alimento":** eles usam "nomes definidos"
+(`Lista_CafeDaManha`, `Lista_Almoco`, `Lista_Lanche`, `Lista_Jantar`, definidos
+em `gerar_planilha.py`) em vez de apontar direto para a aba `Ref_Alimentos` —
+o Excel não permite uma lista suspensa referenciar diretamente um intervalo em
+outra aba, só um nome definido. Se algum dia o menu parecer vazio ou quebrado
+de novo, é o primeiro lugar para checar.
 
 ## Como acrescentar um alimento novo
 

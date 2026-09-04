@@ -15,8 +15,9 @@ sempre.
 ## Contexto do paciente (usar para decidir a classificação)
 
 - Pós-infarto agudo do miocárdio recente, dislipidemia mista: **LDL alto**
-  (meta pós-IAM <50 mg/dL), **HDL baixo**, **triglicerídeos muito altos**
-  (343 mg/dL) e colesterol total alto.
+  (138 mg/dL; meta pós-IAM entre <40 e <55 mg/dL dependendo da diretriz —
+  ver aba "Fontes e Referências"), **HDL baixo**, **triglicerídeos muito
+  altos** (343 mg/dL) e colesterol total alto.
 - Função renal com pendência ainda não confirmada pelo médico — por enquanto
   **não aplicar** restrição de sódio/potássio/proteína por causa disso, só o
   cuidado cardiovascular.
@@ -36,8 +37,12 @@ em algum destes pontos e, se sim, rebaixe a classificação e explique na
 observação:
 
 - **Toranja/grapefruit (fruta, suco ou qualquer preparo com toranja)** →
-  `Evitar` sempre. Interage com o Ticagrelor (aumenta o nível do remédio no
-  sangue e o risco de sangramento).
+  `Evitar` sempre. Interage com o Ticagrelor (estudo publicado + a própria
+  bula do Brilinta reconhecem o efeito, mesmo a bula dizendo que "não é
+  esperado ser clinicamente relevante para a maioria" — o paciente toma 2
+  antiagregantes, então a orientação conservadora é evitar). NÃO tem
+  interação relevante conhecida com a Rosucor/rosuvastatina especificamente
+  (via metabólica diferente) — o motivo de evitar é só o Ticagrelor.
 - **Substitutos de sal / "sal light" (ricos em cloreto de potássio) e
   suplementos de potássio** → `Evitar` ou `Moderar` com nota de alerta.
   O Enalapril já tende a elevar o potássio; combinado com esses produtos o
@@ -53,6 +58,19 @@ observação:
 
 Se o alimento pedido não tiver relação com nenhum desses pontos, siga apenas o
 raciocínio nutricional geral do passo 3 abaixo.
+
+### Ao suspeitar de uma interação nova (não listada acima)
+
+Se o alimento pedido puder interagir com alguma das 5 medicações e isso não
+estiver coberto pelos 4 pontos acima (ex.: um alimento rico em vitamina K, se
+algum dia entrar um anticoagulante; um suplemento ou fitoterápico específico),
+**pesquise em fontes confiáveis antes de classificar** (WebSearch, se
+disponível): priorize bula oficial (Anvisa/FDA/DailyMed), estudos revisados
+por pares (PubMed/PMC), órgãos de saúde do governo (NIH) ou diretrizes de
+sociedades médicas (SBC, AHA, ACC/ESC) — não confie só em conhecimento geral
+para uma interação medicamentosa nova. Adicione a fonte encontrada à lista
+`FONTES` no topo de `planilha/gerar_planilha.py` (ela alimenta a aba "Fontes e
+Referências") e cite-a resumidamente na observação do alimento.
 
 ## Passo a passo
 

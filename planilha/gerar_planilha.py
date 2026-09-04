@@ -23,6 +23,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.formatting.rule import CellIsRule
+from openpyxl.workbook.defined_name import DefinedName
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 JSON_PATH = os.path.join(HERE, "dados_alimentos.json")
@@ -67,6 +68,18 @@ CATEGORY_ORDER = [
 # Refeições usadas na aba "Montar Refeição" — precisam bater exatamente com
 # os valores usados no campo "refeicoes" de dados_alimentos.json.
 MEALS = ["Café da manhã", "Almoço", "Lanche", "Jantar"]
+
+# Nome definido (Excel "Defined Name") de cada lista de refeição. Necessário
+# porque um menu suspenso (validação de dados tipo lista) não pode apontar
+# direto para um intervalo em OUTRA aba — só funciona com um nome definido
+# ou um intervalo na mesma aba. Sem isso, o menu suspenso simplesmente não
+# aparece nem funciona no Excel.
+MEAL_DEFINED_NAME = {
+    "Café da manhã": "Lista_CafeDaManha",
+    "Almoço": "Lista_Almoco",
+    "Lanche": "Lista_Lanche",
+    "Jantar": "Lista_Jantar",
+}
 
 # Para cada categoria, qual categoria costuma combinar bem com ela — usado
 # só para calcular a coluna "Sugestão" da aba "Montar Refeição" (uma dica,
@@ -146,9 +159,11 @@ def build_aba1(wb):
          "e álcool, não só gordura. Evitar refrigerante comum, suco industrializado, doces "
          "e bebida alcoólica quase por completo até reavaliação médica."),
         ("Atenção especial — LDL",
-         "Meta pós-IAM é LDL <50 mg/dL (bem mais rígida que a meta geral da população). "
-         "Reforça a importância de manter o cuidado mesmo quando o valor parecer "
-         "'razoável' pelos padrões gerais."),
+         "Meta pós-IAM é bem mais rígida que a da população geral, mas varia por diretriz: "
+         "<50 mg/dL (diretriz brasileira SBC 2017, usada pelo laboratório), <40 mg/dL "
+         "(categoria 'risco extremo' da diretriz SBC 2025, se preencher critérios adicionais) "
+         "ou <55 mg/dL (diretrizes ESC/EAS e ACC/AHA para risco muito alto) — pergunte ao "
+         "médico qual meta ele está usando (fontes na aba 'Fontes e Referências')."),
         ("Aviso pendente — função renal",
          "Há suspeita ainda não confirmada de proteinúria e duas elevações de creatinina/TFG "
          "durante a internação (TFG caiu para 57 na véspera da alta). Enquanto não houver "
@@ -163,19 +178,32 @@ def build_aba1(wb):
          "não interromper sem falar com o cardiologista, em especial a dupla Aspirina + "
          "Ticagrelor (risco de trombose no stent)."),
         ("Interação medicamentosa — Ticagrelor",
-         "Toranja/grapefruit (fruta ou suco) aumenta o nível de Ticagrelor no sangue e o "
-         "risco de sangramento — evitar completamente enquanto estiver em uso do medicamento."),
+         "Toranja/grapefruit (fruta ou suco) inibe uma enzima do fígado (CYP3A4) que ajuda a "
+         "metabolizar o Ticagrelor. Um estudo publicado mostrou quase o dobro do nível do "
+         "remédio no sangue com suco em grande quantidade; a própria bula brasileira do "
+         "Brilinta cita esse estudo e diz que não é esperado ser 'clinicamente relevante para "
+         "a maioria dos pacientes' — mas recomenda evitar. Como você toma 2 antiagregantes "
+         "juntos, a orientação mais segura é evitar toranja/grapefruit. Fontes: aba "
+         "'Fontes e Referências', linhas 1-2."),
         ("Interação medicamentosa — Enalapril",
-         "Enalapril pode elevar o potássio do sangue. Evitar sal light/substitutos de sal "
-         "(ricos em cloreto de potássio) e suplementos de potássio sem orientação médica — "
-         "atenção redobrada enquanto a função renal ainda está em investigação."),
+         "Enalapril pode elevar o potássio do sangue (reduz a aldosterona). Evitar sal "
+         "light/substitutos de sal (ricos em cloreto de potássio) e suplementos de potássio "
+         "sem orientação médica — risco bem documentado de hipercalemia, com atenção redobrada "
+         "enquanto a função renal ainda está em investigação. Fonte: aba 'Fontes e "
+         "Referências', linha 3."),
         ("Interação medicamentosa — Aspirina + Ticagrelor",
-         "A dupla antiagregação (esquema padrão por 1 ano pós-stent) já aumenta o risco de "
-         "sangramento; álcool amplifica esse risco — reforça a orientação de evitar bebida "
-         "alcoólica."),
+         "A dupla antiagregação (esquema padrão por 1 ano pós-stent, conforme diretriz "
+         "ACC/AHA) já aumenta o risco de sangramento; estudos mostram que álcool combinado "
+         "com Aspirina aumenta especificamente o sangramento gastrointestinal alto — reforça "
+         "a orientação de evitar bebida alcoólica. Fontes: aba 'Fontes e Referências', "
+         "linhas 4 e 7."),
         ("Interação medicamentosa — Rosucor (estatina)",
-         "Evitar suplementos de 'arroz de levedura vermelha' (red yeast rice), que agem como "
-         "uma estatina natural e podem somar toxicidade com a Rosucor."),
+         "Evitar suplementos de 'arroz de levedura vermelha' (red yeast rice): o NIH americano "
+         "alerta que contêm uma substância quimicamente idêntica a uma estatina e podem somar "
+         "efeitos colaterais/toxicidade com a Rosucor. Já a toranja/grapefruit NÃO tem "
+         "interação relevante conhecida com a Rosucor especificamente (ela usa outra via "
+         "metabólica, CYP2C9) — o motivo de evitar toranja neste plano é o Ticagrelor, não a "
+         "Rosucor. Fontes: aba 'Fontes e Referências', linhas 5-6."),
         ("Leitura de rótulos",
          "Ao comprar um produto industrializado, olhar sempre: sódio por porção, açúcares "
          "totais/adicionados, e a lista de ingredientes procurando 'gordura hidrogenada' ou "
@@ -341,13 +369,129 @@ def build_aba3(wb):
     ws3.row_dimensions[r].height = 30
 
 
+# Cada linha: (afirmação que essa fonte sustenta, nome da fonte, URL, tipo de fonte).
+# Pesquisado em 04/09/2026. Nenhuma destas fontes substitui a avaliação do médico —
+# são a base do que está escrito nas abas "Cuidados na Alimentação" e no arquivo
+# referencia/dados-consulta-e-alimentacao.md (seção 1b), para conferência do paciente.
+FONTES = [
+    ("Suco de toranja em quantidade alta quase dobra o nível de Ticagrelor no sangue e "
+     "aumenta seu efeito antiagregante",
+     "Holmberg et al., 2013, Br J Clin Pharmacol (PubMed)",
+     "https://pubmed.ncbi.nlm.nih.gov/23126367/",
+     "Estudo clínico revisado por pares"),
+    ("Bula brasileira do Brilinta (Ticagrelor) cita esse estudo e orienta evitar suco de "
+     "toranja em grande quantidade",
+     "Bula profissional Brilinta, AstraZeneca do Brasil (aprovada pela Anvisa)",
+     "https://www.azmed.com.br/content/dam/multibrand/br/pt/azmed-2022/home/bulas-profissionais/bulas/Brilinta_Bula_Profissional.pdf",
+     "Bula oficial (Anvisa)"),
+    ("Enalapril (IECA) + sal light/suplemento de potássio aumenta risco de hipercalemia",
+     "StatPearls (NCBI Bookshelf), \"Enalapril\"",
+     "https://www.ncbi.nlm.nih.gov/books/NBK557708/",
+     "Referência clínica revisada por pares"),
+    ("Álcool combinado com Aspirina aumenta o risco de sangramento gastrointestinal alto",
+     "Kaufman et al., 1999, Ann Epidemiol (PubMed)",
+     "https://pubmed.ncbi.nlm.nih.gov/10566713/",
+     "Estudo epidemiológico revisado por pares"),
+    ("Arroz de levedura vermelha (red yeast rice) pode causar os mesmos efeitos colaterais e "
+     "interações de uma estatina",
+     "NIH — National Center for Complementary and Integrative Health",
+     "https://www.nccih.nih.gov/health/red-yeast-rice",
+     "Órgão oficial do governo dos EUA (NIH)"),
+    ("Rosuvastatina não tem interação relevante com toranja (via CYP2C9, diferente da via "
+     "CYP3A4 usada pelo Ticagrelor)",
+     "Bailey DG et al., 2013, CMAJ, \"Grapefruit-medication interactions\"",
+     "https://pmc.ncbi.nlm.nih.gov/articles/PMC3589309/",
+     "Revisão científica revisada por pares"),
+    ("Duração de 12 meses de dupla antiagregação (Aspirina + Ticagrelor) após stent em "
+     "síndrome coronariana aguda",
+     "2016 ACC/AHA Guideline Focused Update on DAPT; reafirmado na diretriz ACS 2025 (JACC)",
+     "https://www.acc.org/latest-in-cardiology/ten-points-to-remember/2016/03/25/14/56/2016-acc-aha-guideline-focused-update-on-dapt",
+     "Diretriz de sociedades médicas (ACC/AHA)"),
+    ("Metas de LDL pós-infarto: <50 mg/dL (SBC 2017); <40 mg/dL na categoria \"risco extremo\" "
+     "(SBC 2025, com critérios adicionais); <55 mg/dL (ESC/EAS 2019 e ACC/AHA, risco muito alto)",
+     "Diretriz Brasileira de Dislipidemias e Prevenção da Aterosclerose 2025 (SBC), Arq Bras Cardiol",
+     "https://www.scielo.br/j/abc/a/tRJrwGzKX6C4GvMqdJpZcGk/?lang=pt",
+     "Diretriz de sociedade médica (SBC)"),
+    ("Diretriz alimentar cardioprotetora: sódio controlado, gordura saturada <6% das "
+     "calorias, padrão Mediterrâneo/DASH",
+     "American Heart Association — AHA Diet and Lifestyle Recommendations / 2026 Dietary "
+     "Guidance to Improve Cardiovascular Health (Circulation)",
+     "https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/nutrition-basics/aha-diet-and-lifestyle-recommendations",
+     "Diretriz de sociedade médica (AHA)"),
+    ("No Brasil, a Dieta Cardioprotetora Brasileira (DICA Br) aplica essas mesmas "
+     "recomendações a alimentos típicos brasileiros",
+     "I Diretriz Brasileira de Prevenção Cardiovascular (SBC), Arq Bras Cardiol",
+     "https://www.scielo.br/j/abc/a/X94tMKwdnBjkCzVKpXwBqmD/?lang=pt",
+     "Diretriz de sociedade médica (SBC)"),
+]
+
+
+def build_aba_fontes(wb):
+    ws = wb.create_sheet("Fontes e Referências")
+    ws.sheet_view.showGridLines = False
+
+    style_title(ws, "Fontes e Referências — de onde vieram as informações médicas", span=5)
+
+    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=5)
+    instr = ws.cell(
+        row=2, column=1,
+        value="Pesquisa feita em 04/09/2026, priorizando bulas oficiais (Anvisa), estudos "
+              "revisados por pares (PubMed/PMC), órgãos de saúde do governo (NIH) e diretrizes "
+              "de sociedades médicas (SBC, AHA, ACC/ESC). Nenhuma destas fontes substitui a "
+              "avaliação do seu médico — use como ponto de partida para perguntar e confirmar "
+              "na consulta. Clique no link da coluna 'Fonte' para abrir a página original."
+    )
+    instr.font = Font(name=FONT_NAME, size=9.5, italic=True)
+    instr.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+    ws.row_dimensions[2].height = 46
+
+    headers = ["Nº", "Afirmação que a fonte sustenta", "Fonte", "Tipo de fonte", "URL completa"]
+    widths = [5, 46, 40, 26, 50]
+    header_row(ws, 3, headers, widths=widths)
+    ws.freeze_panes = "A4"
+
+    font_normal = Font(name=FONT_NAME, size=10)
+    font_link = Font(name=FONT_NAME, size=10, underline="single", color="1155CC")
+    font_url = Font(name=FONT_NAME, size=9, color="666666")
+
+    r = 4
+    for i, (afirmacao, fonte, url, tipo) in enumerate(FONTES, start=1):
+        ws.cell(row=r, column=1, value=i)
+        ws.cell(row=r, column=2, value=afirmacao)
+        c3 = ws.cell(row=r, column=3, value=fonte)
+        c3.hyperlink = url
+        ws.cell(row=r, column=4, value=tipo)
+        ws.cell(row=r, column=5, value=url)
+        for col in range(1, 6):
+            cell = ws.cell(row=r, column=col)
+            cell.font = {3: font_link, 5: font_url}.get(col, font_normal)
+            cell.alignment = Alignment(
+                horizontal="center" if col in (1,) else "left",
+                vertical="center", wrap_text=True, indent=(1 if col in (2, 3, 4, 5) else 0)
+            )
+            cell.border = BORDER_ALL
+        ws.row_dimensions[r].height = 44
+        r += 1
+
+    r += 1
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=5)
+    note = ws.cell(
+        row=r, column=1,
+        value="Lista completa com os mesmos links (mais fácil de clicar em Markdown) também em "
+              "referencia/dados-consulta-e-alimentacao.md, seção 1b."
+    )
+    note.font = Font(name=FONT_NAME, size=9.5, italic=True)
+    note.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+    ws.row_dimensions[r].height = 24
+
+
 def build_ref_alimentos(wb):
-    """Aba auxiliar (oculta) que alimenta as fórmulas da aba 'Montar Refeição':
-    a tabela completa de alimentos, listas por refeição já filtradas/ordenadas
-    (Liberado > Moderar > Evitar) para os menus suspensos, uma tabela de
-    "alimento em destaque" por categoria+refeição e a tabela de categorias
-    que combinam bem entre si. Tudo com valores fixos (sem fórmula) — é
-    recalculada do zero a cada vez que este script roda."""
+    """Aba auxiliar (oculta) que alimenta as fórmulas e os menus suspensos da
+    aba 'Montar Refeição': a tabela completa de alimentos, listas por
+    refeição já filtradas/ordenadas (Liberado > Moderar > Evitar), uma
+    tabela de "alimento em destaque" por categoria+refeição e a tabela de
+    categorias que combinam bem entre si. Tudo com valores fixos (sem
+    fórmula) — é recalculada do zero a cada vez que este script roda."""
     ws = wb.create_sheet("Ref_Alimentos")
     ws.sheet_state = "hidden"
 
@@ -382,6 +526,12 @@ def build_ref_alimentos(wb):
         for i, it in enumerate(elegiveis, start=2):
             ws.cell(row=i, column=col, value=it["alimento"])
 
+        # Nome definido apontando para a lista — é isso que o menu suspenso
+        # da aba "Montar Refeição" usa (ver MEAL_DEFINED_NAME).
+        letter = get_column_letter(col)
+        name = MEAL_DEFINED_NAME[meal]
+        wb.defined_names[name] = DefinedName(name, attr_text=f"Ref_Alimentos!${letter}$2:${letter}$101")
+
     # Tabela "alimento em destaque" por categoria+refeição (colunas Q, R =
     # 17, 18): usada pela coluna "Sugestão". Preferência por um item
     # Liberado; se não houver nenhum, usa o primeiro elegível da categoria.
@@ -410,7 +560,7 @@ def build_ref_alimentos(wb):
     return ws
 
 
-def _build_meal_block(ws, start_row, meal_name, list_col_letter, n_items=5):
+def _build_meal_block(ws, start_row, meal_name, n_items=5):
     """Escreve um bloco de refeição (título + cabeçalho + N linhas de item)
     a partir de start_row e devolve a próxima linha livre depois do bloco."""
     ws.merge_cells(start_row=start_row, start_column=1, end_row=start_row, end_column=8)
@@ -501,11 +651,16 @@ def _build_meal_block(ws, start_row, meal_name, list_col_letter, n_items=5):
             ws.cell(row=r, column=col).border = BORDER_ALL
         ws.row_dimensions[r].height = 26
 
+    # Uma lista de validação não pode apontar direto para um intervalo em
+    # outra aba — só para um nome definido (ou um intervalo na mesma aba).
+    # Por isso o formula1 usa o nome definido, não "Ref_Alimentos!...".
     dv = DataValidation(
         type="list",
-        formula1=f"=Ref_Alimentos!${list_col_letter}$2:${list_col_letter}$101",
+        formula1=f"={MEAL_DEFINED_NAME[meal_name]}",
         allow_blank=True,
         showDropDown=False,
+        showInputMessage=True,
+        showErrorMessage=True,
     )
     dv.error = "Escolha um alimento da lista da coluna (ou deixe em branco)."
     dv.errorTitle = "Alimento fora da lista"
@@ -577,9 +732,8 @@ def build_aba4(wb):
         cell.alignment = Alignment(horizontal="center", vertical="center")
 
     row = 5
-    for meal, list_col_letter in [("Café da manhã", "L"), ("Almoço", "M"),
-                                   ("Lanche", "N"), ("Jantar", "O")]:
-        row = _build_meal_block(ws4, row, meal, list_col_letter)
+    for meal in MEALS:
+        row = _build_meal_block(ws4, row, meal)
 
     ws4.merge_cells(start_row=row, start_column=1, end_row=row, end_column=8)
     note = ws4.cell(
@@ -601,6 +755,7 @@ def main():
     build_aba2(wb)
     build_aba3(wb)
     build_aba4(wb)
+    build_aba_fontes(wb)
     build_ref_alimentos(wb)
     wb.save(OUT_PATH)
     print("Salvo em", OUT_PATH)
