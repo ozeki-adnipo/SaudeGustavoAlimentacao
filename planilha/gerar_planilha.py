@@ -258,7 +258,7 @@ def build_aba2(wb):
          "1/2 do prato: vegetais e salada (à vontade, tempero simples com azeite/limão). "
          "1/4 do prato: proteína magra grelhada/assada (peixe, frango sem pele, ovo, "
          "leguminosas). 1/4 do prato: carboidrato integral (arroz integral, batata-doce, "
-         "mandioca, pão integral) em porção moderada."),
+         "mandioca, pão de forma integral) em porção moderada."),
         ("O que pedir",
          "Grelhado, assado ou cozido — sem manteiga extra ou molho cremoso. Peça o molho "
          "à parte para controlar a quantidade. Troque frituras por grelhados/assados. "

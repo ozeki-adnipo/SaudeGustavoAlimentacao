@@ -108,7 +108,7 @@
   },
   {
     "categoria": "Grãos e Cereais",
-    "alimento": "Pão integral",
+    "alimento": "Pão de forma integral",
     "porcao": "2 fatias",
     "frequencia": "1x/dia",
     "classificacao": "Liberado",
@@ -193,11 +193,11 @@
   },
   {
     "categoria": "Laticínios",
-    "alimento": "Queijo branco",
+    "alimento": "Queijo branco frescal",
     "porcao": "30 g",
     "frequencia": "3x/semana",
-    "classificacao": "Moderar",
-    "observacao": "Atenção ao sódio",
+    "classificacao": "Liberado",
+    "observacao": "Tipo fresco (ex.: Minas frescal), sem cura/salga pesada — bem menos sódio e gordura que queijos curados. Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
     "refeicoes": [
       "Café da manhã",
       "Lanche"
@@ -209,7 +209,7 @@
     "porcao": "30 g",
     "frequencia": "2x/semana",
     "classificacao": "Moderar",
-    "observacao": "Mais gordura saturada e sódio que o queijo branco; prefira o queijo branco no dia a dia. Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
+    "observacao": "Mais gordura saturada e sódio que o queijo branco frescal; prefira o frescal no dia a dia. Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
     "refeicoes": [
       "Café da manhã",
       "Lanche"
