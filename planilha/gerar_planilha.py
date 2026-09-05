@@ -16,6 +16,7 @@ que a skill `adicionar-alimento` funciona por baixo dos panos.
 Sem fórmulas — é uma planilha de referência/consulta, não um modelo de cálculo.
 """
 import json
+import math
 import os
 
 import openpyxl
@@ -127,6 +128,33 @@ def header_row(ws, row, headers, widths=None):
     if widths:
         for i, w in enumerate(widths, start=1):
             ws.column_dimensions[get_column_letter(i)].width = w
+
+
+# Caracteres por linha ≈ largura da coluna (unidade do Excel) × este fator. É uma
+# aproximação (fonte proporcional, não monoespaçada) — propositalmente um pouco
+# conservadora, para sobrar espaço em branco em vez de cortar texto.
+CHARS_POR_UNIDADE_LARGURA = 1.8
+
+
+def estimar_linhas(texto, largura_col):
+    if not texto:
+        return 1
+    chars_por_linha = max(10, largura_col * CHARS_POR_UNIDADE_LARGURA)
+    linhas = 0
+    for paragrafo in str(texto).split("\n"):
+        linhas += max(1, math.ceil(len(paragrafo) / chars_por_linha))
+    return max(1, linhas)
+
+
+def calc_row_height(cols, line_pt=14, padding_pt=8, min_pt=20):
+    """cols: lista de (texto, largura_da_coluna) para as colunas com wrap_text=True
+    que determinam a altura da linha. Devolve a altura (em pontos) que cabe o texto
+    mais longo entre elas, nunca menor que min_pt. Usado em vez de altura fixa nas
+    abas com texto livre, para não cortar rótulos/observações mais longos."""
+    if not cols:
+        return min_pt
+    linhas = max(estimar_linhas(texto, largura) for texto, largura in cols)
+    return max(min_pt, linhas * line_pt + padding_pt)
 
 
 def build_aba1(wb):
@@ -251,7 +279,7 @@ def build_aba1(wb):
         c2.font = Font(name=FONT_NAME, size=10.5)
         c2.alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
         c2.border = BORDER_ALL
-        ws1.row_dimensions[r].height = 46
+        ws1.row_dimensions[r].height = calc_row_height([(secao, 26), (texto, 95)], min_pt=30)
         r += 1
 
 
@@ -303,7 +331,7 @@ def build_aba2(wb):
         c2.font = Font(name=FONT_NAME, size=10.5)
         c2.alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
         c2.border = BORDER_ALL
-        ws2.row_dimensions[r].height = 60
+        ws2.row_dimensions[r].height = calc_row_height([(secao, 26), (texto, 95)], min_pt=30)
         r += 1
 
 
@@ -449,20 +477,21 @@ def build_aba3(wb, gostoso_previo=None):
             if col == 7 and val:
                 cell.fill = PatternFill("solid", fgColor=GOSTOSO_COLORS.get(val, "FFFFFF"))
         dv_gostoso.add(f"G{r}")
-        ws3.row_dimensions[r].height = 30
+        ws3.row_dimensions[r].height = calc_row_height(
+            [(item["alimento"], 24), (item["observacao"], 40)], min_pt=30)
         r += 1
 
     r += 1
     ws3.merge_cells(start_row=r, start_column=1, end_row=r, end_column=8)
-    note = ws3.cell(row=r, column=1,
-                    value="Lista com os alimentos acrescentados até agora — não é uma lista "
-                          "completa. Use a skill 'adicionar-alimento' (ex.: \"adicione "
-                          "sucrilhos\") para ir acrescentando novos itens aos poucos. A coluna "
-                          "'Gostoso' é sua — escolha do menu suspenso; o valor é preservado "
-                          "mesmo quando a planilha é regenerada por um alimento novo.")
+    note_texto = ("Lista com os alimentos acrescentados até agora — não é uma lista "
+                  "completa. Use a skill 'adicionar-alimento' (ex.: \"adicione "
+                  "sucrilhos\") para ir acrescentando novos itens aos poucos. A coluna "
+                  "'Gostoso' é sua — escolha do menu suspenso; o valor é preservado "
+                  "mesmo quando a planilha é regenerada por um alimento novo.")
+    note = ws3.cell(row=r, column=1, value=note_texto)
     note.font = Font(name=FONT_NAME, size=9.5, italic=True)
     note.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
-    ws3.row_dimensions[r].height = 40
+    ws3.row_dimensions[r].height = calc_row_height([(note_texto, sum(widths3))], min_pt=30)
 
 
 # Cada linha: (afirmação que essa fonte sustenta, nome da fonte, URL, tipo de fonte, área).
@@ -637,7 +666,8 @@ def build_aba_fontes(wb):
                 vertical="center", wrap_text=True, indent=(1 if col in (2, 3, 4, 6) else 0)
             )
             cell.border = BORDER_ALL
-        ws.row_dimensions[r].height = 44
+        ws.row_dimensions[r].height = calc_row_height(
+            [(afirmacao, 44), (fonte, 38), (url, 50)], min_pt=30)
         r += 1
 
     r += 1
@@ -729,7 +759,12 @@ def build_ref_alimentos(wb):
 
 def _build_meal_block(ws, start_row, meal_name, n_items=5):
     """Escreve um bloco de refeição (título + cabeçalho + N linhas de item)
-    a partir de start_row e devolve a próxima linha livre depois do bloco."""
+    a partir de start_row e devolve a próxima linha livre depois do bloco.
+
+    Altura de linha fica fixa aqui (ao contrário das outras abas) porque
+    Categoria/Sugestão/Conflito são preenchidas por FÓRMULA — o texto real só
+    existe depois que o Excel calcula, então não dá para estimar o tamanho na
+    hora de gerar o arquivo com calc_row_height()."""
     ws.merge_cells(start_row=start_row, start_column=1, end_row=start_row, end_column=8)
     title_cell = ws.cell(row=start_row, column=1, value=meal_name.upper())
     title_cell.font = Font(name=FONT_NAME, size=11, bold=True, color=COLOR_CATEGORY_FG)

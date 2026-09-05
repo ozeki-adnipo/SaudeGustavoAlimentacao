@@ -255,6 +255,19 @@
   },
   {
     "categoria": "Laticínios",
+    "alimento": "Iogurte grego zero",
+    "marca": "Vigor",
+    "porcao": "90 g (1 pote)",
+    "frequencia": "1x/dia",
+    "classificacao": "Liberado",
+    "observacao": "Rótulo real: 50 kcal, 6,8 g de proteína (bem mais que iogurte comum), 0,2 g de gordura, 51 mg de sódio, zero adição de açúcar/gordura, sem lactose. Contém edulcorantes (sucralose e ciclamato).",
+    "refeicoes": [
+      "Café da manhã",
+      "Lanche"
+    ]
+  },
+  {
+    "categoria": "Laticínios",
     "alimento": "Requeijão",
     "porcao": "1 colher de sopa (≈15 g)",
     "frequencia": "2x/semana",
