@@ -205,6 +205,19 @@
   },
   {
     "categoria": "Laticínios",
+    "alimento": "Queijo frescal light",
+    "marca": "Polenghi",
+    "porcao": "30 g (1 fatia)",
+    "frequencia": "3x/semana",
+    "classificacao": "Liberado",
+    "observacao": "Rótulo real: 41 kcal e 105 mg de sódio por porção (bem abaixo de queijos comuns), 1,5 g de gordura saturada, sem açúcar adicionado. Contém lactose; sem glúten; pode conter soja.",
+    "refeicoes": [
+      "Café da manhã",
+      "Lanche"
+    ]
+  },
+  {
+    "categoria": "Laticínios",
     "alimento": "Mussarela",
     "porcao": "30 g",
     "frequencia": "2x/semana",

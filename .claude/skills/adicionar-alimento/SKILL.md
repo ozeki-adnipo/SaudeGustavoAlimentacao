@@ -92,6 +92,13 @@ Referências") e cite-a resumidamente na observação do alimento.
     `"Almoço"`, `"Lanche"`, `"Jantar"` (grafia exata). Ex.: arroz/feijão só
     Almoço+Jantar; aveia só Café da manhã; água em todas.
 
+2b. **Se o usuário disser a marca** (ex.: "esse é Polenghi", ou mandar foto de
+    um rótulo com marca visível), preencha o campo opcional `marca` no JSON.
+    Sem marca informada, deixe o campo de fora (ou `""`) — não invente uma
+    marca. Se o usuário mandar uma foto de rótulo com a informação
+    nutricional, use os valores reais do rótulo (sódio, gordura saturada,
+    açúcar etc.) na observação em vez de estimar genericamente.
+
 3. **Defina porção, frequência e classificação** (`Liberado` / `Moderar` /
    `Evitar`) com base em conhecimento nutricional geral e no contexto do
    paciente acima. Exemplos de raciocínio:
@@ -112,12 +119,20 @@ Referências") e cite-a resumidamente na observação do alimento.
 
 5. **Atualize `planilha/dados_alimentos.json`**:
    - Se o alimento já existir na lista (mesmo nome, ignorando maiúsculas
-     /minúsculas), **edite o item existente** em vez de duplicar.
+     /minúsculas, e mesma marca — ou ambos sem marca), **edite o item
+     existente** em vez de duplicar. Se for a mesma comida mas o usuário deu
+     um nome mais específico (ex.: "pão integral" → "pão de forma integral"),
+     também é edição, não duplicata.
    - Senão, **acrescente um novo objeto** à lista, no formato (o campo
-     `refeicoes` é obrigatório, ver passo 2a):
+     `refeicoes` é obrigatório, ver passo 2a; `marca` é opcional, ver 2b):
      ```json
-     {"categoria": "...", "alimento": "...", "porcao": "...", "frequencia": "...", "classificacao": "Liberado|Moderar|Evitar", "observacao": "...", "refeicoes": ["Café da manhã", "Lanche"]}
+     {"categoria": "...", "alimento": "...", "marca": "...", "porcao": "...", "frequencia": "...", "classificacao": "Liberado|Moderar|Evitar", "observacao": "...", "refeicoes": ["Café da manhã", "Lanche"]}
      ```
+   - **Nunca escreva nada no campo "Gostoso"** da aba 3 — é a avaliação
+     pessoal do usuário (menu suspenso: Ruim/Normal/Bom/Muito bom), preenchida
+     por ele diretamente na planilha, não algo que a IA decide. Ela não vive
+     no JSON; `gerar_planilha.py` a preserva automaticamente entre execuções
+     lendo o `.xlsx` anterior (função `load_gostoso_previo`).
 
 6. **Regenere a planilha** rodando, a partir da raiz do repositório:
    ```bash
@@ -127,8 +142,9 @@ Referências") e cite-a resumidamente na observação do alimento.
    aba 3 e a aba oculta `Ref_Alimentos` são remontadas a partir do JSON, e a
    aba 4 "Montar Refeição" passa a enxergar o alimento novo nos menus
    suspensos da(s) refeição(ões) marcada(s)), preservando toda a
-   formatação/cores. Se `openpyxl` não estiver instalado, rode
-   `pip install openpyxl` antes.
+   formatação/cores — inclusive os valores que o usuário já tiver preenchido
+   na coluna "Gostoso" (o script lê o `.xlsx` anterior antes de sobrescrever).
+   Se `openpyxl` não estiver instalado, rode `pip install openpyxl` antes.
 
    **Tente recalcular com LibreOffice** (`scripts/recalc.py` da skill xlsx)
    depois de gerar o arquivo, para confirmar que as fórmulas da aba "Montar

@@ -32,7 +32,12 @@ de apoio:
 2. **Plano Geral - Restaurante** — modelo de prato, o que pedir/evitar fora de
    casa, perguntas úteis ao garçom e exemplos de pratos que funcionam.
 3. **Alimentos e Quantidades** — lista de alimentos comuns por categoria, com
-   porção, frequência e classificação (Liberado / Moderar / Evitar).
+   marca (quando relevante), porção, frequência, classificação (Liberado /
+   Moderar / Evitar) e uma coluna **"Gostoso"**: um menu suspenso (Ruim /
+   Normal / Bom / Muito bom) para você mesmo avaliar cada alimento — é opinião
+   sua, a skill nunca preenche isso. Esse valor é **preservado automaticamente**
+   quando a planilha é regenerada por causa de um alimento novo (ver nota
+   abaixo).
 4. **Montar Refeição** — monta café da manhã, almoço, lanche e jantar
    escolhendo alimentos em menus suspensos (já filtrados por refeição — não
    aparece arroz/feijão no café da manhã, por exemplo). Mostra sozinha a
@@ -71,6 +76,12 @@ em `gerar_planilha.py`) em vez de apontar direto para a aba `Ref_Alimentos` —
 o Excel não permite uma lista suspensa referenciar diretamente um intervalo em
 outra aba, só um nome definido. Se algum dia o menu parecer vazio ou quebrado
 de novo, é o primeiro lugar para checar.
+
+**Sobre a coluna "Gostoso":** `gerar_planilha.py` lê o `.xlsx` já existente
+antes de recriar a aba "Alimentos e Quantidades" (função
+`load_gostoso_previo`), casando por Alimento + Marca, e reaplica o que já
+estava preenchido. Ou seja: pode preencher o menu suspenso à vontade que uma
+avaliação sua não se perde quando um alimento novo for adicionado depois.
 
 ## Como acrescentar um alimento novo
 

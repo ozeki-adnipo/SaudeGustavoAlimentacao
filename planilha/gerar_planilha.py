@@ -48,6 +48,16 @@ CLASS_COLORS = {
     "Evitar": COLOR_EVITAR,
 }
 
+# Opções do menu suspenso da coluna "Gostoso" (avaliação pessoal do usuário,
+# preenchida à mão na planilha — nunca decidida pela skill adicionar-alimento).
+GOSTOSO_OPCOES = ["Ruim", "Normal", "Bom", "Muito bom"]
+GOSTOSO_COLORS = {
+    "Ruim": COLOR_EVITAR,
+    "Normal": COLOR_MODERAR,
+    "Bom": COLOR_LIBERADO,
+    "Muito bom": "70AD47",  # verde mais forte que "Bom"
+}
+
 THIN = Side(style="thin", color="B7B7B7")
 BORDER_ALL = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
 
@@ -317,11 +327,53 @@ def load_alimentos():
     return alimentos_ordenados
 
 
-def build_aba3(wb):
+def load_gostoso_previo():
+    """Lê o .xlsx já existente (se houver) e devolve {(alimento, marca): valor de
+    "Gostoso"} para não perder as avaliações pessoais que o usuário já preencheu à
+    mão na planilha, quando ela for regenerada por causa de um alimento novo.
+    Nunca levanta erro — arquivo ausente, aba ausente ou coluna "Gostoso" ainda não
+    existente (ex.: primeira vez que esta função roda) simplesmente devolvem {}."""
+    if not os.path.exists(OUT_PATH):
+        return {}
+    try:
+        wb_antigo = openpyxl.load_workbook(OUT_PATH, data_only=True)
+        if "Alimentos e Quantidades" not in wb_antigo.sheetnames:
+            return {}
+        ws_antigo = wb_antigo["Alimentos e Quantidades"]
+
+        col_idx = {}
+        for col in range(1, ws_antigo.max_column + 1):
+            header = ws_antigo.cell(row=3, column=col).value
+            if header in ("Alimento", "Marca", "Gostoso"):
+                col_idx[header] = col
+        if "Alimento" not in col_idx or "Gostoso" not in col_idx:
+            return {}
+
+        previos = {}
+        for row in range(4, ws_antigo.max_row + 1):
+            alimento = ws_antigo.cell(row=row, column=col_idx["Alimento"]).value
+            if not alimento:
+                continue  # linha de cabeçalho de categoria ou em branco
+            marca = ws_antigo.cell(row=row, column=col_idx["Marca"]).value if "Marca" in col_idx else ""
+            gostoso = ws_antigo.cell(row=row, column=col_idx["Gostoso"]).value
+            if gostoso:
+                previos[(alimento, marca or "")] = gostoso
+        return previos
+    except Exception:
+        return {}
+
+
+def build_aba3(wb, gostoso_previo=None):
+    """Colunas: Categoria | Alimento | Marca | Porção | Frequência | Classificação
+    | Gostoso | Observação. "Marca" vem do JSON (como porção/classificação — a
+    skill preenche). "Gostoso" é avaliação pessoal do usuário, preenchida à mão
+    via menu suspenso na planilha — nunca decidida pela skill — e é preservada
+    entre regenerações via `gostoso_previo` (ver load_gostoso_previo)."""
+    gostoso_previo = gostoso_previo or {}
     ws3 = wb.create_sheet("Alimentos e Quantidades")
     ws3.sheet_view.showGridLines = False
 
-    style_title(ws3, "Alimentos e Quantidades — lista de referência", span=6)
+    style_title(ws3, "Alimentos e Quantidades — lista de referência", span=8)
 
     ws3.row_dimensions[2].height = 20
     legend = [
@@ -335,56 +387,82 @@ def build_aba3(wb):
         cell.fill = PatternFill("solid", fgColor=color)
         cell.alignment = Alignment(horizontal="center", vertical="center")
         cell.border = BORDER_ALL
+    gostoso_legend = ws3.cell(row=2, column=7,
+                               value="Gostoso: preencha você mesmo (menu suspenso na coluna)")
+    gostoso_legend.font = Font(name=FONT_NAME, size=9, italic=True)
+    gostoso_legend.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+    ws3.merge_cells(start_row=2, start_column=7, end_row=2, end_column=8)
 
-    headers3 = ["Categoria", "Alimento", "Porção", "Frequência", "Classificação", "Observação"]
-    widths3 = [16, 26, 16, 20, 15, 46]
+    headers3 = ["Categoria", "Alimento", "Marca", "Porção", "Frequência",
+                "Classificação", "Gostoso", "Observação"]
+    widths3 = [16, 24, 14, 16, 18, 15, 13, 40]
     header_row(ws3, 3, headers3, widths=widths3)
     ws3.freeze_panes = "A4"
 
     alimentos = load_alimentos()
+
+    dv_gostoso = DataValidation(
+        type="list",
+        formula1=f'"{",".join(GOSTOSO_OPCOES)}"',
+        allow_blank=True,
+        showDropDown=False,
+        showErrorMessage=True,
+    )
+    dv_gostoso.error = "Escolha uma opção do menu (ou deixe em branco)."
+    dv_gostoso.errorTitle = "Fora da lista"
+    dv_gostoso.errorStyle = "warning"
+    ws3.add_data_validation(dv_gostoso)
 
     r = 4
     current_cat = None
     for item in alimentos:
         categoria = item["categoria"]
         if categoria != current_cat:
-            ws3.merge_cells(start_row=r, start_column=1, end_row=r, end_column=6)
+            ws3.merge_cells(start_row=r, start_column=1, end_row=r, end_column=8)
             cat_cell = ws3.cell(row=r, column=1, value=categoria)
             cat_cell.font = Font(name=FONT_NAME, size=10.5, bold=True, color=COLOR_CATEGORY_FG)
             cat_cell.fill = PatternFill("solid", fgColor=COLOR_CATEGORY_BG)
             cat_cell.alignment = Alignment(horizontal="left", vertical="center", indent=1)
-            for col in range(1, 7):
+            for col in range(1, 9):
                 ws3.cell(row=r, column=col).border = BORDER_ALL
             ws3.row_dimensions[r].height = 20
             current_cat = categoria
             r += 1
 
         classif = item["classificacao"]
-        values = [None, item["alimento"], item["porcao"], item["frequencia"], classif, item["observacao"]]
+        marca = item.get("marca", "")
+        gostoso = gostoso_previo.get((item["alimento"], marca), "")
+        values = [None, item["alimento"], marca, item["porcao"], item["frequencia"],
+                  classif, gostoso, item["observacao"]]
         for col, val in enumerate(values, start=1):
             if col == 1:
                 continue
             cell = ws3.cell(row=r, column=col, value=val)
-            cell.font = Font(name=FONT_NAME, size=10.5, bold=(col == 5))
+            cell.font = Font(name=FONT_NAME, size=10.5, bold=(col == 6))
             cell.alignment = Alignment(
-                horizontal="center" if col in (3, 4, 5) else "left",
-                vertical="center", wrap_text=True, indent=(1 if col in (2, 6) else 0)
+                horizontal="center" if col in (3, 4, 5, 6, 7) else "left",
+                vertical="center", wrap_text=True, indent=(1 if col in (2, 8) else 0)
             )
             cell.border = BORDER_ALL
-            if col == 5:
+            if col == 6:
                 cell.fill = PatternFill("solid", fgColor=CLASS_COLORS.get(classif, "FFFFFF"))
+            if col == 7 and val:
+                cell.fill = PatternFill("solid", fgColor=GOSTOSO_COLORS.get(val, "FFFFFF"))
+        dv_gostoso.add(f"G{r}")
         ws3.row_dimensions[r].height = 30
         r += 1
 
     r += 1
-    ws3.merge_cells(start_row=r, start_column=1, end_row=r, end_column=6)
+    ws3.merge_cells(start_row=r, start_column=1, end_row=r, end_column=8)
     note = ws3.cell(row=r, column=1,
                     value="Lista com os alimentos acrescentados até agora — não é uma lista "
                           "completa. Use a skill 'adicionar-alimento' (ex.: \"adicione "
-                          "sucrilhos\") para ir acrescentando novos itens aos poucos.")
+                          "sucrilhos\") para ir acrescentando novos itens aos poucos. A coluna "
+                          "'Gostoso' é sua — escolha do menu suspenso; o valor é preservado "
+                          "mesmo quando a planilha é regenerada por um alimento novo.")
     note.font = Font(name=FONT_NAME, size=9.5, italic=True)
     note.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
-    ws3.row_dimensions[r].height = 30
+    ws3.row_dimensions[r].height = 40
 
 
 # Cada linha: (afirmação que essa fonte sustenta, nome da fonte, URL, tipo de fonte, área).
@@ -839,10 +917,12 @@ def build_aba4(wb):
 
 
 def main():
+    gostoso_previo = load_gostoso_previo()
+
     wb = openpyxl.Workbook()
     build_aba1(wb)
     build_aba2(wb)
-    build_aba3(wb)
+    build_aba3(wb, gostoso_previo)
     build_aba4(wb)
     build_aba_fontes(wb)
     build_ref_alimentos(wb)
