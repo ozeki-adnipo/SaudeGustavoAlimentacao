@@ -119,6 +119,19 @@
     ]
   },
   {
+    "categoria": "Grãos e Cereais",
+    "alimento": "Pão francês integral (multigrãos)",
+    "marca": "Mambo",
+    "porcao": "1 unidade (~67 g)",
+    "frequencia": "1x/dia",
+    "classificacao": "Liberado",
+    "observacao": "Rótulo real (porção 50 g/meia unidade): 120 kcal, 208 mg de sódio, 1,6 g de fibras, sem açúcar adicionado. Com centeio, gergelim e linhaça — boa fonte de fibra, mas sódio moderado como a maioria dos pães; contém glúten.",
+    "refeicoes": [
+      "Café da manhã",
+      "Lanche"
+    ]
+  },
+  {
     "categoria": "Proteínas",
     "alimento": "Peixe",
     "porcao": "150 g",
