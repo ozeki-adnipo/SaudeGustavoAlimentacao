@@ -205,6 +205,18 @@
   },
   {
     "categoria": "Laticínios",
+    "alimento": "Mussarela",
+    "porcao": "30 g",
+    "frequencia": "2x/semana",
+    "classificacao": "Moderar",
+    "observacao": "Mais gordura saturada e sódio que o queijo branco; prefira o queijo branco no dia a dia. Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
+    "refeicoes": [
+      "Café da manhã",
+      "Lanche"
+    ]
+  },
+  {
+    "categoria": "Laticínios",
     "alimento": "Iogurte natural (desnatado, sem açúcar)",
     "porcao": "1 unidade",
     "frequencia": "1x/dia",
