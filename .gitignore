@@ -1,2 +1,7 @@
 __pycache__/
 *.pyc
+
+# Arquivos temporários do processo de sincronização com o Google Sheets
+# (ver planilha/SHEETS_SYNC.md) — nunca fazem parte do conteúdo versionado.
+planilha/_sheets_download.xlsx
+planilha/_sheets_upload_b64*.txt

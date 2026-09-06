@@ -83,6 +83,15 @@ antes de recriar a aba "Alimentos e Quantidades" (função
 estava preenchido. Ou seja: pode preencher o menu suspenso à vontade que uma
 avaliação sua não se perde quando um alimento novo for adicionado depois.
 
+## Planilha também no Google Sheets
+
+Além do `.xlsx` deste repositório, existe uma cópia no Google Sheets para
+editar direto no navegador — link e como manter os dois sincronizados (sem
+perder o que você preenche em "Gostoso" lá) em `planilha/SHEETS_SYNC.md`.
+Como o conector do Google Drive não permite atualizar o conteúdo de um
+arquivo já existente, cada sincronização gera um **link novo** — só acontece
+quando você pedir (ex.: "atualiza o sheets também"), nunca automaticamente.
+
 ## Como acrescentar um alimento novo
 
 Basta pedir, em uma conversa com o Claude neste repositório:

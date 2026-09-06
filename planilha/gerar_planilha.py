@@ -355,16 +355,14 @@ def load_alimentos():
     return alimentos_ordenados
 
 
-def load_gostoso_previo():
-    """Lê o .xlsx já existente (se houver) e devolve {(alimento, marca): valor de
-    "Gostoso"} para não perder as avaliações pessoais que o usuário já preencheu à
-    mão na planilha, quando ela for regenerada por causa de um alimento novo.
-    Nunca levanta erro — arquivo ausente, aba ausente ou coluna "Gostoso" ainda não
-    existente (ex.: primeira vez que esta função roda) simplesmente devolvem {}."""
-    if not os.path.exists(OUT_PATH):
+def _ler_gostoso_de(path):
+    """Lê um .xlsx (local ou baixado) e devolve {(alimento, marca): valor de
+    "Gostoso"}. Nunca levanta erro — arquivo ausente, aba ausente ou coluna
+    "Gostoso" ainda não existente simplesmente devolvem {}."""
+    if not path or not os.path.exists(path):
         return {}
     try:
-        wb_antigo = openpyxl.load_workbook(OUT_PATH, data_only=True)
+        wb_antigo = openpyxl.load_workbook(path, data_only=True)
         if "Alimentos e Quantidades" not in wb_antigo.sheetnames:
             return {}
         ws_antigo = wb_antigo["Alimentos e Quantidades"]
@@ -389,6 +387,26 @@ def load_gostoso_previo():
         return previos
     except Exception:
         return {}
+
+
+def load_gostoso_previo(sheets_export_path=None):
+    """Devolve {(alimento, marca): valor de "Gostoso"} para não perder as
+    avaliações pessoais que o usuário já preencheu à mão, quando a planilha for
+    regenerada por causa de um alimento novo.
+
+    Lê duas fontes possíveis e funde as duas (a mesma chave (alimento, marca)
+    tem os dois valores comparados; se só uma tiver preenchido, usa essa; se
+    as duas tiverem preenchido e forem diferentes, `sheets_export_path` vence,
+    por ser a cópia mais recente do que o usuário está editando de fato):
+
+    - `sheets_export_path`: uma cópia do Google Sheets baixada como .xlsx
+      pouco antes de regenerar (ver planilha/SHEETS_SYNC.md) — é o que
+      importa quando o usuário está editando "Gostoso" lá.
+    - `OUT_PATH`: o .xlsx local (git) — cobre o caso de quem só usa o arquivo
+      enviado pelo chat, sem Google Sheets."""
+    previos = _ler_gostoso_de(OUT_PATH)
+    previos.update(_ler_gostoso_de(sheets_export_path))
+    return previos
 
 
 def build_aba3(wb, gostoso_previo=None):
@@ -952,7 +970,10 @@ def build_aba4(wb):
 
 
 def main():
-    gostoso_previo = load_gostoso_previo()
+    # Se GOSTOSO_SHEETS_EXPORT apontar para um .xlsx baixado do Google Sheets
+    # (ver planilha/SHEETS_SYNC.md), os valores de "Gostoso" preenchidos lá
+    # têm prioridade sobre os do .xlsx local ao fundir.
+    gostoso_previo = load_gostoso_previo(os.environ.get("GOSTOSO_SHEETS_EXPORT"))
 
     wb = openpyxl.Workbook()
     build_aba1(wb)

@@ -169,3 +169,12 @@ Referências") e cite-a resumidamente na observação do alimento.
   do JSON e rode o script de novo.
 - Se o usuário pedir várias alterações de uma vez, você pode editar o JSON
   várias vezes e rodar `gerar_planilha.py` só uma vez no final.
+- **Sincronizar com o Google Sheets é um passo à parte, só quando pedido.**
+  Por padrão esta skill só regenera o `.xlsx` local e o envia pelo chat — não
+  mexe no Google Sheets automaticamente (o processo de subir um arquivo novo
+  no Drive é manual e custoso, ver motivo em `planilha/SHEETS_SYNC.md`). Se o
+  usuário pedir explicitamente para atualizar/sincronizar o Sheets também
+  (ex.: "atualiza o sheets", "sincroniza com a nuvem"), siga o procedimento
+  completo descrito em `planilha/SHEETS_SYNC.md` (baixar o Sheets atual antes
+  de regenerar, para não perder o "Gostoso" preenchido lá; depois subir um
+  Sheets novo e atualizar o link registrado nesse arquivo).
