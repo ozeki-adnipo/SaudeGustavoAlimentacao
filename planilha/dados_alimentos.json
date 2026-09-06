@@ -133,6 +133,19 @@
     ]
   },
   {
+    "categoria": "Grãos e Cereais",
+    "alimento": "Granola zero açúcar",
+    "marca": "Castanha do Bem",
+    "porcao": "20 g (1 colher de sopa)",
+    "frequencia": "1x/dia",
+    "classificacao": "Liberado",
+    "observacao": "Rótulo real (porção 20 g): 83 kcal, 2,8 g de gordura (0,9 g saturada), 12 g de carboidrato, 1,1 g de açúcar (zero adicionado, adoçada com esteviol), 3 g de proteína, 2 g de fibra e 19 mg de sódio. Feita com aveia, coco, amêndoa, castanha de caju, castanha do pará e uva-passa — sem açúcar refinado, mas é calórica (415 kcal/100 g) e tem gordura saturada das castanhas/coco: manter na porção indicada, sem repetir a colher. Contém glúten; rótulo declara conter lactose (apesar de não haver laticínio nos ingredientes — provavelmente contaminação cruzada declarada); pode conter amendoim, avelã, centeio, leite, macadâmia, nozes, ovos, pecã, soja e trigo.",
+    "refeicoes": [
+      "Café da manhã",
+      "Lanche"
+    ]
+  },
+  {
     "categoria": "Proteínas",
     "alimento": "Peixe",
     "porcao": "150 g",
