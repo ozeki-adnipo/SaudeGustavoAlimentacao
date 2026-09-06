@@ -97,11 +97,12 @@
   },
   {
     "categoria": "Grãos e Cereais",
-    "alimento": "Aveia",
-    "porcao": "2 colheres de sopa",
+    "alimento": "Aveia integral em flocos",
+    "marca": "Quaker",
+    "porcao": "2 colheres de sopa (~30 g)",
     "frequencia": "1x/dia",
     "classificacao": "Liberado",
-    "observacao": "Ajuda a reduzir colesterol",
+    "observacao": "Rótulo real: 110 kcal, 2,8 g de fibra (1,2 g de beta-glucana — a fibra solúvel que ajuda a reduzir o colesterol), sem açúcar adicionado, 0 mg de sódio.",
     "refeicoes": [
       "Café da manhã"
     ]
