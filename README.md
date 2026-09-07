@@ -83,11 +83,19 @@ antes de recriar a aba "Alimentos e Quantidades" (função
 estava preenchido. Ou seja: pode preencher o menu suspenso à vontade que uma
 avaliação sua não se perde quando um alimento novo for adicionado depois.
 
+**Sobre largura de colunas e altura de linhas:** pelo mesmo motivo, se você
+redimensionar manualmente uma coluna ou linha (arrastando no Excel ou no
+Google Sheets), esse ajuste também é preservado entre regenerações (função
+`load_dimensoes_previas`) — o script nunca reseta um redimensionamento seu
+para o valor padrão do código, mesmo ao adicionar um alimento novo no meio de
+uma categoria já existente.
+
 ## Planilha também no Google Sheets
 
 Além do `.xlsx` deste repositório, existe uma cópia no Google Sheets para
 editar direto no navegador — link e como manter os dois sincronizados (sem
-perder o que você preenche em "Gostoso" lá) em `planilha/SHEETS_SYNC.md`.
+perder o que você preenche em "Gostoso" nem o redimensionamento de
+colunas/linhas) em `planilha/SHEETS_SYNC.md`.
 Como o conector do Google Drive não permite atualizar o conteúdo de um
 arquivo já existente, cada sincronização gera um **link novo** — só acontece
 quando você pedir (ex.: "atualiza o sheets também"), nunca automaticamente.

@@ -13,13 +13,16 @@ ambiente (`mcp__Google_Drive__*`) moldam como isso funciona:
    Não há API de células do Sheets neste conector. Ou seja: **cada
    sincronização gera um link novo** — isso foi confirmado com o usuário e
    aceito por ele.
-2. **A coluna "Gostoso" é preenchida pelo usuário à mão, diretamente no
-   Sheets.** Se eu simplesmente regenerar a planilha a partir do
-   `dados_alimentos.json` e subir um Sheets novo, esses valores manuais somem
-   — porque a fonte de verdade da regeneração é o JSON + o `.xlsx` local, que
-   não sabem o que foi editado no Sheets. Por isso o procedimento abaixo
-   sempre **baixa o Sheets atual antes de regenerar**, para fundir esses
-   valores (ver `load_gostoso_previo()` em `gerar_planilha.py`).
+2. **A coluna "Gostoso", e as larguras/alturas que o usuário redimensionar
+   manualmente, são editadas diretamente no Sheets.** Se eu simplesmente
+   regenerar a planilha a partir do `dados_alimentos.json` e subir um Sheets
+   novo, esses valores manuais somem — porque a fonte de verdade da
+   regeneração é o JSON + o `.xlsx` local, que não sabem o que foi editado no
+   Sheets. Por isso o procedimento abaixo sempre **baixa o Sheets atual antes
+   de regenerar**, para fundir esses valores (ver `load_gostoso_previo()` e
+   `load_dimensoes_previas()` em `gerar_planilha.py`) — **pular esse download
+   é o erro mais comum aqui: gera um Sheets novo com o "Gostoso" e o
+   redimensionamento revertidos para o estado antigo/padrão.**
 
 ## Link atual
 
@@ -74,12 +77,13 @@ continua sendo só regenerar o `.xlsx` local e enviar pelo chat (skill
    Esse arquivo é só um insumo temporário (está no `.gitignore`) — nunca é
    commitado.
 
-2. **Regenerar com o "Gostoso" do Sheets preservado:**
+2. **Regenerar com o "Gostoso" e o redimensionamento do Sheets preservados:**
    ```bash
    GOSTOSO_SHEETS_EXPORT=planilha/_sheets_download.xlsx python3 planilha/gerar_planilha.py
    ```
-   Isso funde os valores de "Gostoso" do Sheets baixado com os do `.xlsx`
-   local (o Sheets vence em caso de conflito — ver `load_gostoso_previo()`).
+   Isso funde os valores de "Gostoso" e as larguras/alturas do Sheets baixado
+   com os do `.xlsx` local (o Sheets vence em caso de conflito — ver
+   `load_gostoso_previo()` e `load_dimensoes_previas()`).
 
 3. **Codificar o novo `.xlsx` para upload, em partes pequenas e verificadas.**
    Não existe forma de passar um caminho de arquivo para `create_file` — o
@@ -93,19 +97,34 @@ continua sendo só regenerar o `.xlsx` local e enviar pelo chat (skill
    base64 -w0 plano-alimentar-pos-infarto.xlsx > /tmp/plano_b64.txt
    split -b 14000 -d /tmp/plano_b64.txt /tmp/plano_b64_part_
    ```
-   Depois, para cada parte (`/tmp/plano_b64_part_00`, `_01`, `_02`, ...):
-   `Read` o arquivo inteiro (cada parte é uma única linha ≤14000 caracteres,
-   dentro do limite de truncamento do `Read`), copie o conteúdo (removendo só
-   o prefixo `1\t` que o `Read` adiciona) e concatene tudo em ordem, sem
-   separador, num arquivo novo via `Write` (ex.: `/tmp/plano_b64_final.txt`).
-   **Depois, sempre confira com `cmp`:**
-   ```bash
-   cmp /tmp/plano_b64.txt /tmp/plano_b64_final.txt && echo IDENTICAL
-   ```
-   Se `cmp` apontar uma diferença, corrija só o trecho indicado (via `Edit`,
-   com contexto suficiente para ser único) e rode `cmp` de novo — repita até
-   `IDENTICAL`. Só depois disso use o conteúdo de `/tmp/plano_b64_final.txt`
-   como `base64Content` na chamada de `create_file` abaixo.
+   Depois, `Read` cada parte (`/tmp/plano_b64_part_00`, `_01`, `_02`, ...) —
+   cada uma é uma única linha ≤14000 caracteres, dentro do limite de
+   truncamento do `Read`.
+
+   **Monte o arquivo final de forma incremental, não colando tudo de uma vez
+   num só `Write`:** uma tentativa nesta sessão de escrever ~28 mil
+   caracteres (duas partes coladas) em um único `Write` truncou silenciosamente
+   em 14000 caracteres, sem erro — o problema não é só transcrição, uma
+   chamada de ferramenta com texto muito longo pode ser cortada sem aviso.
+   O jeito que funcionou de forma confiável:
+   1. `Write` só a primeira parte (`part_00`, ≤14000 caracteres) em
+      `/tmp/plano_b64_final.txt`.
+   2. Para cada parte seguinte: pegue os últimos ~60 caracteres do arquivo
+      (`tail -c 60 /tmp/plano_b64_final.txt`) como âncora, e use `Edit` com
+      `old_string` = essa âncora e `new_string` = âncora + parte seguinte
+      inteira (mantém cada chamada de ferramenta no tamanho que já se provou
+      confiável, ~14000 caracteres por vez, em vez de acumular tudo numa só).
+   3. Depois de juntar todas as partes, **confira o tamanho e o conteúdo**:
+      ```bash
+      wc -c /tmp/plano_b64.txt /tmp/plano_b64_final.txt   # os dois números têm que bater
+      cmp /tmp/plano_b64.txt /tmp/plano_b64_final.txt && echo IDENTICAL
+      ```
+   Se `cmp` apontar uma diferença (de transcrição, não de truncamento — o
+   tamanho já bateu no passo acima), corrija só o trecho indicado (via
+   `Edit`, com contexto suficiente para ser único) e rode `cmp` de novo —
+   repita até `IDENTICAL`. Só depois disso use o conteúdo de
+   `/tmp/plano_b64_final.txt` como `base64Content` na chamada de `create_file`
+   abaixo.
 
 4. **Subir como Sheets novo:**
    `mcp__Google_Drive__create_file` com:

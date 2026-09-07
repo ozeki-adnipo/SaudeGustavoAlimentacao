@@ -109,16 +109,16 @@ CATEGORIA_COMBINA = {
 }
 
 
-def style_title(ws, text, span, row=1, height=26):
+def style_title(ws, text, span, row=1, height=26, dimensoes=None):
     ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=span)
     cell = ws.cell(row=row, column=1, value=text)
     cell.font = Font(name=FONT_NAME, size=14, bold=True, color=COLOR_TITLE_FG)
     cell.fill = PatternFill("solid", fgColor=COLOR_TITLE_BG)
     cell.alignment = Alignment(horizontal="left", vertical="center", indent=1)
-    ws.row_dimensions[row].height = height
+    aplicar_altura(ws, row, height, dimensoes)
 
 
-def header_row(ws, row, headers, widths=None):
+def header_row(ws, row, headers, widths=None, dimensoes=None):
     for i, h in enumerate(headers, start=1):
         cell = ws.cell(row=row, column=i, value=h)
         cell.font = Font(name=FONT_NAME, size=11, bold=True, color=COLOR_TITLE_FG)
@@ -126,8 +126,7 @@ def header_row(ws, row, headers, widths=None):
         cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
         cell.border = BORDER_ALL
     if widths:
-        for i, w in enumerate(widths, start=1):
-            ws.column_dimensions[get_column_letter(i)].width = w
+        aplicar_larguras(ws, widths, dimensoes)
 
 
 # Caracteres por linha ≈ largura da coluna (unidade do Excel) × este fator. É uma
@@ -157,13 +156,13 @@ def calc_row_height(cols, line_pt=14, padding_pt=8, min_pt=20):
     return max(min_pt, linhas * line_pt + padding_pt)
 
 
-def build_aba1(wb):
+def build_aba1(wb, dimensoes=None):
     ws1 = wb.active
     ws1.title = "Cuidados na Alimentação"
     ws1.sheet_view.showGridLines = False
 
-    style_title(ws1, "Cuidados na Alimentação — pós-infarto (25/08/2026)", span=2)
-    header_row(ws1, 2, ["Seção", "Orientação"], widths=[26, 95])
+    style_title(ws1, "Cuidados na Alimentação — pós-infarto (25/08/2026)", span=2, dimensoes=dimensoes)
+    header_row(ws1, 2, ["Seção", "Orientação"], widths=[26, 95], dimensoes=dimensoes)
     ws1.freeze_panes = "A3"
 
     rows_aba1 = [
@@ -279,16 +278,16 @@ def build_aba1(wb):
         c2.font = Font(name=FONT_NAME, size=10.5)
         c2.alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
         c2.border = BORDER_ALL
-        ws1.row_dimensions[r].height = calc_row_height([(secao, 26), (texto, 95)], min_pt=30)
+        aplicar_altura(ws1, r, calc_row_height([(secao, 26), (texto, 95)], min_pt=30), dimensoes)
         r += 1
 
 
-def build_aba2(wb):
+def build_aba2(wb, dimensoes=None):
     ws2 = wb.create_sheet("Plano Geral - Restaurante")
     ws2.sheet_view.showGridLines = False
 
-    style_title(ws2, "Plano Geral — o que comer, inclusive fora de casa", span=2)
-    header_row(ws2, 2, ["Seção", "Conteúdo"], widths=[26, 95])
+    style_title(ws2, "Plano Geral — o que comer, inclusive fora de casa", span=2, dimensoes=dimensoes)
+    header_row(ws2, 2, ["Seção", "Conteúdo"], widths=[26, 95], dimensoes=dimensoes)
     ws2.freeze_panes = "A3"
 
     rows_aba2 = [
@@ -331,7 +330,7 @@ def build_aba2(wb):
         c2.font = Font(name=FONT_NAME, size=10.5)
         c2.alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
         c2.border = BORDER_ALL
-        ws2.row_dimensions[r].height = calc_row_height([(secao, 26), (texto, 95)], min_pt=30)
+        aplicar_altura(ws2, r, calc_row_height([(secao, 26), (texto, 95)], min_pt=30), dimensoes)
         r += 1
 
 
@@ -409,19 +408,144 @@ def load_gostoso_previo(sheets_export_path=None):
     return previos
 
 
-def build_aba3(wb, gostoso_previo=None):
+def _ler_dimensoes_de(path):
+    """Lê um .xlsx (local ou baixado) e devolve as larguras de coluna e
+    alturas de linha já definidas nele, para não perder um redimensionamento
+    manual (o usuário arrastando uma coluna/linha no Google Sheets ou no
+    Excel) quando a planilha for regenerada. Nunca levanta erro — arquivo
+    ausente ou ilegível devolve estruturas vazias.
+
+    Devolve um dict com:
+    - "col_widths": {nome_da_aba: {índice_da_coluna: largura}}
+    - "row_heights_idx": {nome_da_aba: {índice_da_linha: altura}} — para abas
+      cujas linhas não mudam de posição entre execuções (1, 2, Fontes e
+      Referências, Montar Refeição).
+    - "row_heights_cat": {categoria: altura} — linha de cabeçalho de
+      categoria na aba "Alimentos e Quantidades" (por nome da categoria, não
+      por posição, porque um alimento novo inserido no meio do JSON desloca
+      as linhas abaixo dele).
+    - "row_heights_item": {(alimento, marca): altura} — linha de alimento na
+      aba "Alimentos e Quantidades", pelo mesmo motivo acima (mesma chave
+      usada por `load_gostoso_previo`)."""
+    vazio = {"col_widths": {}, "row_heights_idx": {}, "row_heights_cat": {}, "row_heights_item": {}}
+    if not path or not os.path.exists(path):
+        return vazio
+    try:
+        wb_antigo = openpyxl.load_workbook(path)
+    except Exception:
+        return vazio
+
+    resultado = {"col_widths": {}, "row_heights_idx": {}, "row_heights_cat": {}, "row_heights_item": {}}
+    for sheet_name in wb_antigo.sheetnames:
+        ws = wb_antigo[sheet_name]
+        larguras = {}
+        for col_letter, dim in ws.column_dimensions.items():
+            if dim.width:
+                try:
+                    idx = openpyxl.utils.column_index_from_string(col_letter)
+                except Exception:
+                    continue
+                larguras[idx] = dim.width
+        if larguras:
+            resultado["col_widths"][sheet_name] = larguras
+
+        alturas = {}
+        for row_idx, dim in ws.row_dimensions.items():
+            if dim.height:
+                alturas[row_idx] = dim.height
+        if alturas:
+            resultado["row_heights_idx"][sheet_name] = alturas
+
+    try:
+        if "Alimentos e Quantidades" in wb_antigo.sheetnames:
+            ws3 = wb_antigo["Alimentos e Quantidades"]
+            col_alimento = col_marca = None
+            for col in range(1, ws3.max_column + 1):
+                header = ws3.cell(row=3, column=col).value
+                if header == "Alimento":
+                    col_alimento = col
+                elif header == "Marca":
+                    col_marca = col
+            if col_alimento:
+                for row in range(4, ws3.max_row + 1):
+                    dim = ws3.row_dimensions.get(row)
+                    altura = dim.height if dim else None
+                    if not altura:
+                        continue
+                    categoria_cell = ws3.cell(row=row, column=1).value
+                    alimento_cell = ws3.cell(row=row, column=col_alimento).value
+                    if categoria_cell:
+                        resultado["row_heights_cat"][categoria_cell] = altura
+                    elif alimento_cell:
+                        marca_cell = ws3.cell(row=row, column=col_marca).value if col_marca else ""
+                        resultado["row_heights_item"][(alimento_cell, marca_cell or "")] = altura
+    except Exception:
+        pass
+
+    return resultado
+
+
+def load_dimensoes_previas(sheets_export_path=None):
+    """Devolve larguras de coluna e alturas de linha já existentes (ver
+    `_ler_dimensoes_de`), fundindo o .xlsx local com uma cópia baixada do
+    Google Sheets do mesmo jeito que `load_gostoso_previo`: em caso de
+    conflito, `sheets_export_path` vence, por ser a edição mais recente."""
+    base = _ler_dimensoes_de(OUT_PATH)
+    extra = _ler_dimensoes_de(sheets_export_path)
+
+    for sheet_name, larguras in extra["col_widths"].items():
+        base["col_widths"].setdefault(sheet_name, {}).update(larguras)
+    for sheet_name, alturas in extra["row_heights_idx"].items():
+        base["row_heights_idx"].setdefault(sheet_name, {}).update(alturas)
+    base["row_heights_cat"].update(extra["row_heights_cat"])
+    base["row_heights_item"].update(extra["row_heights_item"])
+
+    return base
+
+
+def aplicar_larguras(ws, widths, dimensoes=None):
+    """Define a largura de cada coluna (1, 2, 3... na ordem de `widths`),
+    dando prioridade a uma largura já existente (redimensionada manualmente
+    pelo usuário) sobre o valor padrão calculado no código — só usa o padrão
+    quando não há valor anterior para aquela coluna nesta aba. Ver
+    `load_dimensoes_previas`."""
+    previas = (dimensoes or {}).get("col_widths", {}).get(ws.title, {})
+    for i, w in enumerate(widths, start=1):
+        ws.column_dimensions[get_column_letter(i)].width = previas.get(i, w)
+
+
+def aplicar_altura(ws, row, altura_padrao, dimensoes=None, categoria=None, alimento=None, marca=None):
+    """Define a altura de uma linha, com a mesma prioridade de
+    `aplicar_larguras`: um valor já existente vence sobre o padrão calculado
+    aqui. Quando `categoria` ou `alimento` são informados (linhas da aba
+    "Alimentos e Quantidades" que podem mudar de posição), a busca é por
+    identidade; senão é pelo índice da linha (abas cujo conteúdo não muda de
+    posição entre execuções)."""
+    dimensoes = dimensoes or {}
+    if categoria is not None:
+        altura = dimensoes.get("row_heights_cat", {}).get(categoria)
+    elif alimento is not None:
+        altura = dimensoes.get("row_heights_item", {}).get((alimento, marca or ""))
+    else:
+        altura = dimensoes.get("row_heights_idx", {}).get(ws.title, {}).get(row)
+    ws.row_dimensions[row].height = altura if altura else altura_padrao
+
+
+def build_aba3(wb, gostoso_previo=None, dimensoes=None):
     """Colunas: Categoria | Alimento | Marca | Porção | Frequência | Classificação
     | Gostoso | Observação. "Marca" vem do JSON (como porção/classificação — a
     skill preenche). "Gostoso" é avaliação pessoal do usuário, preenchida à mão
     via menu suspenso na planilha — nunca decidida pela skill — e é preservada
-    entre regenerações via `gostoso_previo` (ver load_gostoso_previo)."""
+    entre regenerações via `gostoso_previo` (ver load_gostoso_previo). Larguras
+    de coluna e alturas de linha (incl. redimensionamento manual do usuário)
+    são preservadas via `dimensoes` (ver load_dimensoes_previas)."""
     gostoso_previo = gostoso_previo or {}
     ws3 = wb.create_sheet("Alimentos e Quantidades")
     ws3.sheet_view.showGridLines = False
 
-    style_title(ws3, "Alimentos e Quantidades — lista de referência", span=8)
+    style_title(ws3, "Alimentos e Quantidades — lista de referência", span=8, dimensoes=dimensoes)
 
-    ws3.row_dimensions[2].height = 20
+    aplicar_altura(ws3, 2, 20, dimensoes)
     legend = [
         (2, "Liberado", COLOR_LIBERADO),
         (3, "Moderar", COLOR_MODERAR),
@@ -442,7 +566,7 @@ def build_aba3(wb, gostoso_previo=None):
     headers3 = ["Categoria", "Alimento", "Marca", "Porção", "Frequência",
                 "Classificação", "Gostoso", "Observação"]
     widths3 = [16, 24, 14, 16, 18, 15, 13, 40]
-    header_row(ws3, 3, headers3, widths=widths3)
+    header_row(ws3, 3, headers3, widths=widths3, dimensoes=dimensoes)
     ws3.freeze_panes = "A4"
 
     alimentos = load_alimentos()
@@ -471,7 +595,7 @@ def build_aba3(wb, gostoso_previo=None):
             cat_cell.alignment = Alignment(horizontal="left", vertical="center", indent=1)
             for col in range(1, 9):
                 ws3.cell(row=r, column=col).border = BORDER_ALL
-            ws3.row_dimensions[r].height = 20
+            aplicar_altura(ws3, r, 20, dimensoes, categoria=categoria)
             current_cat = categoria
             r += 1
 
@@ -495,8 +619,10 @@ def build_aba3(wb, gostoso_previo=None):
             if col == 7 and val:
                 cell.fill = PatternFill("solid", fgColor=GOSTOSO_COLORS.get(val, "FFFFFF"))
         dv_gostoso.add(f"G{r}")
-        ws3.row_dimensions[r].height = calc_row_height(
-            [(item["alimento"], 24), (item["observacao"], 40)], min_pt=30)
+        aplicar_altura(
+            ws3, r,
+            calc_row_height([(item["alimento"], 24), (item["observacao"], 40)], min_pt=30),
+            dimensoes, alimento=item["alimento"], marca=marca)
         r += 1
 
     r += 1
@@ -510,6 +636,8 @@ def build_aba3(wb, gostoso_previo=None):
     note.font = Font(name=FONT_NAME, size=9.5, italic=True)
     note.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
     ws3.row_dimensions[r].height = calc_row_height([(note_texto, sum(widths3))], min_pt=30)
+    # (nota final: texto fixo, não muda entre execuções — não precisa de
+    # preservação por identidade como as linhas de categoria/alimento acima)
 
 
 # Cada linha: (afirmação que essa fonte sustenta, nome da fonte, URL, tipo de fonte, área).
@@ -637,11 +765,12 @@ FONTES = [
 ]
 
 
-def build_aba_fontes(wb):
+def build_aba_fontes(wb, dimensoes=None):
     ws = wb.create_sheet("Fontes e Referências")
     ws.sheet_view.showGridLines = False
 
-    style_title(ws, "Fontes e Referências — de onde vieram as informações médicas", span=6)
+    style_title(ws, "Fontes e Referências — de onde vieram as informações médicas", span=6,
+                dimensoes=dimensoes)
 
     ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=6)
     instr = ws.cell(
@@ -656,11 +785,11 @@ def build_aba_fontes(wb):
     )
     instr.font = Font(name=FONT_NAME, size=9.5, italic=True)
     instr.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
-    ws.row_dimensions[2].height = 56
+    aplicar_altura(ws, 2, 56, dimensoes)
 
     headers = ["Nº", "Afirmação que a fonte sustenta", "Fonte", "Tipo de fonte", "Área", "URL completa"]
     widths = [5, 44, 38, 24, 13, 50]
-    header_row(ws, 3, headers, widths=widths)
+    header_row(ws, 3, headers, widths=widths, dimensoes=dimensoes)
     ws.freeze_panes = "A4"
 
     font_normal = Font(name=FONT_NAME, size=10)
@@ -684,8 +813,8 @@ def build_aba_fontes(wb):
                 vertical="center", wrap_text=True, indent=(1 if col in (2, 3, 4, 6) else 0)
             )
             cell.border = BORDER_ALL
-        ws.row_dimensions[r].height = calc_row_height(
-            [(afirmacao, 44), (fonte, 38), (url, 50)], min_pt=30)
+        aplicar_altura(ws, r, calc_row_height(
+            [(afirmacao, 44), (fonte, 38), (url, 50)], min_pt=30), dimensoes)
         r += 1
 
     r += 1
@@ -775,14 +904,17 @@ def build_ref_alimentos(wb):
     return ws
 
 
-def _build_meal_block(ws, start_row, meal_name, n_items=5):
+def _build_meal_block(ws, start_row, meal_name, dimensoes=None, n_items=5):
     """Escreve um bloco de refeição (título + cabeçalho + N linhas de item)
     a partir de start_row e devolve a próxima linha livre depois do bloco.
 
-    Altura de linha fica fixa aqui (ao contrário das outras abas) porque
-    Categoria/Sugestão/Conflito são preenchidas por FÓRMULA — o texto real só
-    existe depois que o Excel calcula, então não dá para estimar o tamanho na
-    hora de gerar o arquivo com calc_row_height()."""
+    Altura de linha usa valores fixos como padrão (ao contrário das outras
+    abas) porque Categoria/Sugestão/Conflito são preenchidas por FÓRMULA — o
+    texto real só existe depois que o Excel calcula, então não dá para
+    estimar o tamanho na hora de gerar o arquivo com calc_row_height(). Ainda
+    assim, um redimensionamento manual do usuário é preservado via
+    `aplicar_altura` (por índice de linha — a posição de cada bloco/linha
+    aqui é sempre a mesma entre execuções, não depende do JSON)."""
     ws.merge_cells(start_row=start_row, start_column=1, end_row=start_row, end_column=8)
     title_cell = ws.cell(row=start_row, column=1, value=meal_name.upper())
     title_cell.font = Font(name=FONT_NAME, size=11, bold=True, color=COLOR_CATEGORY_FG)
@@ -790,7 +922,7 @@ def _build_meal_block(ws, start_row, meal_name, n_items=5):
     title_cell.alignment = Alignment(horizontal="left", vertical="center", indent=1)
     for col in range(1, 9):
         ws.cell(row=start_row, column=col).border = BORDER_ALL
-    ws.row_dimensions[start_row].height = 20
+    aplicar_altura(ws, start_row, 20, dimensoes)
 
     header_r = start_row + 1
     headers = ["Nº", "Alimento", "Categoria", "Porção sugerida", "Quantidade a comer",
@@ -801,7 +933,7 @@ def _build_meal_block(ws, start_row, meal_name, n_items=5):
         cell.fill = PatternFill("solid", fgColor=COLOR_TITLE_BG)
         cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
         cell.border = BORDER_ALL
-    ws.row_dimensions[header_r].height = 30
+    aplicar_altura(ws, header_r, 30, dimensoes)
 
     first_row = header_r + 1
     last_row = first_row + n_items - 1
@@ -869,7 +1001,7 @@ def _build_meal_block(ws, start_row, meal_name, n_items=5):
 
         for col in range(1, 9):
             ws.cell(row=r, column=col).border = BORDER_ALL
-        ws.row_dimensions[r].height = 26
+        aplicar_altura(ws, r, 26, dimensoes)
 
     # Uma lista de validação não pode apontar direto para um intervalo em
     # outra aba — só para um nome definido (ou um intervalo na mesma aba).
@@ -910,15 +1042,15 @@ def _build_meal_block(ws, start_row, meal_name, n_items=5):
     return last_row + 2  # próxima linha livre, com 1 linha de espaço
 
 
-def build_aba4(wb):
+def build_aba4(wb, dimensoes=None):
     ws4 = wb.create_sheet("Montar Refeição")
     ws4.sheet_view.showGridLines = False
 
     widths = [5, 30, 16, 16, 20, 14, 34, 14]
-    for i, w in enumerate(widths, start=1):
-        ws4.column_dimensions[get_column_letter(i)].width = w
+    aplicar_larguras(ws4, widths, dimensoes)
 
-    style_title(ws4, "Montar uma Refeição — escolha os alimentos de cada refeição", span=8, row=1)
+    style_title(ws4, "Montar uma Refeição — escolha os alimentos de cada refeição", span=8, row=1,
+                dimensoes=dimensoes)
 
     ws4.merge_cells(start_row=2, start_column=1, end_row=2, end_column=8)
     instr = ws4.cell(
@@ -932,9 +1064,9 @@ def build_aba4(wb):
     )
     instr.font = Font(name=FONT_NAME, size=9.5, italic=True)
     instr.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
-    ws4.row_dimensions[2].height = 48
+    aplicar_altura(ws4, 2, 48, dimensoes)
 
-    ws4.row_dimensions[3].height = 20
+    aplicar_altura(ws4, 3, 20, dimensoes)
     legend = [
         (1, "Legenda:", None),
         (2, "Liberado", COLOR_LIBERADO),
@@ -953,7 +1085,7 @@ def build_aba4(wb):
 
     row = 5
     for meal in MEALS:
-        row = _build_meal_block(ws4, row, meal)
+        row = _build_meal_block(ws4, row, meal, dimensoes=dimensoes)
 
     ws4.merge_cells(start_row=row, start_column=1, end_row=row, end_column=8)
     note = ws4.cell(
@@ -966,21 +1098,24 @@ def build_aba4(wb):
     )
     note.font = Font(name=FONT_NAME, size=9, italic=True)
     note.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
-    ws4.row_dimensions[row].height = 44
+    aplicar_altura(ws4, row, 44, dimensoes)
 
 
 def main():
     # Se GOSTOSO_SHEETS_EXPORT apontar para um .xlsx baixado do Google Sheets
-    # (ver planilha/SHEETS_SYNC.md), os valores de "Gostoso" preenchidos lá
-    # têm prioridade sobre os do .xlsx local ao fundir.
-    gostoso_previo = load_gostoso_previo(os.environ.get("GOSTOSO_SHEETS_EXPORT"))
+    # (ver planilha/SHEETS_SYNC.md), os valores de "Gostoso" e o
+    # redimensionamento de colunas/linhas feitos lá têm prioridade sobre os
+    # do .xlsx local ao fundir.
+    sheets_export = os.environ.get("GOSTOSO_SHEETS_EXPORT")
+    gostoso_previo = load_gostoso_previo(sheets_export)
+    dimensoes = load_dimensoes_previas(sheets_export)
 
     wb = openpyxl.Workbook()
-    build_aba1(wb)
-    build_aba2(wb)
-    build_aba3(wb, gostoso_previo)
-    build_aba4(wb)
-    build_aba_fontes(wb)
+    build_aba1(wb, dimensoes)
+    build_aba2(wb, dimensoes)
+    build_aba3(wb, gostoso_previo, dimensoes)
+    build_aba4(wb, dimensoes)
+    build_aba_fontes(wb, dimensoes)
     build_ref_alimentos(wb)
     wb.save(OUT_PATH)
     print("Salvo em", OUT_PATH)

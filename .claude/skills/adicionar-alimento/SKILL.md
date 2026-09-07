@@ -142,8 +142,19 @@ Referências") e cite-a resumidamente na observação do alimento.
    aba 3 e a aba oculta `Ref_Alimentos` são remontadas a partir do JSON, e a
    aba 4 "Montar Refeição" passa a enxergar o alimento novo nos menus
    suspensos da(s) refeição(ões) marcada(s)), preservando toda a
-   formatação/cores — inclusive os valores que o usuário já tiver preenchido
-   na coluna "Gostoso" (o script lê o `.xlsx` anterior antes de sobrescrever).
+   formatação/cores. O script lê o `.xlsx` anterior antes de sobrescrever e
+   preserva automaticamente **duas coisas que não vêm do JSON** (nunca as
+   redefina manualmente, nem "arrume" isso à mão):
+   - os valores que o usuário já tiver preenchido na coluna "Gostoso"
+     (`load_gostoso_previo`);
+   - **larguras de coluna e alturas de linha** — incluindo qualquer
+     redimensionamento manual que o usuário tenha feito (arrastando uma
+     coluna/linha no Excel ou no Google Sheets) — via `load_dimensoes_previas`.
+     Um alimento novo que entra no meio de uma categoria já existente não
+     bagunça esse redimensionamento: a altura de cada linha de alimento é
+     casada por (Alimento, Marca), não por número de linha, então continua
+     acompanhando o alimento certo mesmo com as linhas abaixo dele deslocando.
+
    Se `openpyxl` não estiver instalado, rode `pip install openpyxl` antes.
 
    **Tente recalcular com LibreOffice** (`scripts/recalc.py` da skill xlsx)
@@ -169,12 +180,32 @@ Referências") e cite-a resumidamente na observação do alimento.
   do JSON e rode o script de novo.
 - Se o usuário pedir várias alterações de uma vez, você pode editar o JSON
   várias vezes e rodar `gerar_planilha.py` só uma vez no final.
+- **Nunca altere partes da planilha que o usuário já editou.** Isso vale
+  tanto para o conteúdo (a coluna "Gostoso" é dele, nunca escreva nela) quanto
+  para a formatação visual (larguras de coluna e alturas de linha que ele
+  redimensionou manualmente — nunca as "resete" para os valores padrão do
+  código, mesmo que pareçam diferentes do que o script geraria sozinho). O
+  mecanismo de preservação (`load_gostoso_previo` / `load_dimensoes_previas`)
+  já cuida disso sozinho lendo o `.xlsx` anterior antes de sobrescrever —
+  **não precisa (e não deve) copiar manualmente larguras/alturas de um
+  arquivo para outro**; só rode `gerar_planilha.py` normalmente e confie
+  nesse mecanismo. Se depois de rodar o script uma linha/coluna aparecer com
+  o tamanho "antigo"/padrão em vez do que o usuário tinha ajustado, é sinal de
+  bug nesse mecanismo (ex.: o `.xlsx` local desatualizado em relação ao que o
+  usuário editou no Sheets) — **investigue e avise o usuário em vez de
+  reajustar manualmente**, e sincronize com o Sheets atual antes de
+  regenerar de novo (ver bullet abaixo) para pegar o redimensionamento mais
+  recente.
 - **Sincronizar com o Google Sheets é um passo à parte, só quando pedido.**
   Por padrão esta skill só regenera o `.xlsx` local e o envia pelo chat — não
   mexe no Google Sheets automaticamente (o processo de subir um arquivo novo
   no Drive é manual e custoso, ver motivo em `planilha/SHEETS_SYNC.md`). Se o
   usuário pedir explicitamente para atualizar/sincronizar o Sheets também
   (ex.: "atualiza o sheets", "sincroniza com a nuvem"), siga o procedimento
-  completo descrito em `planilha/SHEETS_SYNC.md` (baixar o Sheets atual antes
-  de regenerar, para não perder o "Gostoso" preenchido lá; depois subir um
-  Sheets novo e atualizar o link registrado nesse arquivo).
+  completo descrito em `planilha/SHEETS_SYNC.md`: baixar o Sheets atual
+  **antes** de regenerar (`GOSTOSO_SHEETS_EXPORT=<baixado> python3
+  planilha/gerar_planilha.py`) é obrigatório sempre que for sincronizar — é
+  esse download que garante que o "Gostoso" e o redimensionamento de
+  colunas/linhas feitos no Sheets (não só no `.xlsx` local) sejam preservados
+  no arquivo novo. Pular esse passo é exatamente o que faz o usuário abrir o
+  Sheets depois e encontrar tudo "do jeito antigo".
