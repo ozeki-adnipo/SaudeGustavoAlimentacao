@@ -24,9 +24,14 @@ ambiente (`mcp__Google_Drive__*`) moldam como isso funciona:
 ## Link atual
 
 - **Título:** Plano Alimentar Pós-Infarto — Gustavo Ozeki
-- **fileId:** `1-Mz3ue4QsSVytQIuL9MJUFnLHGdwp1VmS2wcleT5aDc`
-- **Link:** https://docs.google.com/spreadsheets/d/1-Mz3ue4QsSVytQIuL9MJUFnLHGdwp1VmS2wcleT5aDc/edit
-- **Criado em:** 06/09/2026 (a partir do `.xlsx` gerado nesta mesma sessão)
+- **fileId:** `12gqsq1bewjfHwMBZUGunugg2RDUSpkzUfvq9Y1AvAZg`
+- **Link:** https://docs.google.com/spreadsheets/d/12gqsq1bewjfHwMBZUGunugg2RDUSpkzUfvq9Y1AvAZg/edit
+- **Criado em:** 07/09/2026 (inclui granola Castanha do Bem, maçã fuji, e o
+  "Gostoso" que o usuário já tinha preenchido no Sheets anterior — "Manga" =
+  "Bom" — preservado via `GOSTOSO_SHEETS_EXPORT`)
+
+### Links anteriores (não recebem mais atualizações)
+- `1-Mz3ue4QsSVytQIuL9MJUFnLHGdwp1VmS2wcleT5aDc` — criado em 06/09/2026
 
 Sempre que uma sincronização criar um Sheets novo, **atualize os três campos
 acima** (título permanece igual; fileId e link mudam) para o próximo run desta
