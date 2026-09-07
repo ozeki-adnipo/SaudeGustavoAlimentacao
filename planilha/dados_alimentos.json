@@ -159,6 +159,30 @@
   },
   {
     "categoria": "Proteínas",
+    "alimento": "Sashimi de salmão",
+    "porcao": "150 g (6-8 fatias)",
+    "frequencia": "1-2x/semana",
+    "classificacao": "Liberado",
+    "observacao": "Peixe cru, sem arroz — mesma fonte de ômega-3 do peixe grelhado, conta na mesma cota semanal de peixe. Cuidado é só com o shoyu (molho de soja) do acompanhamento, rico em sódio: usar pouco. Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
+    "refeicoes": [
+      "Almoço",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Proteínas",
+    "alimento": "Sushi de salmão",
+    "porcao": "8-10 peças (nigiri/hossomaki)",
+    "frequencia": "1x/semana",
+    "classificacao": "Moderar",
+    "observacao": "Além do peixe, leva arroz temperado com açúcar/vinagre — mais carboidrato e um pouco de açúcar adicionado que o sashimi puro. Evitar versões com tempurá, cream cheese ou molhos cremosos/apimentados (mais gordura, sódio e calorias); usar pouco shoyu (sódio). Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
+    "refeicoes": [
+      "Almoço",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Proteínas",
     "alimento": "Frango sem pele",
     "porcao": "150 g",
     "frequencia": "quase todo dia",
