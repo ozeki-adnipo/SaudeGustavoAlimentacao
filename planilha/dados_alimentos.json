@@ -464,6 +464,20 @@
   },
   {
     "categoria": "Gorduras e Temperos",
+    "alimento": "Creme de tahine",
+    "porcao": "1-2 colheres de sopa (receita: 4 col. sopa de tahine, 1 col. sopa de limão, 1 col. sopa de azeite, sal e água)",
+    "frequencia": "3x/semana",
+    "classificacao": "Liberado",
+    "observacao": "Pasta de gergelim (tahine) + azeite: gorduras majoritariamente insaturadas, sem açúcar, boa fonte de cálcio/fibra — combina com o padrão de dieta mediterrânea recomendado. É calórico (rico em gordura), por isso porção moderada; controlar a quantidade de sal adicionado na receita. Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
+    "refeicoes": [
+      "Café da manhã",
+      "Almoço",
+      "Lanche",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Gorduras e Temperos",
     "alimento": "Sal light / substituto de sal (cloreto de potássio)",
     "porcao": "-",
     "frequencia": "evitar",
