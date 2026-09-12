@@ -231,6 +231,18 @@
     ]
   },
   {
+    "categoria": "Proteínas",
+    "alimento": "Kare (curry japonês) com lombo de porco",
+    "porcao": "1 concha (150-200 g do preparo, sem contar o arroz)",
+    "frequencia": "1x/semana",
+    "classificacao": "Moderar",
+    "observacao": "O tablete de curry (roux) pronto costuma ser rico em sódio e conter gordura saturada (geralmente óleo de palma) na sua composição, além de ser espessado com farinha de trigo — é o principal ponto de atenção do prato, não o lombo suíno (corte magro) nem os vegetais (batata, cenoura, cebola). Preferir marcas com menos sódio por porção, se o rótulo estiver disponível. Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
+    "refeicoes": [
+      "Almoço",
+      "Jantar"
+    ]
+  },
+  {
     "categoria": "Laticínios",
     "alimento": "Leite desnatado",
     "porcao": "200 ml",
