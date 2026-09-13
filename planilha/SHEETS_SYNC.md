@@ -61,25 +61,29 @@ de forma idêntica em duas tentativas separadas**, ou seja, não é só acaso).
 - **Título:** Plano Alimentar Pós-Infarto — Gustavo Ozeki
 - **Link:** https://docs.google.com/spreadsheets/d/12gqsq1bewjfHwMBZUGunugg2RDUSpkzUfvq9Y1AvAZg/edit
 - **fileId:** `12gqsq1bewjfHwMBZUGunugg2RDUSpkzUfvq9Y1AvAZg`
-- **Histórico dos últimos dias (resolvido em 13/09/2026):** mais cedo em
-  13/09 este fileId deu "Requested entity was not found" — o usuário
-  confirmou que provavelmente tinha apagado a planilha sem querer. Pediu
-  para eu checar se tinha sido restaurada, e **sim**: `get_file_metadata`
-  voltou a funcionar normalmente no mesmo fileId, com o mesmo título e
-  `mimeType` de Google Sheet nativo de sempre. O susto foi real, mas o link
-  é o mesmo de 07/09 — não precisou trocar nada aqui.
-- **Conteúdo atual do Sheets restaurado (conferido em 13/09/2026via
-  `read_file_content`): é exatamente o estado de 07/09/2026** — tem
-  "Gostoso" = "Manga: Bom" preservado, mas **não** tem sashimi/sushi de
-  salmão, creme de tahine, kare com lombo de porco, cream cheese light nem
-  os 12 vegetais novos. Ou seja, o Sheets está **4 rodadas de alimentos
-  atrasado** em relação ao `.xlsx` local — a importação "Substituir
-  planilha" pedida ao usuário em 13/09 nunca chegou a acontecer de fato
-  neste link (o episódio da exclusão/restauração deve ter atravessado essa
-  tentativa).
-- **Pendência:** enviar o `.xlsx` mais atual de novo e pedir para o usuário
-  repetir a importação (Arquivo > Importar > Substituir planilha) neste
-  mesmo link, agora que ele está confirmado funcionando.
+- **Última importação bem-sucedida: 13/09/2026.** Nesse mesmo dia o link
+  chegou a dar "not found" (usuário tinha apagado sem querer, depois
+  restaurou — ver histórico completo no fim desta seção), e a primeira
+  tentativa de importar não chegou a se efetivar por causa disso. Depois
+  de restaurado, o usuário conseguiu importar pelo navegador do celular
+  (precisou ativar "Versão para computador" no Chrome, já que o app do
+  Sheets não tem a opção Arquivo > Importar). **Conferido via
+  `read_file_content`: o Sheets agora tem** sashimi de salmão, sushi de
+  salmão, creme de tahine, kare com lombo de porco, cream cheese light e
+  os 12 vegetais novos — tudo presente. "Gostoso" = "Manga: Bom"
+  continua preservado.
+- <details><summary>Histórico do susto de 13/09 (apagar/restaurar)</summary>
+
+  Mais cedo em 13/09 este fileId deu "Requested entity was not found" —
+  o usuário confirmou que provavelmente tinha apagado a planilha sem
+  querer. Pediu para eu checar se tinha sido restaurada, e sim:
+  `get_file_metadata` voltou a funcionar normalmente no mesmo fileId, com
+  o mesmo título e `mimeType` de Google Sheet nativo de sempre — mas com
+  o conteúdo ainda no estado de 07/09 (sem os 4 alimentos/mudanças mais
+  recentes), confirmando que a restauração trouxe de volta uma versão
+  anterior à tentativa de importação daquele dia. A importação bem
+  sucedida (parágrafo acima) só aconteceu depois disso.
+  </details>
 
 ### Arquivo solto encontrado e removido (13/09/2026)
 Durante a checagem do link atual apareceu um arquivo separado
