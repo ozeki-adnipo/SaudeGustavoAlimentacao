@@ -329,6 +329,19 @@
     ]
   },
   {
+    "categoria": "Laticínios",
+    "alimento": "Cream cheese light",
+    "marca": "Philadelphia",
+    "porcao": "1 colher de sopa (30 g)",
+    "frequencia": "2x/semana",
+    "classificacao": "Moderar",
+    "observacao": "Rótulo real (30 g): 63 kcal, 3,5 g de gordura saturada e 0,1 g de gordura trans (mesmo sendo 'light', é bastante gordura saturada para uma porção — quase 30% do limite diário recomendado num plano de 2000 kcal), 115 mg de sódio, 1,1 g de açúcar (sem açúcar adicionado). Ingredientes: leite integral, creme de leite, leite em pó desnatado, sal, fermento lático, espessantes (goma jataí, carragena), conservador sorbato de potássio (não é o mesmo que sal light/cloreto de potássio — sem interação com o Enalapril). Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
+    "refeicoes": [
+      "Café da manhã",
+      "Lanche"
+    ]
+  },
+  {
     "categoria": "Bebidas",
     "alimento": "Água",
     "porcao": "à vontade",
@@ -523,6 +536,156 @@
       "Café da manhã",
       "Almoço",
       "Lanche",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Brócolis",
+    "porcao": "à vontade",
+    "frequencia": "todos os dias",
+    "classificacao": "Liberado",
+    "observacao": "Rico em fibras; combina bem com o padrão de dieta cardioprotetora recomendado.",
+    "refeicoes": [
+      "Almoço",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Couve",
+    "porcao": "à vontade",
+    "frequencia": "todos os dias",
+    "classificacao": "Liberado",
+    "observacao": "Folha verde-escura rica em vitamina K — sem impacto hoje (nenhum anticoagulante em uso), mas vale reavaliar se isso mudar no tratamento.",
+    "refeicoes": [
+      "Almoço",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Espinafre",
+    "porcao": "à vontade",
+    "frequencia": "todos os dias",
+    "classificacao": "Liberado",
+    "observacao": "Folha verde-escura rica em vitamina K — sem impacto hoje (nenhum anticoagulante em uso), mas vale reavaliar se isso mudar no tratamento.",
+    "refeicoes": [
+      "Almoço",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Tomate",
+    "porcao": "à vontade",
+    "frequencia": "todos os dias",
+    "classificacao": "Liberado",
+    "observacao": "",
+    "refeicoes": [
+      "Café da manhã",
+      "Almoço",
+      "Lanche",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Cenoura",
+    "porcao": "à vontade",
+    "frequencia": "todos os dias",
+    "classificacao": "Liberado",
+    "observacao": "",
+    "refeicoes": [
+      "Almoço",
+      "Lanche",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Abobrinha",
+    "porcao": "à vontade",
+    "frequencia": "todos os dias",
+    "classificacao": "Liberado",
+    "observacao": "",
+    "refeicoes": [
+      "Almoço",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Beterraba",
+    "porcao": "à vontade",
+    "frequencia": "3x/semana",
+    "classificacao": "Liberado",
+    "observacao": "",
+    "refeicoes": [
+      "Almoço",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Alface e folhas verdes (rúcula, agrião)",
+    "porcao": "à vontade",
+    "frequencia": "todos os dias",
+    "classificacao": "Liberado",
+    "observacao": "",
+    "refeicoes": [
+      "Almoço",
+      "Lanche",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Pepino",
+    "porcao": "à vontade",
+    "frequencia": "todos os dias",
+    "classificacao": "Liberado",
+    "observacao": "",
+    "refeicoes": [
+      "Almoço",
+      "Lanche",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Berinjela",
+    "porcao": "à vontade",
+    "frequencia": "3x/semana",
+    "classificacao": "Liberado",
+    "observacao": "",
+    "refeicoes": [
+      "Almoço",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Pimentão",
+    "porcao": "à vontade",
+    "frequencia": "todos os dias",
+    "classificacao": "Liberado",
+    "observacao": "",
+    "refeicoes": [
+      "Almoço",
+      "Lanche",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Vegetais e Verduras",
+    "alimento": "Repolho",
+    "porcao": "à vontade",
+    "frequencia": "todos os dias",
+    "classificacao": "Liberado",
+    "observacao": "",
+    "refeicoes": [
+      "Almoço",
       "Jantar"
     ]
   }
