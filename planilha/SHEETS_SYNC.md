@@ -81,16 +81,16 @@ de forma idêntica em duas tentativas separadas**, ou seja, não é só acaso).
   repetir a importação (Arquivo > Importar > Substituir planilha) neste
   mesmo link, agora que ele está confirmado funcionando.
 
-### Arquivo solto para investigar (não é o Sheets, achado por engano em 13/09)
-Durante a checagem acima também apareceu um arquivo separado
-`plano-alimentar-pos-infarto.xlsx` (fileId `1zKG4qAjrdZxUNaPilLeHkIywWKXgeN2V`,
-https://drive.google.com/file/d/1zKG4qAjrdZxUNaPilLeHkIywWKXgeN2V/view),
-criado às 05:23 de 13/09/2026 — um `.xlsx` cru solto no Drive (não um
-Google Sheet nativo), com conteúdo batendo com a versão do commit `a7348f9`
+### Arquivo solto encontrado e removido (13/09/2026)
+Durante a checagem do link atual apareceu um arquivo separado
+`plano-alimentar-pos-infarto.xlsx` (fileId `1zKG4qAjrdZxUNaPilLeHkIywWKXgeN2V`)
+— um `.xlsx` cru solto no Drive (não um Google Sheet nativo), criado às
+05:23 de 13/09/2026, com conteúdo batendo com a versão do commit `a7348f9`
 (sashimi/sushi/tahine/kare, sem cream cheese/vegetais). Provavelmente um
-upload avulso feito sem querer durante a mesma confusão da exclusão. Não
-está documentado como link oficial — perguntar ao usuário se quer que seja
-apagado (`trash_file`) para não confundir com o Sheets de verdade.
+upload avulso feito sem querer durante a mesma confusão da exclusão. Não era
+o link oficial — o usuário confirmou e o arquivo foi movido para a lixeira
+do Drive (`trash_file`) no mesmo dia, para não confundir com o Sheets de
+verdade.
 
 ### Links anteriores (não recebem mais atualizações)
 - `1-Mz3ue4QsSVytQIuL9MJUFnLHGdwp1VmS2wcleT5aDc` — criado em 06/09/2026 (era
