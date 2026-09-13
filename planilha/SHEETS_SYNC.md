@@ -56,44 +56,48 @@ de forma idêntica em duas tentativas separadas**, ou seja, não é só acaso).
    atual" abaixo** (o link normalmente não muda, só a data/descrição do que
    foi incluído) e commitar junto com as mudanças de alimento.
 
-## Link atual — ⚠️ PRECISA DE CONFIRMAÇÃO DO USUÁRIO (ver nota abaixo)
+## Link atual
 
 - **Título:** Plano Alimentar Pós-Infarto — Gustavo Ozeki
 - **Link:** https://docs.google.com/spreadsheets/d/12gqsq1bewjfHwMBZUGunugg2RDUSpkzUfvq9Y1AvAZg/edit
 - **fileId:** `12gqsq1bewjfHwMBZUGunugg2RDUSpkzUfvq9Y1AvAZg`
-- **Status (checado em 13/09/2026 via `get_file_metadata`): este fileId não
-  resolve mais** ("Requested entity was not found"). Uma busca por
-  `mimeType = 'application/vnd.google-apps.spreadsheet'` em toda a conta
-  conectada (`ozeki1@gmail.com`) também não encontra nenhum Google Sheet com
-  esse título. Ou seja, **não há evidência de que este link ainda funcione**
-  — não sabemos se foi excluído, se a importação de 13/09 não foi feita
-  nesse link, ou se foi feita em outra conta Google.
-- **O que existe de fato no Drive, verificado em 13/09/2026:** um arquivo
-  `plano-alimentar-pos-infarto.xlsx` (fileId `1zKG4qAjrdZxUNaPilLeHkIywWKXgeN2V`,
-  https://drive.google.com/file/d/1zKG4qAjrdZxUNaPilLeHkIywWKXgeN2V/view),
-  criado às 05:23 de 13/09/2026. **Mas isso não é um Google Sheet nativo** —
-  o `mimeType` é `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
-  (um `.xlsx` cru, como um anexo comum) e o título é o nome do arquivo, não
-  "Plano Alimentar Pós-Infarto — Gustavo Ozeki". O tamanho em bytes bate
-  exatamente com o commit `a7348f9` (a versão com sashimi/sushi/tahine/kare,
-  **sem** cream cheese e sem os vegetais novos — ou seja, é o arquivo que foi
-  mandado pelo chat *antes* da última rodada de alterações desta sessão, não
-  a versão mais atual). Isso sugere que a ação do usuário em 13/09 foi um
-  **upload avulso do arquivo pelo Drive**, não uma importação
-  "Substituir planilha" dentro de um Sheets já existente como este documento
-  supunha — o que explica por que o resultado é um `.xlsx` solto e não um
-  Sheets nativo.
-- **Ação necessária:** perguntar ao usuário qual é, hoje, o link real que ele
-  usa para ver a planilha na nuvem, e substituir os três campos acima
-  (Título/Link/fileId) por esse valor confirmado, ou registrar aqui que não
-  existe mais um Sheets ativo até ele criar um novo.
+- **Histórico dos últimos dias (resolvido em 13/09/2026):** mais cedo em
+  13/09 este fileId deu "Requested entity was not found" — o usuário
+  confirmou que provavelmente tinha apagado a planilha sem querer. Pediu
+  para eu checar se tinha sido restaurada, e **sim**: `get_file_metadata`
+  voltou a funcionar normalmente no mesmo fileId, com o mesmo título e
+  `mimeType` de Google Sheet nativo de sempre. O susto foi real, mas o link
+  é o mesmo de 07/09 — não precisou trocar nada aqui.
+- **Conteúdo atual do Sheets restaurado (conferido em 13/09/2026via
+  `read_file_content`): é exatamente o estado de 07/09/2026** — tem
+  "Gostoso" = "Manga: Bom" preservado, mas **não** tem sashimi/sushi de
+  salmão, creme de tahine, kare com lombo de porco, cream cheese light nem
+  os 12 vegetais novos. Ou seja, o Sheets está **4 rodadas de alimentos
+  atrasado** em relação ao `.xlsx` local — a importação "Substituir
+  planilha" pedida ao usuário em 13/09 nunca chegou a acontecer de fato
+  neste link (o episódio da exclusão/restauração deve ter atravessado essa
+  tentativa).
+- **Pendência:** enviar o `.xlsx` mais atual de novo e pedir para o usuário
+  repetir a importação (Arquivo > Importar > Substituir planilha) neste
+  mesmo link, agora que ele está confirmado funcionando.
 
-### Links anteriores (não recebem mais atualizações — status não confirmado)
+### Arquivo solto para investigar (não é o Sheets, achado por engano em 13/09)
+Durante a checagem acima também apareceu um arquivo separado
+`plano-alimentar-pos-infarto.xlsx` (fileId `1zKG4qAjrdZxUNaPilLeHkIywWKXgeN2V`,
+https://drive.google.com/file/d/1zKG4qAjrdZxUNaPilLeHkIywWKXgeN2V/view),
+criado às 05:23 de 13/09/2026 — um `.xlsx` cru solto no Drive (não um
+Google Sheet nativo), com conteúdo batendo com a versão do commit `a7348f9`
+(sashimi/sushi/tahine/kare, sem cream cheese/vegetais). Provavelmente um
+upload avulso feito sem querer durante a mesma confusão da exclusão. Não
+está documentado como link oficial — perguntar ao usuário se quer que seja
+apagado (`trash_file`) para não confundir com o Sheets de verdade.
+
+### Links anteriores (não recebem mais atualizações)
 - `1-Mz3ue4QsSVytQIuL9MJUFnLHGdwp1VmS2wcleT5aDc` — criado em 06/09/2026 (era
   da época do upload automático, substituído pelo link acima em 07/09/2026).
-  Também retornou "not found" em `get_file_metadata` no mesmo teste de
-  13/09/2026 — não dá para confirmar se ainda existe (trashed ou excluído
-  de vez) só com essa ferramenta.
+  Continua retornando "not found" em `get_file_metadata` (checado em
+  13/09/2026) — diferente do link atual, este não voltou; presume-se
+  excluído de vez.
 
 ## Quando sincronizar
 
