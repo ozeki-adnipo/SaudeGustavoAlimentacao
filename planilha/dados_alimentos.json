@@ -134,6 +134,21 @@
   },
   {
     "categoria": "Grãos e Cereais",
+    "alimento": "Tortilha",
+    "marca": "Rap10",
+    "porcao": "1 unidade (33 g)",
+    "frequencia": "3x/semana",
+    "classificacao": "Moderar",
+    "observacao": "Rótulo real (porção 40 g ≈ 1 unidade): 120 kcal, 170 mg de sódio, 1,6 g de gordura saturada, 1,2 g de fibras, 0 g de gordura trans, pouco açúcar adicionado (0,3 g). Sódio e gordura saturada acima do que se espera de uma tortilha simples — moderar a frequência e, se possível, somar com o restante do sódio do dia. Contém glúten (triticale). Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
+    "refeicoes": [
+      "Café da manhã",
+      "Almoço",
+      "Lanche",
+      "Jantar"
+    ]
+  },
+  {
+    "categoria": "Grãos e Cereais",
     "alimento": "Granola zero açúcar",
     "marca": "Castanha do Bem",
     "porcao": "20 g (1 colher de sopa)",
