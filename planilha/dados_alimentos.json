@@ -99,7 +99,7 @@
     "categoria": "Grãos e Cereais",
     "alimento": "Aveia integral em flocos",
     "marca": "Quaker",
-    "porcao": "2 colheres de sopa (~30 g)",
+    "porcao": "4 colheres de sopa (~30 g)",
     "frequencia": "1x/dia",
     "classificacao": "Liberado",
     "observacao": "Rótulo real: 110 kcal, 2,8 g de fibra (1,2 g de beta-glucana — a fibra solúvel que ajuda a reduzir o colesterol), sem açúcar adicionado, 0 mg de sódio.",
@@ -139,7 +139,7 @@
     "porcao": "1 unidade (33 g)",
     "frequencia": "3x/semana",
     "classificacao": "Moderar",
-    "observacao": "Rótulo real (porção 40 g ≈ 1 unidade): 120 kcal, 170 mg de sódio, 1,6 g de gordura saturada, 1,2 g de fibras, 0 g de gordura trans, pouco açúcar adicionado (0,3 g). Sódio e gordura saturada acima do que se espera de uma tortilha simples — moderar a frequência e, se possível, somar com o restante do sódio do dia. Contém glúten (triticale). Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
+    "observacao": "Rótulo real: a porção declarada no rótulo é 40 g (1 tortilha de 33 g + um pedaço), com 120 kcal, 170 mg de sódio, 1,6 g de gordura saturada e 1,2 g de fibras. Para 1 tortilha inteira (33 g), isso equivale a ~99 kcal, 140 mg de sódio, 1,3 g de gordura saturada, 1,0 g de fibra, 0 g de gordura trans e 0,2 g de açúcar adicionado. Comparando dentro desta planilha: 1 pão francês integral tem cerca do dobro do sódio (279 mg) — o ponto de atenção da tortilha é mais a gordura saturada (4,0 g/100 g, acima do típico de uma tortilha simples) do que o sódio. Contém glúten (triticale). Sugestão gerada por IA — confirmar com nutricionista/cardiologista.",
     "refeicoes": [
       "Café da manhã",
       "Almoço",
@@ -167,7 +167,7 @@
     "porcao": "20 g (1 colher de sopa)",
     "frequencia": "1x/dia",
     "classificacao": "Liberado",
-    "observacao": "Rótulo real (a porção do rótulo é 40 g/½ xícara; valores abaixo recalculados para 20 g, para manter a mesma porção das demais granolas da planilha): ~91 kcal, 3,6 g de gordura (0,7 g saturada, 0 g trans), 12 g de carboidrato, 0,3 g de açúcar total e zero adicionado (adoçada com eritritol, maltitol e glicosídeos de esteviol — polióis, geralmente bem tolerados nessa quantidade), 2,2 g de proteína, 1,6 g de fibra, só 1,3 mg de sódio (praticamente sem sódio). Leva castanha-do-pará, castanha-de-caju, coco e óleo vegetal — por isso é calórica e tem gordura saturada relevante mesmo sendo zero açúcar: manter a porção, sem repetir a colher. Contém glúten (aveia, flocos de trigo); pode conter diversos alérgenos por contaminação cruzada (amendoim, leite, castanhas variadas, soja).",
+    "observacao": "Rótulo real (a porção do rótulo é 40 g/½ xícara; valores abaixo recalculados para 20 g, para manter a mesma porção das demais granolas da planilha): ~91 kcal, 3,6 g de gordura (0,7 g saturada, 0 g trans), 12 g de carboidrato, 0,3 g de açúcar total e zero adicionado (adoçada com eritritol, maltitol e glicosídeos de esteviol — polióis, geralmente bem tolerados nessa quantidade), 2,2 g de proteína, 1,6 g de fibra, só 1,3 mg de sódio (praticamente sem sódio). Leva castanha-do-pará, castanha-de-caju, coco e óleo vegetal — por isso é calórica (455 kcal/100 g) mesmo sendo zero açúcar: manter a porção, sem repetir a colher. A gordura saturada, por outro lado, é baixa na porção (0,7 g) e menor que a da granola Castanha do Bem. Contém glúten (aveia, flocos de trigo); pode conter diversos alérgenos por contaminação cruzada (amendoim, leite, castanhas variadas, soja).",
     "refeicoes": [
       "Café da manhã",
       "Lanche"
