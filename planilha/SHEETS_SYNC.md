@@ -61,17 +61,19 @@ de forma idêntica em duas tentativas separadas**, ou seja, não é só acaso).
 - **Título:** Plano Alimentar Pós-Infarto — Gustavo Ozeki
 - **Link:** https://docs.google.com/spreadsheets/d/12gqsq1bewjfHwMBZUGunugg2RDUSpkzUfvq9Y1AvAZg/edit
 - **fileId:** `12gqsq1bewjfHwMBZUGunugg2RDUSpkzUfvq9Y1AvAZg`
-- **Última importação bem-sucedida: 13/09/2026.** Nesse mesmo dia o link
-  chegou a dar "not found" (usuário tinha apagado sem querer, depois
+- **Última importação bem-sucedida: 20/09/2026.** Nesse mesmo dia (13/09) o
+  link chegou a dar "not found" (usuário tinha apagado sem querer, depois
   restaurou — ver histórico completo no fim desta seção), e a primeira
   tentativa de importar não chegou a se efetivar por causa disso. Depois
   de restaurado, o usuário conseguiu importar pelo navegador do celular
   (precisou ativar "Versão para computador" no Chrome, já que o app do
   Sheets não tem a opção Arquivo > Importar). **Conferido via
-  `read_file_content`: o Sheets agora tem** sashimi de salmão, sushi de
-  salmão, creme de tahine, kare com lombo de porco, cream cheese light e
-  os 12 vegetais novos — tudo presente. "Gostoso" = "Manga: Bom"
-  continua preservado.
+  `read_file_content` em 20/09/2026 (`modifiedTime` do arquivo:
+  2026-09-20T19:52):** o Sheets já tem a granola zero açúcar Mãe Terra e
+  as 3 correções da auditoria (porção da aveia Quaker "4 colheres de sopa",
+  observação da tortilha Rap10 separando 40 g do rótulo de 33 g da unidade
+  real, e a observação recalibrada da granola Mãe Terra sobre gordura
+  saturada). "Gostoso" = "Manga: Bom" continua preservado.
 - <details><summary>Histórico do susto de 13/09 (apagar/restaurar)</summary>
 
   Mais cedo em 13/09 este fileId deu "Requested entity was not found" —
