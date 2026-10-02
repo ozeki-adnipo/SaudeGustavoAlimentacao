@@ -3,7 +3,8 @@
 **Paciente:** Gustavo Ozeki · nascido em 07/05/1978
 **Hospital:** Hospital e Maternidade Anália Franco (Rede D'Or São Luiz), São Paulo
 **Prontuário HIS:** 3264510
-**Período coberto por este documento:** 25/08/2026 a 03/09/2026
+**Período coberto por este documento:** 25/08/2026 a 03/09/2026 (internação) + exames de
+acompanhamento de 29/09 e 01/10/2026
 
 > Este arquivo é um histórico organizado a partir do relato do paciente, de 11 laudos
 > laboratoriais, 3 laudos de imagem (ecocardiograma e dois dopplers vasculares) e da receita de
@@ -42,6 +43,8 @@
 | **03/09/2026, 11h07** | Receita de alta emitida (Dr. Marcos Adolfo Pereira Esteves, CRM-SP 147224, Clínica Médica) — 5 medicações de uso contínuo (ver seção abaixo). |
 | **03/09/2026, 12h** | **Alta hospitalar.** |
 | **03/09/2026 (alta)** | Médico informa troponina em **≈ 200 ng/L** e um alerta sobre função renal (ver pendências abaixo). |
+| **29/09/2026** | **Ecocardiograma de acompanhamento** (BP Medicina Diagnóstica): **dentro dos limites de normalidade** — FE 60% (Teichholz), sem alteração contrátil segmentar, função diastólica normal. |
+| **01/10/2026, 07h27** | **Primeiros exames de sangue e urina pós-alta** (Delboni/DASA), já em uso contínuo dos remédios: perfil lipídico dentro das metas (LDL 47, TG 70); HbA1c 5,9%; creatinina 1,44 / TFG 60; urina tipo I com proteína + e hemoglobina +++. Ver seção "Exames de acompanhamento pós-alta". |
 
 ## Resumo por procedimento
 
@@ -176,6 +179,40 @@ e nenhuma dose deve ser ajustada ou suspensa por conta própria.
   subindo / linfócitos caindo (típico de estresse pós-procedimentos) mostrou reversão sustentada
   entre 31/08 e a véspera da alta.
 
+## Exames de acompanhamento pós-alta (29/09 e 01/10/2026)
+
+Primeiros exames depois da alta, já com as 5 medicações em uso contínuo há cerca de 4 semanas.
+Solicitante: Dr. Victor Luiz Santos Haddad. (Os PDFs não foram salvos neste repositório.)
+
+- **Ecocardiograma (29/09):** **"Ecocardiograma dentro dos limites de normalidade."** FE 60%
+  (Teichholz; referência masculina >52%), ventrículo esquerdo com dimensões normais e **sem
+  alteração contrátil segmentar** (a hipocinesia inferolateral/inferior de 26/08 não aparece
+  mais), função diastólica normal (em 26/08 havia disfunção diastólica leve), ventrículo direito
+  normal, valvas mitral e tricúspide com insuficiência mínima, sem derrame pericárdico e sem
+  trombos. Peso 74 kg, altura 174 cm. A FE de 72% (26/08) para 60% (29/09) **não indica piora**:
+  os dois valores são normais, e o laudo novo é normal como um todo.
+- **Perfil lipídico (01/10):** colesterol total **108**, LDL **47** (calculado), HDL **46**,
+  triglicerídeos **70** mg/dL — todos dentro das metas. Pelo histórico do próprio laboratório,
+  antes do infarto o LDL era 182 (2022) e 185 (2025), e os triglicerídeos 180 e 169.
+- **Glicemia (01/10):** glicose de jejum 92 mg/dL (normal); **HbA1c 5,9%**, na faixa de risco
+  aumentado para diabetes (5,7–6,4%, ADA 2026). O histórico do laboratório mostra 6,0% (2022) e
+  5,9% (2025) — ou seja, o 5,5% da internação parece fora da curva, e o patamar habitual é de
+  risco aumentado.
+- **Função renal (01/10):** creatinina **1,44 mg/dL** (ref. 0,70–1,30), TFG **60**
+  mL/min/1,73m² (CKD-EPI 2021), ureia **61 mg/dL** (ref. 17–48). Antes do infarto, a creatinina
+  era 1,05 (2022) e 1,12 (2025). Melhorou pouco em relação à véspera da alta (1,50 / 57), mas
+  **não voltou ao valor de antes** — não se resolveu no prazo de 7–14 dias descrito pela ESUR
+  para lesão renal por contraste. Parte disso pode ser efeito esperado do Enalapril (a ESC 2021
+  tolera alta de creatinina de até 50% com IECA); a avaliação é médica.
+- **Eletrólitos (01/10):** potássio 4,7 e sódio 142 mmol/L — normais.
+- **Urina tipo I (01/10):** **proteína positiva (+)** — primeiro registro objetivo da proteinúria
+  que o médico tinha mencionado verbalmente (a fita não quantifica; o ACR/RAC continua sendo o
+  exame que falta). **Hemoglobina positiva (+++)**, com hemácias no sedimento em 22.900/mL (limite
+  do laboratório: 23.000/mL). Densidade 1.012, glicose, nitrito e leucócitos normais.
+- **Outros (01/10):** hemograma normal (hemoglobina 14,6 g/dL; plaquetas 254.000; linfócitos
+  46,3%, levemente acima em porcentagem, mas normais em número absoluto); vitamina D 49 ng/mL;
+  ácido úrico 5,5 mg/dL; PSA total 0,89 ng/mL — todos normais.
+
 ## Interpretação à luz de diretrizes médicas
 
 > **Nota metodológica:** os pontos abaixo foram checados em diretrizes oficiais de sociedades
@@ -189,8 +226,9 @@ e nenhuma dose deve ser ajustada ou suspensa por conta própria.
 
 1. **Meta de LDL pós-infarto (é mesmo &lt;50 mg/dL?):** sim, e por múltiplas fontes — mas o
    número exato varia por diretriz. A diretriz brasileira (SBC 2017) define &lt;50 mg/dL para
-   risco cardiovascular muito alto (categoria do paciente, por já ter tido IAM) — a mesma
-   referência que o próprio laboratório já usa nos laudos. A atualização mais recente da SBC
+   risco cardiovascular muito alto (categoria do paciente, por já ter tido IAM), meta mantida na
+   atualização de 2025 — cuja tabela de metas (com as categorias "extremo" &lt;40 e "baixo" &lt;115)
+   é a que aparece no laudo laboratorial de 01/10/2026. A atualização mais recente da SBC
    (2025) foi além, criando uma categoria **"risco extremo"** com meta &lt;40 mg/dL para quem
    teve um evento cardiovascular maior (como este IAM) associado a duas ou mais condições de
    alto risco adicionais — não dá para saber sem o médico se o paciente se enquadra nela. A
@@ -251,7 +289,11 @@ e nenhuma dose deve ser ajustada ou suspensa por conta própria.
    corrente (baseada nessas mesmas diretrizes) é não suspender a antiagregação**, controlando o
    sangramento local com medidas locais — mas isso deve ser confirmado com o cardiologista antes
    de qualquer procedimento.
-7. **As glicemias altas na internação eram hiperglicemia de estresse mesmo?** A American
+7. **As glicemias altas na internação eram hiperglicemia de estresse mesmo?** *(Atualização
+   02/10/2026: a HbA1c de 01/10 veio 5,9%, e o histórico do laboratório mostra 6,0% em 2022 e
+   5,9% em 2025 — o patamar habitual do paciente é a faixa de risco aumentado, 5,7–6,4%, e o
+   5,5% da internação parece fora da curva. O raciocínio abaixo foi escrito com o valor de 5,5%.)*
+   A American
    Diabetes Association (Standards of Care in Diabetes, 2024–2026) e a Sociedade Brasileira de
    Diabetes usam a HbA1c para diferenciar: valores ≥6,5% sugerem diabetes prévio não
    diagnosticado; valores abaixo de 5,7% (o caso do paciente, 5,5%) são consistentes com
@@ -304,13 +346,15 @@ exato, com base em diretriz, de por que importam.
    Sem isso, nem eu nem qualquer leitura de exames de sangue consegue reconstruir o que
    fisicamente foi feito no coração — só o laudo do procedimento (ou o resumo de alta médico
    completo, que costuma incluir esse resumo) resolve isso.
-4. **Reavaliação do perfil lipídico após início do tratamento** — o LDL de 138 mg/dL foi medido
+4. **Reavaliação do perfil lipídico após início do tratamento** *(feita em 01/10/2026: LDL 47,
+   triglicerídeos 70 — ver "Exames de acompanhamento pós-alta")* — o LDL de 138 mg/dL foi medido
    **antes** de Rosucor+Ezetimiba começarem a fazer efeito (a receita é do dia da alta). As
    diretrizes de dislipidemia recomendam reavaliar o perfil lipídico algumas semanas após o
    início ou ajuste da medicação para confirmar se a meta está sendo atingida — não encontrei um
    prazo único e oficial confirmado nesta pesquisa (evite se guiar por um número que eu não
    tenha confirmado); o importante é perguntar ao médico quando repetir esse exame.
-5. **HbA1c/glicemia de repetição após a alta** — como a SBD aponta que até 60% dos pacientes com
+5. **HbA1c/glicemia de repetição após a alta** *(repetida em 01/10/2026: HbA1c 5,9%, glicose
+   92 — falta a interpretação médica)* — como a SBD aponta que até 60% dos pacientes com
    hiperglicemia de estresse desenvolvem diabetes em 6 a 12 meses, vale perguntar ao médico
    quando repetir a HbA1c para descartar diabetes de forma definitiva (prazo exato não
    confirmado nas fontes consultadas — não deve ser assumido sem confirmação médica).
@@ -322,7 +366,9 @@ exato, com base em diretriz, de por que importam.
    peso, frequência cardíaca ou temperatura no dia da alta.
 8. **Data de retorno e exames de reavaliação agendados** — não há registro de quando será a
    próxima consulta, nem se já foram agendados um novo ecocardiograma (para reavaliar a
-   hipocinesia) ou um novo doppler de carótidas (para acompanhar a placa).
+   hipocinesia) ou um novo doppler de carótidas (para acompanhar a placa). *(Novo
+   ecocardiograma feito em 29/09/2026: normal, sem hipocinesia. O doppler de carótidas segue sem
+   repetição registrada.)*
 
 ## Exames de imagem cardiovascular
 
@@ -332,6 +378,9 @@ exato, com base em diretriz, de por que importam.
   parede inferior** (compatível com a região atingida pelo infarto) e **disfunção diastólica
   leve** (alteração do relaxamento). Ventrículo direito, valvas e demais estruturas normais; sem
   derrame pericárdico. Conclusão do laudo: "Comprometimento segmentar do ventrículo esquerdo".
+- **Ecocardiograma de acompanhamento (29/09/2026):** **dentro dos limites de normalidade** — FE
+  60% (Teichholz), sem alteração contrátil segmentar, função diastólica normal, insuficiência
+  mínima mitral e tricúspide, sem trombos. Detalhes em "Exames de acompanhamento pós-alta".
 - **Doppler de carótidas e vertebrais (26/08, 15h44):** achado de uma pequena placa
   aterosclerótica homogênea (1–15%) no bulbo da carótida interna esquerda, sem repercussão no
   fluxo. Demais artérias carótidas e vertebrais sem placas. Conclusão: "Ateromatose carotídea
@@ -367,12 +416,16 @@ Os pontos centrais são:
    proteína do que o normal", mas nenhum dos laudos recebidos contém exame de urina. Pedir
    especificamente o exame **ACR/RAC (relação albumina/creatinina urinária)**, que é o padrão
    segundo a KDIGO (ver "Informações que ainda faltam" acima), com o valor numérico e a
-   categoria (A1/A2/A3).
+   categoria (A1/A2/A3). *(Atualização 01/10/2026: a urina tipo I deu proteína + e
+   hemoglobina +++ — o ACR/RAC continua não feito; a hemoglobina na urina também vale ser
+   comentada, já que o paciente usa dupla antiagregação.)*
 3. **Duas elevações de creatinina/TFG (31/08 e 02/09, esta última preenchendo o critério de
    Lesão Renal Aguda estágio 1 da KDIGO)** — perguntar se isso foi notado pela equipe, se está
    relacionado ao contraste dos 3 procedimentos (compatível com o prazo esperado pela ESUR) ou é
    algo que precisa de acompanhamento nefrológico após a alta, e se será repetido um exame de
-   função renal em 7–14 dias para confirmar a recuperação.
+   função renal em 7–14 dias para confirmar a recuperação. *(Atualização 01/10/2026: creatinina
+   1,44 / TFG 60 / ureia 61 — ainda acima do valor de antes do infarto, 1,05–1,12. A KDIGO só
+   fala em doença renal crônica quando a alteração persiste por mais de 3 meses.)*
 4. **Placa carotídea (1–15% em bulbo esquerdo)** — as diretrizes indicam conduta conservadora
    (já em curso, com antiagregante e estatina); perguntar apenas se há necessidade de
    acompanhamento periódico por doppler, já que não há um intervalo padronizado claro na
@@ -380,7 +433,8 @@ Os pontos centrais são:
 5. **Enalapril + potássio/função renal** — o potássio (4,9) e a creatinina (1,50) de alta ficam
    dentro da faixa considerada tolerável pela ESC para IECAs, mas a mesma diretriz recomenda
    reexame de creatinina e potássio em 1–2 semanas após início do Enalapril — perguntar se isso
-   já está agendado.
+   já está agendado. *(Reexame feito em 01/10/2026: potássio 4,7, creatinina 1,44 — ainda na
+   faixa tolerável.)*
 6. **Duração da dupla antiagregação (Aspirina + Ticagrelor)** — a receita já indica "1 ano" para
    o Ticagrelor, em linha com as diretrizes ACC/AHA e ESC; confirmar a data prevista para
    reavaliação e o que fazer em caso de procedimento odontológico/cirúrgico durante esse período.
@@ -393,6 +447,13 @@ Os pontos centrais são:
    ser solicitado.
 
 ## Fontes dos dados clínicos
+
+- **Acompanhamento pós-alta:** laudo laboratorial Delboni Medicina Diagnóstica (DASA), coleta de
+  01/10/2026, gerado em 02/10/2026 (15 páginas: hemograma, ureia, creatinina, potássio, sódio,
+  vitamina D, glicose, HbA1c, perfil lipídico, ácido úrico, PSA, urina tipo I); e laudo de
+  ecocardiograma bidimensional com Doppler colorido, BP Medicina Diagnóstica, 29/09/2026 (Dr.
+  Matheus Oliveira Faria). Os dois enviados pelo paciente em PDF na conversa, não salvos no
+  repositório.
 
 - 11 laudos laboratoriais em PDF, Laboratório de Análises Clínicas Rede D'Or São Luiz — Anália
   Franco, todos emitidos em 03/09/2026, com coletas em 25/08, 26/08 (dois pedidos), 27/08,

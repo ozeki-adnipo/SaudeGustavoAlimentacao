@@ -12,12 +12,15 @@ angioplastia 27/08, cateterismo 28/08) e alta hospitalar em 03/09/2026 após 10 
 
 ---
 
-## 1. Resumo clínico atual (última atualização: 04/09/2026 — com interpretação baseada em diretrizes médicas)
+## 1. Resumo clínico atual (última atualização: 02/10/2026 — exames de acompanhamento de 29/09 e 01/10/2026)
 
 > A partir desta atualização, o histórico (`historico-tratamento.md`) tem duas seções novas:
 > **"Interpretação à luz de diretrizes médicas"** (cada achado com a fonte oficial que o embasa)
 > e **"Informações que ainda faltam para uma avaliação completa"** (o que ainda não temos, como
 > o exame de proteinúria, e por que importa). Vale ler as duas antes da consulta.
+>
+> **A tabela abaixo traz os valores da internação (25/08 a 03/09).** Os exames de
+> acompanhamento, já em uso contínuo dos remédios, estão na seção **1.1** logo depois dela.
 
 | Campo | Valor |
 |---|---|
@@ -39,11 +42,34 @@ angioplastia 27/08, cateterismo 28/08) e alta hospitalar em 03/09/2026 após 10 
 | Proteinúria | **Alerta verbal do médico** ("rim liberando 50% a mais de proteína") — **sem exame de urina localizado nos laudos recebidos**. O exame padrão pela KDIGO é a **relação albumina/creatinina urinária (ACR/RAC)**, categorizada em A1 (&lt;30 mg/g) / A2 (30–300) / A3 (&gt;300) — é esse o exame a pedir/confirmar. |
 | Medicações em uso (uso contínuo, desde a alta) | Aspirina Prevent 100mg (1x/dia), Ticagrelor 90mg (12/12h, previsto "1 ano"), Rosucor/rosuvastatina 20mg×2 (1x/dia), Ezetimiba 10mg (1x/dia), Enalapril 5mg (12/12h) — detalhes, função de cada um e interações com alimentos em [`historico-tratamento.md`](historico-tratamento.md#medicações-da-alta-hospitalar-uso-contínuo) |
 | Alergias / restrições alimentares conhecidas | *(a preencher)* |
-| Peso / altura / IMC | 72 kg / 174 cm / IMC ≈ 23,8 (peso normal) — medido no ecocardiograma de 26/08, pode ter mudado até a alta |
+| Peso / altura / IMC | 72 kg / 174 cm / IMC ≈ 23,8 no eco de 26/08; **74 kg / IMC ≈ 24,4 no eco de 29/09** (peso normal nas duas medidas) |
 | Atividade física antes do infarto | *(a preencher)* |
 | Tabagismo / álcool | *(a preencher)* |
 | Encaminhamento para reabilitação cardíaca | *(a preencher)* — é recomendação Classe 1 (a mais forte) pela diretriz mais recente de síndrome coronariana aguda (ACC/AHA/ACEP/NAEMSP/SCAI 2025); confirmar se já foi feito |
 | Laudo do cateterismo/angioplastia (nº de stents, artérias, fluxo TIMI) | *(a preencher)* — não está em nenhum documento recebido até agora, só exames de sangue que referenciam os procedimentos indiretamente |
+
+### 1.1 Exames de acompanhamento pós-alta (29/09 e 01/10/2026, já em uso contínuo dos remédios)
+
+| Exame | Internação | Acompanhamento | Situação |
+|---|---|---|---|
+| Ecocardiograma | 26/08: FE 72%, hipocinesia segmentar leve, disfunção diastólica leve | **29/09: FE 60% (Teichholz), sem alteração contrátil segmentar, função diastólica normal, valvas com insuficiência mínima mitral e tricúspide, sem trombos — "dentro dos limites de normalidade"** | Normal. A queda de 72% para 60% não é piora: os dois valores são normais (>52%) |
+| LDL-colesterol | 138 | **47** | Dentro da meta &lt;50 (SBC) e &lt;55 (ESC/EAS); só acima se a meta for &lt;40 ("risco extremo") |
+| HDL-colesterol | 34 | **46** | Normal (&gt;40) |
+| Colesterol total | 222 | **108** | Normal |
+| Triglicerídeos | 343 | **70** | Normal (&lt;150) |
+| HbA1c | 5,5% | **5,9%** (6,0% em 2022 e 5,9% em 2025, pelo histórico do laboratório) | Faixa de risco aumentado para diabetes (5,7–6,4%). O 5,5% da internação parece fora da curva |
+| Glicose de jejum | — | 92 | Normal |
+| Creatinina / TFG | 1,50 / 57 (02/09) | **1,44 / 60** | Ainda acima do valor de antes do infarto (1,05 em 2022, 1,12 em 2025) |
+| Ureia | 44 (02/09) | **61** (ref. 17–48) | Alta |
+| Potássio / sódio | 4,9 / — | 4,7 / 142 | Normais |
+| Urina tipo I | não feita | **Proteína + (1 cruz); hemoglobina +++; hemácias 22.900/mL (limite 23.000)** | Primeiro exame de urina; o ACR/RAC continua não feito |
+| Vitamina D / ácido úrico | — | 49 ng/mL / 5,5 mg/dL | Normais |
+| Hemograma / PSA | — | Normais (linfócitos 46,3%, levemente acima em %, mas normais em número absoluto) | — |
+
+Fontes: laudo laboratorial Delboni/DASA, coleta de 01/10/2026 (solicitante Dr. Victor Luiz
+Santos Haddad), e laudo de ecocardiograma bidimensional com Doppler colorido, BP Medicina
+Diagnóstica, 29/09/2026 (Dr. Matheus Oliveira Faria). Os PDFs não foram salvos neste
+repositório.
 
 *(Detalhes completos de cada exame estão no histórico narrativo em
 [`historico-tratamento.md`](historico-tratamento.md). A planilha de evolução laboratorial
@@ -62,7 +88,8 @@ Marque com `[x]` as que já foram respondidas e anote a resposta logo abaixo da 
       angioplastia (nº de stents, fluxo TIMI, lesões residuais)? Não recebi esse documento, só
       exames de sangue que os referenciam indiretamente.
       *(Fração de ejeção já respondida pelo ecocardiograma de 26/08: 72%, preservada, com
-      hipocinesia segmentar leve — ver seção 1.)*
+      hipocinesia segmentar leve — ver seção 1. Novo eco de 29/09: normal, FE 60%, sem
+      alteração segmentar — ver seção 1.1.)*
 - [ ] A troponina na alta (≈200 ng/L) foi considerada satisfatória? Qual é a curva esperada
       daqui para frente?
 - [ ] Os picos de troponina após a angioplastia (27/08) e o novo cateterismo (28/08) foram
@@ -79,6 +106,15 @@ Marque com `[x]` as que já foram respondidas e anote a resposta logo abaixo da 
       considerado agudo (comum após contraste, com resolução esperada em 7–14 dias segundo a
       ESUR) ou algo crônico que precisa de acompanhamento nefrológico?
 - [ ] Precisa de exame de urina e de função renal de repetição, e com que frequência?
+- [ ] **(01/10/2026)** A creatinina continua em 1,44 (TFG 60), acima do meu valor de antes do
+      infarto (1,05–1,12), quase um mês depois da alta — isso é efeito esperado do Enalapril, é
+      sequela do contraste ou precisa de investigação? A ureia também veio alta (61).
+- [ ] **(01/10/2026)** A urina tipo I deu proteína + — dá para pedir agora a relação
+      albumina/creatinina urinária (ACR/RAC) para quantificar?
+- [ ] **(01/10/2026)** A urina tipo I também deu **hemoglobina +++** (hemácias 22.900/mL, logo
+      abaixo do limite de 23.000) — isso preocupa, considerando que tomo Aspirina + Ticagrelor?
+- [ ] Por causa do rim, devo limitar a quantidade de proteína na dieta (ex.: evitar whey,
+      dietas hiperproteicas)?
 - [ ] Notei um pico de creatinina (1,30 mg/dL) e de PCR (2,60 mg/dL) na madrugada de 31/08,
       que se recuperou no mesmo dia, mas a creatinina voltou a subir em 02/09 (véspera da
       alta) — desta vez mais (1,50 mg/dL, TFG 57) — isso foi identificado pela equipe?
@@ -95,13 +131,17 @@ Marque com `[x]` as que já foram respondidas e anote a resposta logo abaixo da 
       medicamento — associada à Ezetimiba 10 mg. Ver `historico-tratamento.md`.)*
 - [ ] Qual é a meta de LDL definida para o meu caso? (Diferentes diretrizes citam valores entre
       &lt;40 e &lt;55 mg/dL para meu perfil de risco — qual delas o senhor usa como referência?)
-- [ ] Quando devo repetir o perfil lipídico para ver se a estatina + ezetimiba estão
+      *(LDL de 01/10/2026: 47 mg/dL — dentro de &lt;50 e &lt;55, acima só de &lt;40.)*
+- [x] Quando devo repetir o perfil lipídico para ver se a estatina + ezetimiba estão
       funcionando?
-- [ ] Os triglicerídeos de 343 mg/dL precisam de tratamento medicamentoso além da dieta?
-- [ ] As glicemias ficaram elevadas durante boa parte da internação, mas a HbA1c é normal
-      (5,5%) — é hiperglicemia de estresse ou preciso investigar diabetes? Quando devo repetir
-      a HbA1c para confirmar? *(Segundo a SBD, até 60% desses casos evoluem para diabetes em
-      6–12 meses, então vale reavaliar mesmo com a HbA1c normal agora.)*
+      *(Repetido em 01/10/2026: LDL 47, HDL 46, triglicerídeos 70, colesterol total 108.)*
+- [x] Os triglicerídeos de 343 mg/dL precisam de tratamento medicamentoso além da dieta?
+      *(Respondida pelos exames: 70 mg/dL em 01/10/2026, com o tratamento atual — confirmar
+      com o médico que nada muda.)*
+- [ ] A HbA1c da internação foi 5,5%, mas a de 01/10/2026 veio **5,9%** (e o laboratório
+      mostra 6,0% em 2022 e 5,9% em 2025) — isso é pré-diabetes? Quando devo repetir a HbA1c?
+      *(Segundo a SBD, até 60% dos casos de hiperglicemia de estresse evoluem para diabetes em
+      6–12 meses.)*
 
 ### Sobre medicação e rotina
 - [x] Lista completa de medicações da alta, com dose e horário.
@@ -116,11 +156,13 @@ Marque com `[x]` as que já foram respondidas e anote a resposta logo abaixo da 
 - [ ] O Ticagrelor está marcado para "1 ano" na receita — essa é a duração prevista da dupla
       antiagregação (junto com a Aspirina)? O que fazer se precisar de um procedimento
       odontológico ou cirúrgico nesse período?
-- [ ] O potássio estava no limite superior (4,9 mmol/L) e a função renal também tinha piorado
+- [x] O potássio estava no limite superior (4,9 mmol/L) e a função renal também tinha piorado
       (TFG 57) no mesmo dia em que o Enalapril foi prescrito — pelas diretrizes de insuficiência
       cardíaca da ESC, esses valores ainda ficam na faixa tolerável para um IECA (o limite de
       atenção é potássio &gt;5,5 ou creatinina acima de 3,5), mas a mesma diretriz recomenda
       repetir creatinina e potássio 1–2 semanas após o início — isso já está agendado?
+      *(Reexame feito em 01/10/2026: potássio 4,7 e creatinina 1,44 — ainda na faixa
+      tolerável.)*
 
 ### Sobre alimentação (para preparar a próxima sessão)
 - [ ] Além de reduzir LDL e triglicerídeos, há alguma restrição adicional por causa do rim
@@ -139,28 +181,31 @@ Quando você quiser começar a conversa sobre **plano alimentar e cuidados pós-
 uma nova sessão e cole (ou anexe) este arquivo inteiro como ponto de partida. Ele já traz o
 essencial para não repetir a extração dos laudos:
 
-- **Perfil de risco:** homem, 48 anos, pós-IAM recente (25/08/2026), com **LDL alto (138 mg/dL,
-  meta entre <40 e <55 conforme a diretriz)**, **HDL baixo (34)**, **triglicerídeos muito altos
-  (343)** e colesterol total alto (222) — ou seja, dislipidemia mista, exatamente o padrão que
-  pede uma dieta cardioprotetora com foco em reduzir LDL e, principalmente, triglicerídeos.
-- **Ponto de atenção renal:** possível proteinúria (a confirmar — o exame certo a pedir é a
-  relação albumina/creatinina urinária, ACR/RAC) e uma elevação de creatinina na véspera da alta
-  que, por critério objetivo (KDIGO), já configura Lesão Renal Aguda estágio 1, com padrão
-  temporal compatível com nefropatia por contraste (ESUR — recuperação esperada em 7–14 dias) —
-  a próxima sessão deve perguntar se existe necessidade de ajustar sódio/potássio/proteína na
-  dieta, e não presumir uma dieta renal sem confirmação médica.
-- **HbA1c normal (5,5%)** — não é diabético confirmado, mas teve glicemias elevadas na
-  internação; vale um plano que também cuide do controle glicêmico por precaução.
-- **Peso/altura conhecidos:** 72 kg / 174 cm (IMC ≈ 23,8, peso normal) — medidos no
-  ecocardiograma de 26/08, vale confirmar se mudou até a alta.
-- **Achados cardiovasculares que reforçam o cuidado alimentar:** fração de ejeção preservada
-  (72%) mas com hipocinesia segmentar e uma pequena placa de aterosclerose na carótida (conduta
-  conservadora pelas diretrizes ESC/ESVS e AHA/ASA) — ou seja, já existe doença aterosclerótica
-  além do evento agudo, o que reforça a importância de uma dieta cardioprotetora consistente,
-  não só para reduzir LDL/triglicerídeos no papel.
+- **Perfil de risco:** homem, 48 anos, pós-IAM recente (25/08/2026). Na internação: **LDL alto
+  (138 mg/dL)**, **HDL baixo (34)**, **triglicerídeos muito altos (343)** e colesterol total alto
+  (222) — dislipidemia mista. **Em 01/10/2026, já com os remédios, tudo dentro das metas**
+  (LDL 47, HDL 46, triglicerídeos 70, colesterol total 108) — a dieta cardioprotetora continua,
+  agora para manter o resultado.
+- **Ponto de atenção renal:** na véspera da alta, a creatinina preencheu o critério objetivo
+  (KDIGO) de Lesão Renal Aguda estágio 1, com padrão compatível com nefropatia por contraste
+  (ESUR — recuperação esperada em 7–14 dias). **Em 01/10/2026 ainda não tinha voltado ao normal
+  de antes** (creatinina 1,44 / TFG 60, contra 1,05–1,12 antes do infarto; ureia 61), e a urina
+  tipo I deu **proteína +** — o ACR/RAC continua não feito. Até o médico se posicionar: sem
+  dieta renal formal, mas sem exagero de proteína (evitar whey e dietas hiperproteicas).
+- **HbA1c 5,9% (01/10/2026)** — faixa de risco aumentado para diabetes, mesmo patamar desde
+  2022 (o 5,5% da internação parece fora da curva). O plano deve continuar cuidando do controle
+  glicêmico, não só por precaução.
+- **Peso/altura conhecidos:** 74 kg / 174 cm (IMC ≈ 24,4, peso normal) no ecocardiograma de
+  29/09 (era 72 kg em 26/08).
+- **Achados cardiovasculares que reforçam o cuidado alimentar:** o ecocardiograma de 29/09 está
+  normal (FE 60%, sem a hipocinesia vista em 26/08), mas há uma pequena placa de aterosclerose
+  na carótida (conduta conservadora pelas diretrizes ESC/ESVS e AHA/ASA) — ou seja, já existe
+  doença aterosclerótica além do evento agudo, o que reforça a importância de uma dieta
+  cardioprotetora consistente.
 - **Medicações e o que elas exigem da dieta:**
-  - **Enalapril** (pressão/coração) pode elevar o potássio no sangue — e o potássio já estava no
-    limite superior (4,9 mmol/L) na alta. Embora isso ainda esteja dentro da faixa considerada
+  - **Enalapril** (pressão/coração) pode elevar o potássio no sangue — o potássio estava no
+    limite superior (4,9 mmol/L) na alta e veio 4,7 no reexame de 01/10/2026. Embora isso esteja
+    dentro da faixa considerada
     tolerável pela diretriz ESC de insuficiência cardíaca, a próxima sessão **não deve presumir**
     liberdade total com alimentos ricos em potássio (banana, batata, feijão, substitutos de sal
     "light" com cloreto de potássio) sem antes confirmar com o médico se há alguma restrição.

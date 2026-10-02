@@ -125,7 +125,14 @@ interpretações substitui a confirmação médica. Pendências que seguem em ab
 - **Função renal:** possível proteinúria (exame certo a pedir: ACR/RAC) e uma elevação de
   creatinina que, por critério objetivo (KDIGO), já preenche Lesão Renal Aguda estágio 1,
   compatível com nefropatia por contraste (padrão temporal ESUR) — a planilha não aplica
-  restrição renal enquanto isso não for confirmado/descartado pelo médico.
+  restrição renal enquanto isso não for confirmado/descartado pelo médico. **Atualização
+  01/10/2026:** creatinina 1,44 / TFG 60 (ainda acima do valor de antes do infarto) e urina
+  tipo I com proteína + — por cautela, a planilha passou a orientar não exagerar em proteína
+  (sem whey/dietas hiperproteicas) até o médico avaliar.
+- **Exames de acompanhamento (29/09 e 01/10/2026):** ecocardiograma normal e perfil lipídico
+  dentro das metas (LDL 47, triglicerídeos 70); HbA1c 5,9% (faixa de risco aumentado para
+  diabetes). Detalhes em `referencia/historico-tratamento.md`, seção "Exames de
+  acompanhamento pós-alta".
 - Lista de medicações da alta já foi incorporada (seção "Medicações da alta hospitalar" de
   `referencia/historico-tratamento.md` e aba "Cuidados na Alimentação") — falta ainda
   confirmar com o médico a conduta exata em caso de esquecimento de dose de cada medicamento.

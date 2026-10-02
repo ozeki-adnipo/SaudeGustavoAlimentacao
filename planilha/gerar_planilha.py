@@ -167,16 +167,24 @@ def build_aba1(wb, dimensoes=None):
 
     rows_aba1 = [
         ("Perfil de risco atual",
-         "Homem, 48 anos, IAM em 25/08/2026 (3 procedimentos, FE preservada 72% com "
-         "hipocinesia segmentar leve). Dislipidemia mista: LDL 138 (meta pós-IAM <50), "
-         "HDL 34 (baixo), triglicerídeos 343 (muito alto), colesterol total 222 (alto). "
-         "Placa carotídea leve (1–15%) já mostra aterosclerose além do evento agudo."),
+         "Homem, 48 anos, IAM em 25/08/2026 (3 procedimentos). Ecocardiograma de 29/09/2026: "
+         "dentro da normalidade — FE 60% (Teichholz), sem alteração contrátil segmentar e "
+         "função diastólica normal (o eco da internação, 26/08, mostrava FE 72% com "
+         "hipocinesia segmentar leve; os dois valores de FE são normais, acima de 52%). "
+         "Exames de 01/10/2026, já em uso contínuo dos remédios: LDL 47 (era 138 na "
+         "internação), HDL 46 (era 34), triglicerídeos 70 (eram 343), colesterol total 108 "
+         "(era 222) — perfil lipídico dentro das metas. Pontos ainda em aberto: HbA1c 5,9% "
+         "(faixa de risco aumentado para diabetes) e função renal (creatinina 1,44, TFG 60, "
+         "proteína na urina — ver 'Aviso pendente — função renal'). Placa carotídea leve "
+         "(1–15%) já mostra aterosclerose além do evento agudo."),
         ("Reduzir",
          "Gordura saturada e gordura trans (frituras, embutidos, carnes gordas, manteiga, "
          "produtos industrializados com 'gordura vegetal hidrogenada')."),
         ("Reduzir",
-         "Açúcar e carboidrato refinado — prioridade alta por causa dos triglicerídeos "
-         "muito altos (343 mg/dL): refrigerante comum, doces, pão/arroz/massa branca em excesso."),
+         "Açúcar e carboidrato refinado — prioridade alta: a HbA1c de 01/10/2026 foi 5,9%, "
+         "na faixa de 'risco aumentado para diabetes' (5,7 a 6,4%), mesmo patamar de antes "
+         "do infarto (6,0% em 2022, 5,9% em 2025). Os triglicerídeos normalizaram (343 → 70), "
+         "mas manter o cuidado: refrigerante comum, doces, pão/arroz/massa branca em excesso."),
         ("Reduzir",
          "Sódio — evitar sal em excesso, temperos prontos, embutidos, enlatados e "
          "fast-food; ler rótulo (mg de sódio por porção)."),
@@ -191,30 +199,44 @@ def build_aba1(wb, dimensoes=None):
         ("Priorizar",
          "Proteínas magras: frango sem pele, peixe, ovos, leguminosas; carnes vermelhas com "
          "moderação."),
-        ("Atenção especial — triglicerídeos",
-         "343 mg/dL é muito alto: o maior impacto individual costuma vir de cortar açúcar "
-         "e álcool, não só gordura. Evitar refrigerante comum, suco industrializado, doces "
-         "e bebida alcoólica quase por completo até reavaliação médica."),
+        ("Atenção especial — triglicerídeos e glicemia",
+         "Triglicerídeos caíram de 343 mg/dL (internação) para 70 mg/dL (01/10/2026) — "
+         "normal. Esse resultado vem da combinação remédio + dieta, então a orientação "
+         "continua a mesma para não perdê-lo. Agora o motivo principal para segurar açúcar "
+         "e carboidrato refinado é a glicemia: HbA1c 5,9% (risco aumentado para diabetes; "
+         "glicose de jejum 92, normal). Continuar evitando refrigerante comum, suco "
+         "industrializado e doces, e bebida alcoólica quase por completo (também por causa "
+         "da dupla antiagregação). Perguntar ao médico se ele considera pré-diabetes e "
+         "quando repetir a HbA1c."),
         ("Atenção especial — LDL",
-         "Meta pós-IAM é bem mais rígida que a da população geral, mas varia por diretriz: "
-         "<50 mg/dL (diretriz brasileira SBC 2017, usada pelo laboratório), <40 mg/dL "
-         "(categoria 'risco extremo' da diretriz SBC 2025, se preencher critérios adicionais) "
-         "ou <55 mg/dL (diretrizes ESC/EAS e ACC/AHA para risco muito alto) — pergunte ao "
-         "médico qual meta ele está usando. A combinação estatina (Rosucor) + Ezetimiba já "
+         "Resultado de 01/10/2026: LDL 47 mg/dL (era 138 na internação), já em uso de "
+         "Rosucor + Ezetimiba. A meta pós-IAM varia por diretriz: <50 mg/dL (SBC, risco muito "
+         "alto — a tabela de metas do próprio laudo segue a diretriz SBC 2025) e <55 mg/dL "
+         "(ESC/EAS 2019, risco muito alto) — as duas já atingidas. Só estaria acima da meta "
+         "se o médico usar <40 mg/dL, da categoria 'risco extremo' da SBC 2025 (exige "
+         "critérios adicionais) — pergunte ao médico qual meta ele está usando. A "
+         "combinação estatina (Rosucor) + Ezetimiba já "
          "prescrita é sustentada pelo estudo IMPROVE-IT (LDL médio de 53,7 mg/dL com a "
          "combinação, vs. 69,5 mg/dL só com estatina, e menos eventos cardiovasculares). "
          "Fontes na aba 'Fontes e Referências'."),
         ("Aviso pendente — função renal",
-         "Há suspeita ainda não confirmada de proteinúria (o exame certo a pedir é a relação "
-         "albumina/creatinina urinária, ACR/RAC, padrão KDIGO) e duas elevações de "
-         "creatinina/TFG durante a internação (TFG caiu para 57 na véspera da alta) — a "
-         "última, aplicando o critério objetivo da KDIGO, já preenche Lesão Renal Aguda "
-         "estágio 1 (não é diagnóstico médico, só a fórmula aplicada aos números). O padrão "
-         "temporal é compatível com nefropatia por contraste dos 3 cateterismos (ESUR: pico "
-         "em 3-5 dias, resolução em 7-14 dias). Enquanto não houver confirmação médica de que "
-         "isso se resolveu, o plano NÃO aplica restrição renal (sódio/potássio/proteína) — "
-         "apenas o cuidado cardiovascular abaixo. Revisar esta aba assim que o médico "
-         "confirmar ou descartar o problema renal."),
+         "Exames de 01/10/2026 (cerca de 4 semanas após a alta): creatinina 1,44 mg/dL e TFG "
+         "60 — melhorou pouco em relação à alta (1,50 / 57), mas continua acima do seu valor "
+         "de antes do infarto (1,05 em 2022, 1,12 em 2025). Ou seja, não se resolveu no prazo "
+         "de 7-14 dias que a ESUR descreve para lesão renal por contraste. Parte dessa "
+         "elevação pode ser efeito esperado do Enalapril (a diretriz ESC 2021 tolera alta de "
+         "creatinina de até 50%), mas quem avalia é o médico. Ureia 61 mg/dL, acima da "
+         "referência (17-48) — pode subir por causa do rim, de desidratação ou de consumo "
+         "alto de proteína. A urina tipo I deu proteína + — primeiro sinal objetivo do que "
+         "antes era só suspeita; o exame que confirma e quantifica é a relação "
+         "albumina/creatinina urinária (ACR/RAC, padrão KDIGO), ainda não feito. A KDIGO só "
+         "fala em doença renal crônica quando a alteração persiste por mais de 3 meses — por "
+         "isso o reexame importa. Na internação, a queda de TFG para 57 preencheu o critério "
+         "objetivo de Lesão Renal Aguda estágio 1 da KDIGO (fórmula aplicada aos números, não "
+         "diagnóstico médico). Orientação: o plano continua SEM restrição renal formal "
+         "(sódio/potássio/proteína), mas, por cautela, não exagerar em proteína — evitar "
+         "suplementos tipo whey e dietas hiperproteicas — até o médico avaliar. Revisar esta "
+         "aba assim que o médico se posicionar."),
         ("Medicações em uso (receita 03/09/2026)",
          "Aspirina Prevent 100mg (1x/dia, almoço) e Ticagrelor 90mg (12/12h, por 1 ano) — "
          "antiagregantes plaquetários; Rosucor (rosuvastatina) 20mg, 2 comprimidos 1x/dia, "
@@ -233,12 +255,11 @@ def build_aba1(wb, dimensoes=None):
         ("Interação medicamentosa — Enalapril",
          "Enalapril pode elevar o potássio do sangue (reduz a aldosterona). Evitar sal "
          "light/substitutos de sal (ricos em cloreto de potássio) e suplementos de potássio "
-         "sem orientação médica — risco bem documentado de hipercalemia. O potássio (4,9) e a "
-         "creatinina (1,50) da alta ficam dentro da faixa considerada tolerável por uma "
-         "diretriz de insuficiência cardíaca (ESC 2021) para manter o Enalapril — informação "
-         "tranquilizadora, mas essa mesma diretriz recomenda reexame de potássio/creatinina em "
-         "1-2 semanas, e reforça evitar sal light por precaução até lá. Fontes: aba 'Fontes e "
-         "Referências', linha 3 (Enalapril) e 15 (limiares ESC)."),
+         "sem orientação médica — risco bem documentado de hipercalemia. Na alta, potássio 4,9 "
+         "e creatinina 1,50; no reexame de 01/10/2026, potássio 4,7 e creatinina 1,44 — os "
+         "dois dentro da faixa considerada tolerável por uma diretriz de insuficiência "
+         "cardíaca (ESC 2021) para manter o Enalapril. Continuar evitando sal light. Fontes: "
+         "aba 'Fontes e Referências', linha 3 (Enalapril) e 15 (limiares ESC)."),
         ("Interação medicamentosa — Aspirina + Ticagrelor",
          "A dupla antiagregação (esquema padrão por 1 ano pós-stent, conforme diretriz "
          "ACC/AHA) já aumenta o risco de sangramento; estudos mostram que álcool combinado "
@@ -686,8 +707,9 @@ FONTES = [
      "2016 ACC/AHA Guideline Focused Update on DAPT; reafirmado na diretriz ACS 2025 (JACC)",
      "https://www.acc.org/latest-in-cardiology/ten-points-to-remember/2016/03/25/14/56/2016-acc-aha-guideline-focused-update-on-dapt",
      "Diretriz de sociedades médicas (ACC/AHA)", "Alimentação"),
-    ("Metas de LDL pós-infarto: <50 mg/dL (SBC 2017); <40 mg/dL na categoria \"risco extremo\" "
-     "(SBC 2025, com critérios adicionais); <55 mg/dL (ESC/EAS 2019 e ACC/AHA, risco muito alto)",
+    ("Metas de LDL pós-infarto: <50 mg/dL (SBC, risco muito alto — já em 2017 e mantida em 2025, "
+     "tabela usada no laudo do laboratório); <40 mg/dL na categoria \"risco extremo\" (SBC 2025, "
+     "com critérios adicionais); <55 mg/dL (ESC/EAS 2019, risco muito alto)",
      "Diretriz Brasileira de Dislipidemias e Prevenção da Aterosclerose 2025 (SBC), Arq Bras Cardiol",
      "https://www.scielo.br/j/abc/a/tRJrwGzKX6C4GvMqdJpZcGk/?lang=pt",
      "Diretriz de sociedade médica (SBC)", "Alimentação"),
@@ -742,9 +764,11 @@ FONTES = [
      "N Engl J Med 2015",
      "https://www.nejm.org/doi/full/10.1056/NEJMoa1410489",
      "Estudo clínico revisado por pares", "Alimentação"),
-    ("HbA1c ≥6,5% sugere diabetes prévio; abaixo de 5,7% (caso do paciente) é consistente com "
-     "hiperglicemia de estresse, não diabetes",
-     "American Diabetes Association — Standards of Care in Diabetes, edições 2024-2026",
+    ("HbA1c ≥6,5% sugere diabetes; 5,7 a 6,4% é faixa de risco aumentado (pré-diabetes). "
+     "Paciente: 5,5% na internação, mas 5,9% em 01/10/2026 (e 6,0% em 2022, 5,9% em 2025) — o "
+     "valor da internação parece fora da curva; perguntar ao médico",
+     "American Diabetes Association — Standards of Care in Diabetes 2026: seção 2, Diagnóstico "
+     "(Diabetes Care 2026;49 Supl. 1:S27–S49, citada no próprio laudo) e seção 16, Hospital (link)",
      "https://diabetesjournals.org/care/article/49/Supplement_1/S339/163925/16-Diabetes-Care-in-the-Hospital-Standards-of-Care",
      "Diretriz de sociedade médica (ADA)", "Clínico geral"),
     ("Até 60% dos pacientes com hiperglicemia de estresse na internação desenvolvem diabetes "

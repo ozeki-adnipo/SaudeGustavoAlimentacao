@@ -14,16 +14,24 @@ sempre.
 
 ## Contexto do paciente (usar para decidir a classificação)
 
-- Pós-infarto agudo do miocárdio recente, dislipidemia mista: **LDL alto**
-  (138 mg/dL; meta pós-IAM entre <40 e <55 mg/dL dependendo da diretriz —
-  ver aba "Fontes e Referências"), **HDL baixo**, **triglicerídeos muito
-  altos** (343 mg/dL) e colesterol total alto.
-- Função renal com pendência ainda não confirmada pelo médico — por enquanto
-  **não aplicar** restrição de sódio/potássio/proteína por causa disso, só o
-  cuidado cardiovascular.
+- Pós-infarto agudo do miocárdio recente (25/08/2026). Na internação havia
+  dislipidemia mista (LDL 138, HDL 34, triglicerídeos 343, colesterol total
+  222). **Nos exames de 01/10/2026, já com os remédios, o perfil lipídico
+  está dentro das metas** (LDL 47, HDL 46, triglicerídeos 70, colesterol
+  total 108) — resultado de remédio + dieta juntos, então **não afrouxar as
+  classificações** por causa disso.
+- **HbA1c 5,9%** (01/10/2026), faixa de risco aumentado para diabetes
+  (mesmo patamar desde 2022) — por isso açúcar/carboidrato refinado continuam
+  sendo prioridade de cuidado, agora mais pela glicemia do que pelos
+  triglicerídeos.
+- Função renal com pendência ainda não confirmada pelo médico (creatinina
+  1,44 / TFG 60 e proteína + na urina em 01/10/2026) — **não aplicar**
+  restrição formal de sódio/potássio/proteína por causa disso, mas **não
+  classificar como Liberado alimentos/suplementos hiperproteicos** (whey,
+  barras de proteína etc.): usar Moderar e citar a pendência renal.
 - Prioridade de cuidado, do mais importante para o menos: **açúcar e álcool**
-  (por causa dos triglicerídeos) > **gordura saturada/trans** > **sódio** >
-  carboidrato refinado em geral.
+  (glicemia, triglicerídeos e dupla antiagregação) > **gordura
+  saturada/trans** > **sódio** > carboidrato refinado em geral.
 - Detalhes completos em `referencia/dados-consulta-e-alimentacao.md` e
   `referencia/historico-tratamento.md`, se precisar consultar algo específico.
 
